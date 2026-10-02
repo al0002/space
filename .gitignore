@@ -1,0 +1,6 @@
+﻿temp_dl/
+*_backup*.html
+*_pre_*.html
+*.py
+*.log
+.gemini/

@@ -1,0 +1,2475 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accademia Spaziale - Giochi e Quiz per Bambini e Scuola Media</title>
+    <style>
+        :root {
+            --primary: #00f0ff;
+            --accent: #ffaa00;
+            --success: #10b981;
+            --danger: #ef4444;
+            --purple: #a855f7;
+            --bg-dark: #030712;
+            --card-bg: rgba(10, 25, 47, 0.9);
+            --border-glow: rgba(0, 240, 255, 0.4);
+            --mode-color: #ffaa00;
+        }
+
+        * {
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        body, html {
+            margin: 0; padding: 0; width: 100%; height: 100%;
+            background-color: var(--bg-dark);
+            color: #f1f5f9;
+            font-family: 'Segoe UI', system-ui, -apple-system, Roboto, sans-serif;
+            overflow-x: hidden;
+        }
+
+        #bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: radial-gradient(circle at 50% 50%, rgba(16, 37, 66, 0.6) 0%, rgba(2, 6, 23, 0.95) 100%),
+                              url('textures/2k_stars_milky_way.jpg');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.55;
+            z-index: -1;
+        }
+
+        /* Top Bar */
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background: rgba(3, 7, 18, 0.88);
+            backdrop-filter: blur(12px);
+            border-bottom: 2px solid rgba(0, 240, 255, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.25em;
+            font-weight: 800;
+            color: var(--primary);
+            text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+            cursor: pointer;
+        }
+
+        .level-switcher {
+            display: flex;
+            background: rgba(0, 0, 0, 0.45);
+            border: 2px solid rgba(0, 240, 255, 0.4);
+            border-radius: 30px;
+            padding: 4px;
+            gap: 4px;
+        }
+
+        .level-btn {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.88em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.25s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .level-btn.active {
+            background: linear-gradient(135deg, #0284c7, #06b6d4);
+            color: #fff;
+            box-shadow: 0 0 12px rgba(6, 182, 212, 0.6);
+        }
+        .level-btn.active.media {
+            background: linear-gradient(135deg, #7c3aed, #a855f7);
+            box-shadow: 0 0 12px rgba(168, 85, 247, 0.6);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .star-counter {
+            background: rgba(255, 170, 0, 0.15);
+            border: 2px solid var(--accent);
+            color: #ffd000;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 1.05em;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            box-shadow: 0 0 12px rgba(255, 170, 0, 0.3);
+        }
+
+        .btn-icon {
+            background: rgba(0, 240, 255, 0.1);
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: all 0.2s;
+        }
+        .btn-icon:hover {
+            background: var(--primary);
+            color: #000;
+            box-shadow: 0 0 10px var(--primary);
+        }
+
+        .btn-back {
+            background: linear-gradient(135deg, #0284c7, #0369a1);
+            color: #fff;
+            padding: 7px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9em;
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .btn-back:hover {
+            transform: scale(1.04);
+            box-shadow: 0 0 12px rgba(2, 132, 199, 0.7);
+        }
+
+        /* Container & Cards */
+        .main-container {
+            max-width: 1120px;
+            margin: 20px auto;
+            padding: 0 16px 40px;
+        }
+
+        .hero-banner {
+            text-align: center;
+            padding: 26px 20px;
+            background: var(--card-bg);
+            border: 2px solid var(--border-glow);
+            border-radius: 20px;
+            box-shadow: 0 0 35px rgba(0, 240, 255, 0.25);
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(168, 85, 247, 0.2);
+            border: 1px solid var(--purple);
+            color: #d8b4fe;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .hero-banner h1 {
+            color: var(--accent);
+            text-shadow: 0 0 15px rgba(255, 170, 0, 0.6);
+            font-size: 2.5em;
+            margin: 0 0 10px;
+        }
+
+        .hero-banner p {
+            font-size: 1.2em;
+            color: #cbd5e1;
+            max-width: 780px;
+            margin: 0 auto 18px;
+            line-height: 1.5;
+        }
+
+        /* Games Grid */
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+            gap: 18px;
+        }
+
+        .game-card {
+            background: var(--card-bg);
+            border: 2px solid rgba(0, 240, 255, 0.25);
+            border-radius: 16px;
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: all 0.25s;
+            position: relative;
+        }
+        .game-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.35);
+        }
+        .game-card-icon {
+            font-size: 2.8em;
+            margin-bottom: 10px;
+        }
+        .game-card h3 {
+            margin: 0 0 6px;
+            font-size: 1.4em;
+            color: var(--primary);
+        }
+        .game-card p {
+            color: #94a3b8;
+            font-size: 0.95em;
+            line-height: 1.4;
+            margin-bottom: 16px;
+            flex-grow: 1;
+        }
+        .game-card .play-btn {
+            background: var(--primary);
+            color: #000;
+            border: none;
+            padding: 9px 16px;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 0.95em;
+            align-self: flex-start;
+            transition: 0.2s;
+        }
+        .game-card:hover .play-btn {
+            background: #fff;
+            box-shadow: 0 0 12px #fff;
+        }
+
+        /* Arena */
+        .arena-container {
+            display: none;
+            background: var(--card-bg);
+            border: 2px solid var(--primary);
+            border-radius: 20px;
+            padding: 22px;
+            box-shadow: 0 0 35px rgba(0, 240, 255, 0.3);
+            position: relative;
+            min-height: 560px;
+        }
+
+        .arena-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid rgba(0, 240, 255, 0.25);
+            padding-bottom: 14px;
+            margin-bottom: 18px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .arena-title {
+            font-size: 1.5em;
+            color: var(--accent);
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .arena-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .btn-ui {
+            background: rgba(0, 240, 255, 0.15);
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 7px 14px;
+            border-radius: 10px;
+            font-size: 0.9em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .btn-ui:hover {
+            background: var(--primary);
+            color: #000;
+            box-shadow: 0 0 12px var(--primary);
+        }
+        .btn-ui.btn-gold {
+            background: rgba(255, 170, 0, 0.15);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        .btn-ui.btn-gold:hover {
+            background: var(--accent);
+            color: #000;
+            box-shadow: 0 0 15px var(--accent);
+        }
+
+        /* Instruction box */
+        .instruction-box {
+            background: rgba(0, 40, 70, 0.6);
+            border-left: 4px solid var(--accent);
+            padding: 12px 16px;
+            border-radius: 0 10px 10px 0;
+            margin-bottom: 18px;
+            font-size: 1.1em;
+            color: #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        /* Sphere and tokens */
+        .planet-sphere {
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            background-size: cover;
+            background-position: center;
+            box-shadow: inset -8px -8px 12px rgba(0,0,0,0.8), 0 0 12px rgba(255,255,255,0.3);
+            position: relative;
+            flex-shrink: 0;
+            transition: transform 0.2s;
+        }
+
+        /* Scientific Data Pill (Scuola Media) */
+        .data-tag {
+            background: rgba(0, 240, 255, 0.15);
+            border: 1px solid rgba(0, 240, 255, 0.4);
+            border-radius: 6px;
+            padding: 2px 6px;
+            font-size: 0.72em;
+            color: #38bdf8;
+            font-family: monospace;
+            white-space: nowrap;
+        }
+
+        /* Toast */
+        #feedback-toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: rgba(15, 23, 42, 0.95);
+            border: 2px solid var(--primary);
+            padding: 14px 28px;
+            border-radius: 30px;
+            font-size: 1.15em;
+            font-weight: bold;
+            color: #fff;
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.6);
+            z-index: 9999;
+            transition: transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28), opacity 0.3s;
+            opacity: 0;
+            pointer-events: none;
+            text-align: center;
+            max-width: 90%;
+        }
+        #feedback-toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+        #feedback-toast.correct {
+            border-color: var(--success);
+            box-shadow: 0 0 30px rgba(16, 185, 129, 0.7);
+            color: #34d399;
+        }
+        #feedback-toast.wrong {
+            border-color: var(--danger);
+            box-shadow: 0 0 30px rgba(239, 68, 68, 0.7);
+            color: #f87171;
+        }
+
+        /* -------------------------------------------------------------------------
+           MINIGAME 1: ORBITS & TRACK
+        -------------------------------------------------------------------------- */
+        .solar-system-board {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .orbits-track {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(115px, 1fr));
+            gap: 10px;
+            background: rgba(0, 15, 30, 0.85);
+            border: 2px dashed rgba(0, 240, 255, 0.4);
+            border-radius: 16px;
+            padding: 16px 10px;
+            overflow-x: auto;
+            min-height: 200px;
+        }
+
+        .orbit-slot {
+            background: rgba(255, 255, 255, 0.03);
+            border: 2px dashed rgba(255, 255, 255, 0.22);
+            border-radius: 14px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 6px;
+            min-height: 165px;
+            position: relative;
+            transition: all 0.2s;
+            cursor: pointer;
+            gap: 4px;
+        }
+        .orbit-slot:hover {
+            border-color: var(--primary);
+            background: rgba(0, 240, 255, 0.06);
+        }
+        .orbit-slot.drag-over {
+            border-color: #ffd000;
+            background: rgba(255, 208, 0, 0.15);
+            transform: scale(1.03);
+        }
+        .orbit-slot.filled {
+            border-style: solid;
+            border-color: var(--success);
+            background: rgba(16, 185, 129, 0.12);
+        }
+        .orbit-slot.asteroid-belt {
+            background: rgba(180, 83, 9, 0.15);
+            border-color: #f59e0b;
+            border-style: dotted;
+        }
+
+        .planets-hangar {
+            background: rgba(15, 23, 42, 0.75);
+            border: 2px solid rgba(0, 240, 255, 0.3);
+            border-radius: 16px;
+            padding: 14px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            min-height: 120px;
+        }
+
+        .planet-draggable {
+            background: rgba(30, 41, 59, 0.9);
+            border: 2px solid rgba(0, 240, 255, 0.4);
+            border-radius: 14px;
+            padding: 8px 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            cursor: grab;
+            transition: all 0.2s;
+            width: 110px;
+            text-align: center;
+        }
+        .planet-draggable:hover {
+            transform: translateY(-4px) scale(1.04);
+            border-color: var(--accent);
+            box-shadow: 0 0 15px rgba(255, 170, 0, 0.5);
+        }
+        .planet-draggable:active { cursor: grabbing; }
+        .planet-draggable.selected-tap {
+            border-color: #ffd000;
+            background: rgba(255, 208, 0, 0.25);
+            box-shadow: 0 0 20px #ffd000;
+            transform: scale(1.08);
+        }
+        .planet-draggable .p-name { font-weight: bold; font-size: 0.95em; color: #f8fafc; }
+
+        /* -------------------------------------------------------------------------
+           MINIGAME 2: MOONS
+        -------------------------------------------------------------------------- */
+        .moons-game-board {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+        }
+        @media (max-width: 850px) {
+            .moons-game-board { grid-template-columns: 1fr; }
+        }
+
+        .planets-nests {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 14px;
+        }
+
+        .planet-nest {
+            background: rgba(15, 23, 42, 0.85);
+            border: 2px solid rgba(0, 240, 255, 0.3);
+            border-radius: 16px;
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .planet-nest.drag-over {
+            border-color: var(--accent);
+            background: rgba(255, 170, 0, 0.1);
+        }
+        .nest-slots-container {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+            min-height: 55px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 10px;
+            padding: 6px;
+            border: 1px dashed rgba(255,255,255,0.2);
+        }
+
+        .moons-tray {
+            background: rgba(15, 23, 42, 0.85);
+            border: 2px solid rgba(168, 85, 247, 0.4);
+            border-radius: 16px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-height: 540px;
+            overflow-y: auto;
+        }
+
+        .moon-item {
+            background: rgba(30, 41, 59, 0.9);
+            border: 2px solid rgba(168, 85, 247, 0.5);
+            border-radius: 12px;
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: grab;
+            transition: all 0.2s;
+        }
+        .moon-item:hover {
+            transform: translateX(4px);
+            border-color: #d8b4fe;
+            box-shadow: 0 0 12px rgba(168, 85, 247, 0.5);
+        }
+        .moon-item.selected-tap {
+            border-color: #ffd000;
+            background: rgba(255, 208, 0, 0.2);
+            box-shadow: 0 0 15px #ffd000;
+        }
+        .moon-badge-circle {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1em;
+            background: #334155;
+            box-shadow: 0 0 8px rgba(255,255,255,0.2);
+            flex-shrink: 0;
+        }
+
+        /* -------------------------------------------------------------------------
+           MINIGAME: GRAVITÀ & PESO (SCUOLA MEDIA)
+        -------------------------------------------------------------------------- */
+        .gravity-board {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .gravity-slots-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 12px;
+        }
+        .gravity-slot {
+            background: rgba(255,255,255,0.03);
+            border: 2px dashed rgba(255,255,255,0.25);
+            border-radius: 14px;
+            padding: 12px 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            min-height: 170px;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .gravity-slot.filled {
+            border-style: solid;
+            border-color: var(--success);
+            background: rgba(16, 185, 129, 0.12);
+        }
+
+        /* -------------------------------------------------------------------------
+           MINIGAME: MISSIONI & SONDE SPAZIALI
+        -------------------------------------------------------------------------- */
+        .missions-board {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        @media (max-width: 750px) {
+            .missions-board { grid-template-columns: 1fr; }
+        }
+        .target-cards-col, .spacecraft-cards-col {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .mission-match-item {
+            background: rgba(15, 23, 42, 0.85);
+            border: 2px solid rgba(0, 240, 255, 0.3);
+            border-radius: 14px;
+            padding: 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .mission-match-item:hover {
+            border-color: #ffd000;
+            transform: translateX(4px);
+        }
+        .mission-match-item.matched {
+            border-color: var(--success);
+            background: rgba(16, 185, 129, 0.15);
+            pointer-events: none;
+            opacity: 0.75;
+        }
+        .mission-match-item.selected {
+            border-color: #ffd000;
+            background: rgba(255, 208, 0, 0.2);
+            box-shadow: 0 0 15px #ffd000;
+        }
+
+        /* -------------------------------------------------------------------------
+           MINIGAME: SMISTATORE COSMICO
+        -------------------------------------------------------------------------- */
+        .sorter-board { display: flex; flex-direction: column; gap: 20px; }
+        .sorter-portals { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        @media (max-width: 650px) { .sorter-portals { grid-template-columns: 1fr; } }
+        .portal-bin {
+            border-radius: 20px; padding: 20px; min-height: 230px;
+            display: flex; flex-direction: column; align-items: center;
+            transition: all 0.25s; cursor: pointer; border: 3px dashed;
+        }
+        .portal-bin.rocky { background: rgba(180, 83, 9, 0.15); border-color: #f59e0b; }
+        .portal-bin.gas { background: rgba(6, 182, 212, 0.15); border-color: #06b6d4; }
+        .portal-bin.drag-over { transform: scale(1.03); background: rgba(255,255,255,0.2); }
+        .portal-items { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; width: 100%; }
+
+        /* -------------------------------------------------------------------------
+           MINIGAME: DETECTIVE DELLO SPAZIO
+        -------------------------------------------------------------------------- */
+        .detective-board { display: flex; flex-direction: column; align-items: center; gap: 20px; }
+        .detective-cards-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px; width: 100%;
+        }
+        .detective-card {
+            background: rgba(15, 23, 42, 0.85); border: 2px solid rgba(0, 240, 255, 0.3);
+            border-radius: 16px; padding: 18px; display: flex; flex-direction: column;
+            align-items: center; gap: 10px; cursor: pointer; transition: all 0.25s; text-align: center;
+        }
+        .detective-card:hover {
+            transform: translateY(-5px); border-color: #ffd000; box-shadow: 0 0 20px rgba(255, 208, 0, 0.4);
+        }
+        .detective-card.wrong-pick { animation: shake 0.4s; border-color: var(--danger); background: rgba(239, 68, 68, 0.2); }
+        .detective-card.correct-pick { border-color: var(--success); background: rgba(16, 185, 129, 0.25); box-shadow: 0 0 25px var(--success); }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-8px); }
+            40%, 80% { transform: translateX(8px); }
+        }
+
+        /* -------------------------------------------------------------------------
+           MINIGAME: QUIZ INTERATTIVO
+        -------------------------------------------------------------------------- */
+        .quiz-board { display: flex; flex-direction: column; gap: 18px; }
+        .quiz-question-text {
+            font-size: 1.35em; color: #f8fafc; line-height: 1.45; text-align: center; margin: 10px 0 15px;
+        }
+        .quiz-options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        @media (max-width: 650px) { .quiz-options-grid { grid-template-columns: 1fr; } }
+        .quiz-btn {
+            background: rgba(15, 23, 42, 0.85); border: 2px solid rgba(0, 240, 255, 0.4);
+            color: #f1f5f9; padding: 16px 18px; border-radius: 14px; font-size: 1.05em;
+            cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 12px;
+            text-align: left; font-weight: 600;
+        }
+        .quiz-btn:hover {
+            border-color: var(--primary); background: rgba(0, 240, 255, 0.15);
+            transform: translateY(-2px); box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+        }
+        .quiz-btn.correct { background: var(--success) !important; border-color: var(--success) !important; color: #fff !important; }
+        .quiz-btn.wrong { background: var(--danger) !important; border-color: var(--danger) !important; color: #fff !important; }
+
+        /* Victory / Diploma */
+        .victory-screen { text-align: center; padding: 25px 15px; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+        .diploma-card {
+            background: radial-gradient(circle, #fffbeb 0%, #fef3c7 100%);
+            color: #1e293b; border: 8px double #b45309; border-radius: 20px;
+            padding: 30px 20px; max-width: 650px; width: 100%;
+            box-shadow: 0 0 40px rgba(255, 208, 0, 0.5); position: relative;
+        }
+        .diploma-card h2 { margin: 0 0 8px; color: #92400e; font-size: 2em; text-transform: uppercase; letter-spacing: 2px; }
+        .diploma-name-input {
+            border: none; border-bottom: 2px solid #b45309; background: transparent;
+            font-size: 1.7em; text-align: center; color: #b45309; font-weight: bold;
+            font-family: inherit; outline: none; width: 80%; margin: 8px 0;
+        }
+
+        #confetti-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 99999; }
+    </style>
+</head>
+<body>
+    <div id="bg"></div>
+    <canvas id="confetti-canvas"></canvas>
+
+    <!-- Top Navigation Bar -->
+    <nav class="top-nav">
+        <div class="brand" onclick="goHome()">
+            <span>🚀</span>
+            <span>Accademia Spaziale</span>
+        </div>
+
+        <!-- LEVEL SWITCHER: PRIMARIA VS SCUOLA MEDIA -->
+        <div class="level-switcher">
+            <button class="level-btn active" id="btn-level-junior" onclick="setDifficulty('junior')">
+                <span>🎒</span> <span>Scuola Primaria</span>
+            </button>
+            <button class="level-btn" id="btn-level-media" onclick="setDifficulty('media')">
+                <span>🔬</span> <span>Scuola Media</span>
+            </button>
+        </div>
+
+        <div class="nav-actions">
+            <div class="star-counter" id="stars-display">
+                <span>⭐</span>
+                <span id="star-count">0</span>
+            </div>
+            <button class="btn-icon" id="audio-toggle" title="Attiva/Disattiva Audio" onclick="toggleAudio()">
+                🔊
+            </button>
+            <a href="space_explorer.html" class="btn-back">
+                <span>🌌</span>
+                <span>Simulatore 3D</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Feedback Toast -->
+    <div id="feedback-toast">Messaggio</div>
+
+    <!-- Main Container -->
+    <main class="main-container">
+        
+        <!-- =================== HOME / MENU VIEW =================== -->
+        <section id="view-home">
+            <div class="hero-banner">
+                <span class="hero-badge" id="hero-badge-level">Livello: Scuola Primaria (Cadetti)</span>
+                <h1 id="hero-title">🎮 Sfida & Minigiochi Spaziali</h1>
+                <p id="hero-subtitle">Metti alla prova le tue abilità: riordina le orbite, assegna le lune, scopri gli intrusi e conquista le stelle per diventare <strong>Comandante Galattico</strong>!</p>
+                <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+                    <button class="btn-ui btn-gold" style="font-size: 1.15em; padding: 12px 24px;" onclick="startAdventure()">
+                        🌟 Inizia la Grande Avventura a Tappe
+                    </button>
+                </div>
+            </div>
+
+            <!-- Games Grid -->
+            <div class="games-grid" id="games-grid">
+                <!-- Dynamically populated or rendered based on difficulty -->
+            </div>
+        </section>
+
+        <!-- =================== ARENA VIEW (MINIGAMES) =================== -->
+        <section id="view-arena" class="arena-container">
+            <div class="arena-header">
+                <div class="arena-title" id="arena-title">
+                    <span id="arena-icon">🪐</span>
+                    <span id="arena-name">Nome Gioco</span>
+                </div>
+                <div class="arena-controls">
+                    <button class="btn-ui" onclick="giveHint()" title="Chiedi un suggerimento">💡 Indizio</button>
+                    <button class="btn-ui" onclick="restartCurrentGame()" title="Ricomincia il minigioco">🔄 Riavvia</button>
+                    <button class="btn-ui btn-gold" onclick="goHome()" title="Torna alla lista giochi">🏠 Menu Giochi</button>
+                </div>
+            </div>
+
+            <div class="instruction-box" id="instruction-box">
+                <span id="instruction-text">Trascina gli elementi o fai clic su uno di essi e poi sul suo posto!</span>
+                <span id="stage-badge" style="background: rgba(0,240,255,0.2); padding: 4px 10px; border-radius: 8px; font-weight: bold; font-size: 0.9em; white-space: nowrap;"></span>
+            </div>
+
+            <!-- DYNAMIC GAME CONTAINER -->
+            <div id="game-stage"></div>
+        </section>
+
+    </main>
+
+    <!-- AUDIO & JAVASCRIPT ENGINE -->
+    <script>
+        /* =========================================================================
+           1. SYNTHESIZED SOUND ENGINE (Web Audio API)
+        ========================================================================== */
+        let audioCtx = null;
+        let audioEnabled = true;
+
+        function initAudio() {
+            if (!audioCtx) {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                if (AudioContext) audioCtx = new AudioContext();
+            }
+            if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+        }
+
+        function toggleAudio() {
+            audioEnabled = !audioEnabled;
+            document.getElementById('audio-toggle').innerText = audioEnabled ? '🔊' : '🔇';
+            showToast(audioEnabled ? 'Audio Attivato 🔊' : 'Audio Disattivato 🔇');
+        }
+
+        function playTone(freq, type = 'sine', duration = 0.15, vol = 0.2) {
+            if (!audioEnabled) return;
+            try {
+                initAudio();
+                if (!audioCtx) return;
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = type;
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                gain.gain.setValueAtTime(vol, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + duration);
+            } catch(e) {}
+        }
+
+        function playSuccessSound() {
+            if (!audioEnabled) return;
+            [523.25, 659.25, 783.99, 1046.50].forEach((f, i) => {
+                setTimeout(() => playTone(f, 'triangle', 0.25, 0.25), i * 80);
+            });
+        }
+
+        function playWrongSound() {
+            if (!audioEnabled) return;
+            playTone(260, 'sawtooth', 0.18, 0.2);
+            setTimeout(() => playTone(180, 'sawtooth', 0.25, 0.2), 120);
+        }
+
+        function playSnapSound() { playTone(880, 'sine', 0.1, 0.3); }
+
+        function playFanfare() {
+            if (!audioEnabled) return;
+            const melody = [{f: 523.25, d: 150}, {f: 659.25, d: 150}, {f: 783.99, d: 150}, {f: 1046.50, d: 450}];
+            let time = 0;
+            melody.forEach(n => {
+                setTimeout(() => playTone(n.f, 'triangle', n.d / 1000, 0.3), time);
+                time += n.d;
+            });
+        }
+
+        /* =========================================================================
+           2. CONFETTI ENGINE
+        ========================================================================== */
+        const canvas = document.getElementById('confetti-canvas');
+        const ctx = canvas.getContext('2d');
+        let confetti = [];
+        let confettiAnimId = null;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        function launchConfetti(count = 90) {
+            confetti = [];
+            const colors = ['#00f0ff', '#ffaa00', '#10b981', '#f43f5e', '#a855f7', '#ffd000', '#ffffff'];
+            for (let i = 0; i < count; i++) {
+                confetti.push({
+                    x: canvas.width / 2, y: canvas.height / 2,
+                    vx: (Math.random() - 0.5) * 16, vy: (Math.random() - 0.7) * 18,
+                    size: Math.random() * 8 + 6,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    rot: Math.random() * 360, vRot: (Math.random() - 0.5) * 10,
+                    alpha: 1
+                });
+            }
+            if (!confettiAnimId) renderConfetti();
+        }
+
+        function renderConfetti() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            let active = false;
+            confetti.forEach(p => {
+                p.x += p.vx; p.y += p.vy; p.vy += 0.35;
+                p.rot += p.vRot; p.alpha -= 0.008;
+                if (p.alpha > 0) {
+                    active = true;
+                    ctx.save();
+                    ctx.globalAlpha = Math.max(0, p.alpha);
+                    ctx.translate(p.x, p.y);
+                    ctx.rotate(p.rot * Math.PI / 180);
+                    ctx.fillStyle = p.color;
+                    ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.7);
+                    ctx.restore();
+                }
+            });
+            if (active) confettiAnimId = requestAnimationFrame(renderConfetti);
+            else { ctx.clearRect(0, 0, canvas.width, canvas.height); confettiAnimId = null; }
+        }
+
+        /* =========================================================================
+           3. DATA STRUCTURES (JUNIOR VS SCUOLA MEDIA)
+        ========================================================================== */
+        let currentDifficulty = localStorage.getItem('space_quiz_level') || 'junior';
+
+        const PLANETS = [
+            { id: 'mercurio', name: 'Mercurio', order: 1, au: '0.39 UA', g: '3.7 m/s²', weight50kg: '19 kg', density: '5.4 g/cm³', type: 'rocky', sizeRank: 1, gRank: 2, img: 'temp_dl/mercury.jpg', color: '#a8a29e', juniorClue: 'Il più vicino al Sole!', mediaClue: 'Escursione termica estrema: +430°C / -180°C' },
+            { id: 'venere', name: 'Venere', order: 2, au: '0.72 UA', g: '8.87 m/s²', weight50kg: '45 kg', density: '5.2 g/cm³', type: 'rocky', sizeRank: 3, gRank: 4, img: 'temp_dl/venus.jpg', color: '#f59e0b', juniorClue: 'Pianeta più caldo (462°C)!', mediaClue: 'Pressione 92 atm, atmosfera al 96% CO₂ con effetto serra galoppante' },
+            { id: 'terra', name: 'Terra', order: 3, au: '1.00 UA', g: '9.81 m/s²', weight50kg: '50 kg', density: '5.5 g/cm³', type: 'rocky', sizeRank: 4, gRank: 5, img: 'temp_dl/earth.jpg', color: '#0ea5e9', juniorClue: 'La nostra casa azzurra!', mediaClue: 'Idrosfera liquida, fotosintesi e campo magnetico protettivo' },
+            { id: 'marte', name: 'Marte', order: 4, au: '1.52 UA', g: '3.72 m/s²', weight50kg: '19 kg', density: '3.9 g/cm³', type: 'rocky', sizeRank: 2, gRank: 3, img: 'temp_dl/mars.jpg', color: '#ef4444', juniorClue: 'Il Pianeta Rosso roccioso!', mediaClue: 'Vulcano Monte Olimpo (25 km), permafrost e atmosfera rarefatta' },
+            { id: 'giove', name: 'Giove', order: 5, au: '5.20 UA', g: '24.79 m/s²', weight50kg: '126 kg', density: '1.3 g/cm³', type: 'gas', sizeRank: 8, gRank: 8, img: 'temp_dl/jupiter.jpg', color: '#ea580c', juniorClue: 'Il Re dei Pianeti gassosi!', mediaClue: 'Massa 2.5 volte tutti gli altri pianeti uniti, idrogeno metallico' },
+            { id: 'saturno', name: 'Saturno', order: 6, au: '9.58 UA', g: '10.44 m/s²', weight50kg: '53 kg', density: '0.69 g/cm³', type: 'gas', sizeRank: 7, gRank: 6, img: 'temp_dl/saturn.jpg', color: '#eab308', juniorClue: 'Spettacolari anelli dorati!', mediaClue: 'Densità inferiore all\'acqua (galleggerebbe!), anelli di ghiaccio puro' },
+            { id: 'urano', name: 'Urano', order: 7, au: '19.22 UA', g: '8.69 m/s²', weight50kg: '44 kg', density: '1.27 g/cm³', type: 'gas', sizeRank: 6, gRank: 4, img: 'temp_dl/uranus.jpg', color: '#06b6d4', juniorClue: 'Gigante di ghiaccio inclinato!', mediaClue: 'Inclinazione assiale di 97.8°, atmosfera con tracce di metano freddo' },
+            { id: 'neptuno', name: 'Nettuno', order: 8, au: '30.05 UA', g: '11.15 m/s²', weight50kg: '57 kg', density: '1.64 g/cm³', type: 'gas', sizeRank: 5, gRank: 7, img: 'temp_dl/neptune.jpg', color: '#2563eb', juniorClue: 'Il più lontano e ventoso!', mediaClue: 'Venti supersonici fino a 2100 km/h, scoperto con calcoli matematici' }
+        ];
+
+        const MOONS = [
+            { id: 'luna', name: 'La Luna', planetId: 'terra', emoji: '🌕', juniorClue: 'La compagna della Terra con mari e crateri', mediaClue: 'Rotazione sincrona, influenza le maree e stabilizza l\'asse terrestre' },
+            { id: 'phobos', name: 'Phobos', planetId: 'marte', emoji: '🥔', juniorClue: 'La piccola luna di Marte a forma di patata!', mediaClue: 'Asteroide catturato, orbita spiralizzante destinata all\'impatto' },
+            { id: 'deimos', name: 'Deimos', planetId: 'marte', emoji: '🪨', juniorClue: 'La sorellina rocciosa di Phobos su Marte', mediaClue: 'Piccolo corpo ricco di carbonio in orbita geosincrona marziana' },
+            { id: 'io', name: 'Io', planetId: 'giove', emoji: '🌋', juniorClue: 'Mondo di zolfo con centinaia di vulcani attivi!', mediaClue: 'Riscaldamento mareale gravitazionale estremo con eruzioni di zolfo' },
+            { id: 'europa', name: 'Europa', planetId: 'giove', emoji: '🧊', juniorClue: 'Custodisce un oceano liquido sotto il ghiaccio', mediaClue: 'Crosta di ghiaccio con oceano subglaciale candidato per esobiologia' },
+            { id: 'ganimede', name: 'Ganimede', planetId: 'giove', emoji: '🪐', juniorClue: 'La luna più grande del Sistema Solare!', mediaClue: 'Unica luna con campo magnetico proprio, più grande di Mercurio' },
+            { id: 'callisto', name: 'Callisto', planetId: 'giove', emoji: '🌑', juniorClue: 'Il mondo più tempestato di crateri del Sistema Solare!', mediaClue: 'Superficie antichissima e craterizzata, non riscaldata da risonanza mareale' },
+            { id: 'titano', name: 'Titano', planetId: 'saturno', emoji: '🌫️', juniorClue: 'Coperto da laghi di metano e spessa atmosfera arancione', mediaClue: 'Atmosfera densa di Azoto (N2), ciclo idrologico basato sul metano' },
+            { id: 'encelado', name: 'Encelado', planetId: 'saturno', emoji: '❄️', juniorClue: 'Spara geyser di vapore e ghiaccio nello spazio!', mediaClue: 'Geyser di vapore e sali da fessure polari («Tiger Stripes»)' },
+            { id: 'titania', name: 'Titania', planetId: 'urano', emoji: '🧊', juniorClue: 'La regina dei satelliti del gigante Urano!', mediaClue: 'Percorsa dal gigantesco canyon tettonico Messina Chasma di 1.500 km' },
+            { id: 'tritone', name: 'Tritone', planetId: 'neptuno', emoji: '🌀', juniorClue: 'Gira al contrario attorno a Nettuno!', mediaClue: 'Orbita retrograda, antico pianeta nano della Fascia di Kuiper catturato' },
+            { id: 'caronte', name: 'Caronte', planetId: 'pluto', emoji: '👥', juniorClue: 'La fedele compagna di Plutone nel sistema binario!', mediaClue: 'Sistema doppio binario con baricentro esterno e rotazione sincrona reciproca' }
+        ];
+
+        // MISSIONS DATA (For Scuola Media)
+        const SPACE_MISSIONS = [
+            { id: 'voyager', name: 'Voyager 1 & 2 (1977)', targetId: 'interstellar', emoji: '🛰️', desc: 'Sonde leggendarie: hanno visitato i 4 giganti gassosi e sono entrate nello Spazio Interstellare!' },
+            { id: 'cassini', name: 'Cassini-Huygens (1997)', targetId: 'saturno', emoji: '🪐', desc: 'Ha orbitato 13 anni attorno a Saturno e fatto atterrare il modulo Huygens su Titano!' },
+            { id: 'jwst', name: 'James Webb Space Telescope (2021)', targetId: 'deep_space', emoji: '🔭', desc: 'Telescopio a infrarossi al punto lagrangiano L2 per scrutare l\'Universo primordiale e prime galassie.' },
+            { id: 'perseverance', name: 'Perseverance Rover (2020)', targetId: 'marte', emoji: '🤖', desc: 'Rover nel cratere Jezero con l\'elicottero Ingenuity alla ricerca di antiche biosfere marziane.' },
+            { id: 'newhorizons', name: 'New Horizons (2006)', targetId: 'pluto', emoji: '🚀', desc: 'Ha compiuto lo storico sorvolo ravvicinato del sistema binario Plutone-Caronte.' },
+            { id: 'rosetta', name: 'Missione Rosetta & Philae (2014)', targetId: 'comet', emoji: '☄️', desc: 'Primo atterraggio controllato della storia sul nucleo di una cometa (67P/Churyumov)!' }
+        ];
+
+        const MISSION_TARGETS = [
+            { id: 'interstellar', name: 'Spazio Interstellare (Oltre l\'Eliopausa)', emoji: '🌌' },
+            { id: 'saturno', name: 'Saturno & Luna Titano', emoji: '🪐' },
+            { id: 'deep_space', name: 'Universo Primordiale (Punto Lagrangiano L2)', emoji: '✨' },
+            { id: 'marte', name: 'Marte (Cratere Jezero)', emoji: '🔴' },
+            { id: 'pluto', name: 'Plutone & Fascia di Kuiper', emoji: '❄️' },
+            { id: 'comet', name: 'Nucleo Cometa 67P', emoji: '☄️' }
+        ];
+
+        /* =========================================================================
+           4. GLOBAL APP STATE & ROUTING
+        ========================================================================== */
+        let totalStars = 0;
+        let currentGameMode = null;
+        let isAdventureMode = false;
+        let adventureStepIndex = 0;
+        let tappedSourceItem = null;
+
+        function setDifficulty(level) {
+            currentDifficulty = level;
+            localStorage.setItem('space_quiz_level', level);
+
+            document.getElementById('btn-level-junior').className = 'level-btn ' + (level === 'junior' ? 'active' : '');
+            document.getElementById('btn-level-media').className = 'level-btn ' + (level === 'media' ? 'active media' : '');
+
+            const heroBadge = document.getElementById('hero-badge-level');
+            const heroTitle = document.getElementById('hero-title');
+            const heroSubtitle = document.getElementById('hero-subtitle');
+
+            if (level === 'junior') {
+                heroBadge.innerText = 'Livello: Scuola Primaria (Cadetti)';
+                heroBadge.style.borderColor = 'var(--primary)';
+                heroTitle.innerText = '🎮 Sfida & Minigiochi Spaziali';
+                heroSubtitle.innerHTML = 'Metti alla prova le tue abilità: riordina le orbite, assegna le lune, scopri gli intrusi e conquista le stelle per diventare <strong>Comandante Galattico</strong>!';
+            } else {
+                heroBadge.innerText = 'Livello: Scuola Secondaria di I Grado (Astrofisici)';
+                heroBadge.style.borderColor = 'var(--purple)';
+                heroTitle.innerText = '🔬 Laboratorio di Astrofisica & Meccanica Spaziale';
+                heroSubtitle.innerHTML = 'Sfide scientifiche avanzate: Unità Astronomiche, accelerazione di gravità (g), geologia planetaria, sonde interplanetarie e cosmologia moderna!';
+            }
+
+            renderGamesGrid();
+            showToast(level === 'junior' ? 'Livello Scuola Primaria Attivato! 🎒' : 'Livello Scuola Media Attivato! 🔬');
+        }
+
+        function addStar(count = 1) {
+            totalStars += count;
+            document.getElementById('star-count').innerText = totalStars;
+            playTone(1100, 'sine', 0.15, 0.3);
+        }
+
+        function showToast(text, type = 'normal') {
+            const toast = document.getElementById('feedback-toast');
+            toast.innerText = text;
+            toast.className = 'show ' + type;
+            setTimeout(() => toast.classList.remove('show'), 2800);
+        }
+
+        function goHome() {
+            isAdventureMode = false;
+            document.getElementById('view-arena').style.display = 'none';
+            document.getElementById('view-home').style.display = 'block';
+            renderGamesGrid();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function getAdventureSteps() {
+            if (currentDifficulty === 'junior') {
+                return ['orbits', 'moons', 'sorter', 'sizes', 'detective', 'quiz'];
+            } else {
+                return ['orbits', 'moons', 'gravity', 'missions', 'sorter', 'detective', 'quiz'];
+            }
+        }
+
+        function startAdventure() {
+            isAdventureMode = true;
+            adventureStepIndex = 0;
+            const steps = getAdventureSteps();
+            openGame(steps[adventureStepIndex]);
+        }
+
+        function renderGamesGrid() {
+            const grid = document.getElementById('games-grid');
+            const isMedia = currentDifficulty === 'media';
+
+            let html = `
+                <div class="game-card" onclick="openGame('orbits')">
+                    <div>
+                        <div class="game-card-icon">🪐</div>
+                        <h3>1. ${isMedia ? 'Orbite, Fasce & Unità Astronomiche (UA)' : 'Riordina le Orbite dei Pianeti'}</h3>
+                        <p>${isMedia ? 'Colloca gli 8 pianeti e la Fascia Asteroidale con le esatte distanze in Unità Astronomiche dal Sole!' : 'Trascina gli 8 pianeti con Drag & Drop nella loro orbita corretta, dal più vicino al più lontano dal Sole!'}</p>
+                    </div>
+                    <button class="play-btn">Gioca Ora ▶</button>
+                </div>
+
+                <div class="game-card" onclick="openGame('moons')">
+                    <div>
+                        <div class="game-card-icon">🌕</div>
+                        <h3>2. ${isMedia ? 'Sistemi Satellitari & Geologia' : 'Il Nido delle Lune'}</h3>
+                        <p>${isMedia ? 'Associa le lune ai rispettivi mondi in base a riscaldamento mareale, mari di metano e oceani subglaciali!' : 'Dalla nostra Luna ai mari di metano di Titano: riposiziona ogni luna attorno al pianeta giusto!'}</p>
+                    </div>
+                    <button class="play-btn">Gioca Ora ▶</button>
+                </div>
+            `;
+
+            if (isMedia) {
+                html += `
+                    <div class="game-card" onclick="openGame('gravity')">
+                        <div>
+                            <div class="game-card-icon">⚖️</div>
+                            <h3>3. Sfida della Gravità & Peso Cosmico</h3>
+                            <p>Se sulla Terra pesi 50 kg, quanto pesi su Giove o sulla Luna? Ordina i corpi per accelerazione di gravità superficiale (g)!</p>
+                        </div>
+                        <button class="play-btn">Gioca Ora ▶</button>
+                    </div>
+
+                    <div class="game-card" onclick="openGame('missions')">
+                        <div>
+                            <div class="game-card-icon">🛰️</div>
+                            <h3>4. Sonde & Esplorazioni Spaziali</h3>
+                            <p>Dalle Voyager al telescopio James Webb e Perseverance: collega le grandi missioni della NASA ed ESA ai loro obiettivi!</p>
+                        </div>
+                        <button class="play-btn">Gioca Ora ▶</button>
+                    </div>
+                `;
+            }
+
+            html += `
+                <div class="game-card" onclick="openGame('sorter')">
+                    <div>
+                        <div class="game-card-icon">🪨💨</div>
+                        <h3>${isMedia ? '5.' : '3.'} Smistatore di Composizione & Densità</h3>
+                        <p>${isMedia ? 'Classifica corpi celesti ad alta densità (silicati e metalli) vs giganti gassosi a bassa densità!' : 'Separa i Pianeti Rocciosi dai Giganti Gassosi e Ghiacciati trascinandoli nei portali!'}</p>
+                    </div>
+                    <button class="play-btn">Gioca Ora ▶</button>
+                </div>
+            `;
+
+            if (!isMedia) {
+                html += `
+                    <div class="game-card" onclick="openGame('sizes')">
+                        <div>
+                            <div class="game-card-icon">⚖️</div>
+                            <h3>4. Sfida delle Dimensioni</h3>
+                            <p>Chi è più grande? Ordina i corpi celesti dal più piccolo al più colossale gigante dell'Universo!</p>
+                        </div>
+                        <button class="play-btn">Gioca Ora ▶</button>
+                    </div>
+                `;
+            }
+
+            html += `
+                <div class="game-card" onclick="openGame('detective')">
+                    <div>
+                        <div class="game-card-icon">🕵️‍♂️</div>
+                        <h3>${isMedia ? '6.' : '5.'} Detective dello Spazio: Trova l'Intruso</h3>
+                        <p>${isMedia ? 'Riconosci l\'anomalia scientifica tra moti orbitali, composizioni atmosferiche ed emissioni di radiazioni!' : 'Trova l\'intruso nascosto! Un pianeta senza atmosfera o una cometa mascherata tra i pianeti?'}</p>
+                    </div>
+                    <button class="play-btn">Gioca Ora ▶</button>
+                </div>
+
+                <div class="game-card" onclick="openGame('quiz')">
+                    <div>
+                        <div class="game-card-icon">❓</div>
+                        <h3>${isMedia ? '7.' : '6.'} ${isMedia ? 'Esame Scientifico di Astronomia' : 'Il Grande Quiz delle Curiosità'}</h3>
+                        <p>${isMedia ? 'Quesiti sul programma di Scienze di scuola media: moti terrestri, eclissi, maree, reazioni nucleari ed evoluzione stellare!' : 'Metti alla prova la tua mente con domande curiose, spettacolari e scoperte scientifiche!'}</p>
+                    </div>
+                    <button class="play-btn">Gioca Ora ▶</button>
+                </div>
+            `;
+
+            grid.innerHTML = html;
+        }
+
+        function openGame(gameKey) {
+            currentGameMode = gameKey;
+            tappedSourceItem = null;
+            document.getElementById('view-home').style.display = 'none';
+            document.getElementById('view-arena').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            const stageBadge = document.getElementById('stage-badge');
+            const steps = getAdventureSteps();
+            if (isAdventureMode) {
+                stageBadge.style.display = 'inline-block';
+                stageBadge.innerText = `Tappa ${adventureStepIndex + 1} di ${steps.length}`;
+            } else {
+                stageBadge.style.display = 'none';
+            }
+
+            if (gameKey === 'orbits') setupOrbitsGame();
+            else if (gameKey === 'moons') setupMoonsGame();
+            else if (gameKey === 'gravity') setupGravityGame();
+            else if (gameKey === 'missions') setupMissionsGame();
+            else if (gameKey === 'sorter') setupSorterGame();
+            else if (gameKey === 'sizes') setupSizesGame();
+            else if (gameKey === 'detective') setupDetectiveGame();
+            else if (gameKey === 'quiz') setupQuizGame();
+        }
+
+        function restartCurrentGame() { openGame(currentGameMode); }
+
+        function advanceAdventureOrVictory(gameTitle) {
+            playSuccessSound();
+            launchConfetti(80);
+            addStar(3);
+
+            const steps = getAdventureSteps();
+            if (isAdventureMode) {
+                adventureStepIndex++;
+                if (adventureStepIndex < steps.length) {
+                    showToast(`⭐ Tappa Superata! Prossima missione...`, 'correct');
+                    setTimeout(() => openGame(steps[adventureStepIndex]), 1400);
+                    return;
+                } else {
+                    showVictoryDiploma();
+                    return;
+                }
+            }
+
+            showToast(`🎉 Fantastico! Hai completato ${gameTitle}!`, 'correct');
+            setTimeout(() => renderSingleGameVictory(gameTitle), 700);
+        }
+
+        function renderSingleGameVictory(title) {
+            const container = document.getElementById('game-stage');
+            container.innerHTML = `
+                <div class="victory-screen">
+                    <div style="font-size: 3.8em;">🏆</div>
+                    <h2 style="color: var(--accent); font-size: 2.1em; margin: 0;">Eccellente Risultato Scientifico!</h2>
+                    <p style="font-size: 1.25em; max-width: 620px; color: #cbd5e1;">Hai completato brillantemente la prova <strong>${title}</strong> a livello <strong>${currentDifficulty === 'media' ? 'Scuola Media (Astrofisica)' : 'Scuola Primaria'}</strong>!</p>
+                    <div style="display: flex; gap: 14px; margin-top: 15px; flex-wrap: wrap; justify-content: center;">
+                        <button class="btn-ui btn-gold" style="font-size: 1.1em; padding: 10px 22px;" onclick="restartCurrentGame()">🔄 Gioca di Nuovo</button>
+                        <button class="btn-ui" style="font-size: 1.1em; padding: 10px 22px;" onclick="goHome()">🏠 Scegli un Altro Gioco</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function showVictoryDiploma() {
+            playFanfare();
+            launchConfetti(140);
+            const container = document.getElementById('game-stage');
+            const isMedia = currentDifficulty === 'media';
+
+            document.getElementById('arena-title').innerHTML = `<span>🎓</span> <span>${isMedia ? 'Certificato di Merito in Astrofisica' : 'Diploma di Comandante Galattico'}</span>`;
+            document.getElementById('instruction-text').innerText = 'Complimenti! Hai superato con successo tutte le tappe dell\'Accademia!';
+            
+            container.innerHTML = `
+                <div class="victory-screen">
+                    <div class="diploma-card">
+                        <div style="font-size: 3.2em; margin-bottom: 4px;">🪐🔬🚀</div>
+                        <h2>Accademia delle Scienze Astronomiche</h2>
+                        <p style="font-size: 1em; font-weight: bold; color: #78350f; text-transform: uppercase;">
+                            ${isMedia ? 'Attestato di Eccellenza in Fisica & Scienze del Cosmo' : 'Certificato Ufficiale di Merito Cosmico'}
+                        </p>
+                        <p style="font-size: 1.1em; margin: 12px 0 4px;">Si conferisce il titolo con lode all'Allievo/a:</p>
+                        <input type="text" class="diploma-name-input" value="${isMedia ? 'Ricercatore Astrofisico' : 'Comandante Galattico'}" placeholder="Scrivi qui il tuo nome">
+                        <p style="font-size: 1.1em; line-height: 1.45; color: #334155;">
+                            ${isMedia ? 'Per aver dimostrato piena padronanza delle leggi di gravità, dei parametri orbitali in UA, delle missioni interplanetarie e dell\'astrofisica del Sistema Solare.' : 'Per aver completato tutti i percorsi orbitali, accudito le lune e svelato i segreti del Cosmo!'}
+                        </p>
+                        <div style="display: flex; justify-content: space-around; margin-top: 20px; border-top: 2px dashed #b45309; padding-top: 14px;">
+                            <div>
+                                <div style="font-size: 1.3em; font-weight: bold; color: #b45309;">⭐⭐⭐⭐⭐</div>
+                                <div style="font-size: 0.85em; color: #78350f;">Grado: ${isMedia ? 'Astrofisico Emerito' : 'Maestro delle Stelle'}</div>
+                            </div>
+                            <div>
+                                <div style="font-size: 1.8em;">🥇</div>
+                                <div style="font-size: 0.85em; color: #78350f;">Sigillo Scientifico Ufficiale</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 14px; margin-top: 18px; flex-wrap: wrap;">
+                        <button class="btn-ui btn-gold" onclick="window.print()">🖨️ Stampa Certificato</button>
+                        <button class="btn-ui" onclick="goHome()">🏠 Torna al Menu</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        /* =========================================================================
+           5. MINIGIOCO 1: ORBITE DEI PIANETI (CON DISTANZE UA PER SCUOLA MEDIA)
+        ========================================================================== */
+        let orbitsState = { placed: {}, shuffled: [] };
+
+        function setupOrbitsGame() {
+            const isMedia = currentDifficulty === 'media';
+            document.getElementById('arena-icon').innerText = '🪐';
+            document.getElementById('arena-name').innerText = isMedia ? 'Orbite & Distanze Reali in Unità Astronomiche' : 'Riordina i Pianeti nelle Orbite';
+            document.getElementById('instruction-text').innerText = isMedia 
+                ? 'Colloca ogni pianeta nella sua orbita considerando la distanza dal Sole in Unità Astronomiche (1 UA = 150 milioni di km)!'
+                : 'Trascina (o tocca) ogni pianeta nel suo slot orbitale dal 1° (Mercurio) all\'8° (Nettuno)!';
+
+            orbitsState.placed = {};
+            orbitsState.shuffled = [...PLANETS].sort(() => Math.random() - 0.5);
+            renderOrbitsBoard();
+        }
+
+        function renderOrbitsBoard() {
+            const container = document.getElementById('game-stage');
+            const totalPlaced = Object.keys(orbitsState.placed).length;
+            const isMedia = currentDifficulty === 'media';
+
+            let html = `
+                <div class="solar-system-board">
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 5px; flex-wrap: wrap;">
+                        <div style="font-size: 1.8em;">☀️</div>
+                        <span style="font-weight: bold; color: #ffd000; font-size: 1.1em;">Il Sole</span>
+                        <div style="flex-grow: 1; height: 2px; background: linear-gradient(90deg, #ffd000, rgba(0,240,255,0.4)); min-width: 80px;"></div>
+                        <span style="color: #38bdf8; font-weight: bold;">Pianeti Posizionati: ${totalPlaced} / 8</span>
+                    </div>
+
+                    <div class="orbits-track" id="orbits-track">`;
+
+            for (let i = 1; i <= 8; i++) {
+                const filledPlanetId = orbitsState.placed[i];
+                const planet = filledPlanetId ? PLANETS.find(p => p.id === filledPlanetId) : null;
+                const targetPlanet = PLANETS.find(p => p.order === i);
+
+                html += `
+                    <div class="orbit-slot ${planet ? 'filled' : ''}" 
+                         data-orbit="${i}" 
+                         ondragover="handleDragOver(event)" 
+                         ondragleave="handleDragLeave(event)" 
+                         ondrop="handleOrbitDrop(event, ${i})"
+                         onclick="handleOrbitSlotTap(${i})">
+                        <span style="font-size:0.82em; color:#94a3b8; font-weight:bold;">${i}ª Orbita</span>
+                        ${isMedia ? `<span class="data-tag">~${targetPlanet.au}</span>` : ''}
+                        
+                        ${planet ? `
+                            <div class="planet-sphere" style="background-image: url('${planet.img}'), radial-gradient(circle, ${planet.color}, #000); width: 58px; height: 58px;"></div>
+                            <span style="font-weight: bold; font-size: 0.88em; margin-top: 4px; color: #fff;">${planet.name}</span>
+                            ${isMedia ? `<span style="font-size:0.75em; color:#6ee7b7;">${planet.density}</span>` : ''}
+                        ` : `
+                            <div style="width: 48px; height: 48px; border-radius: 50%; border: 2px dashed rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; font-size: 1.1em; color: rgba(255,255,255,0.3);">?</div>
+                            <span style="font-size:0.75em; color:rgba(255,255,255,0.4);">In attesa</span>
+                        `}
+                    </div>
+                `;
+            }
+
+            html += `</div>
+
+                    <div style="margin-top: 10px;">
+                        <div style="font-weight: bold; color: #38bdf8; margin-bottom: 8px;">
+                            <span>🚀 Pianeti da Inserire in Orbita:</span>
+                        </div>
+                        <div class="planets-hangar">`;
+
+            orbitsState.shuffled.forEach(p => {
+                const isPlaced = Object.values(orbitsState.placed).includes(p.id);
+                if (!isPlaced) {
+                    html += `
+                        <div class="planet-draggable ${tappedSourceItem === p.id ? 'selected-tap' : ''}" 
+                             id="drag-p-${p.id}"
+                             draggable="true" 
+                             ondragstart="handlePlanetDragStart(event, '${p.id}')"
+                             onclick="handlePlanetItemTap('${p.id}')">
+                            <div class="planet-sphere" style="background-image: url('${p.img}'), radial-gradient(circle, ${p.color}, #000);"></div>
+                            <span class="p-name">${p.name}</span>
+                            ${isMedia ? `<span class="data-tag">${p.au}</span>` : `<span style="font-size:0.72em; color:#38bdf8;">${p.juniorClue}</span>`}
+                        </div>
+                    `;
+                }
+            });
+
+            html += `   </div>
+                    </div>
+                </div>
+            `;
+
+            container.innerHTML = html;
+        }
+
+        function handleDragOver(ev) { ev.preventDefault(); ev.currentTarget.classList.add('drag-over'); }
+        function handleDragLeave(ev) { ev.currentTarget.classList.remove('drag-over'); }
+
+        let draggedPlanetId = null;
+        function handlePlanetDragStart(ev, planetId) {
+            draggedPlanetId = planetId;
+            ev.dataTransfer.setData('text/plain', planetId);
+            playTone(400, 'sine', 0.08, 0.15);
+        }
+
+        function handleOrbitDrop(ev, orbitNum) {
+            ev.preventDefault();
+            ev.currentTarget.classList.remove('drag-over');
+            const planetId = ev.dataTransfer.getData('text/plain') || draggedPlanetId;
+            verifyPlanetToOrbit(planetId, orbitNum);
+        }
+
+        function handlePlanetItemTap(planetId) {
+            tappedSourceItem = (tappedSourceItem === planetId) ? null : planetId;
+            playTone(500, 'sine', 0.08, 0.15);
+            renderOrbitsBoard();
+            if (tappedSourceItem) {
+                const p = PLANETS.find(x => x.id === planetId);
+                showToast(`Selezionato ${p.name}! Tocca l'orbita di destinazione.`);
+            }
+        }
+
+        function handleOrbitSlotTap(orbitNum) {
+            if (tappedSourceItem) {
+                verifyPlanetToOrbit(tappedSourceItem, orbitNum);
+                tappedSourceItem = null;
+            } else {
+                showToast(`Tocca prima un pianeta in basso per l'orbita ${orbitNum}!`);
+            }
+        }
+
+        function verifyPlanetToOrbit(planetId, orbitNum) {
+            const planet = PLANETS.find(p => p.id === planetId);
+            if (!planet) return;
+
+            if (planet.order === orbitNum) {
+                orbitsState.placed[orbitNum] = planetId;
+                playSnapSound();
+                addStar(1);
+                showToast(`Esatto! ${planet.name} è a ${planet.au} dal Sole (orbita ${orbitNum})! ✨`, 'correct');
+                renderOrbitsBoard();
+                if (Object.keys(orbitsState.placed).length === 8) {
+                    setTimeout(() => advanceAdventureOrVictory('Orbite dei Pianeti'), 600);
+                }
+            } else {
+                playWrongSound();
+                showToast(`Errato! ${planet.name} non si trova all'orbita ${orbitNum}.`, 'wrong');
+            }
+        }
+
+        /* =========================================================================
+           6. MINIGIOCO 2: IL NIDO DELLE LUNE
+        ========================================================================== */
+        let moonsState = { placed: {}, shuffledMoons: [] };
+
+        const MOON_PARENT_PLANETS = [
+            { id: 'terra', name: 'Terra', img: 'temp_dl/earth.jpg', color: '#0ea5e9', totalMoons: 1 },
+            { id: 'marte', name: 'Marte', img: 'temp_dl/mars.jpg', color: '#ef4444', totalMoons: 2 },
+            { id: 'giove', name: 'Giove', img: 'temp_dl/jupiter.jpg', color: '#ea580c', totalMoons: 4 },
+            { id: 'saturno', name: 'Saturno', img: 'temp_dl/saturn.jpg', color: '#eab308', totalMoons: 2 },
+            { id: 'urano', name: 'Urano', img: 'temp_dl/uranus.jpg', color: '#06b6d4', totalMoons: 1 },
+            { id: 'neptuno', name: 'Nettuno', img: 'temp_dl/neptune.jpg', color: '#2563eb', totalMoons: 1 },
+            { id: 'pluto', name: 'Plutone', img: 'temp_dl/pluto.jpg', color: '#cbd5e1', totalMoons: 1 }
+        ];
+
+        function setupMoonsGame() {
+            const isMedia = currentDifficulty === 'media';
+            document.getElementById('arena-icon').innerText = '🌕';
+            document.getElementById('arena-name').innerText = isMedia ? 'Sistemi Satellitari & Geologia Lunare' : 'Il Nido delle Lune';
+            document.getElementById('instruction-text').innerText = isMedia
+                ? 'Associa ogni satellite naturale al pianeta madre analizzandone le proprietà astrofisiche!'
+                : 'Assegna ciascuna luna al suo pianeta madre! Trascinala o toccala e seleziona il pianeta.';
+
+            moonsState.placed = {};
+            moonsState.shuffledMoons = [...MOONS].sort(() => Math.random() - 0.5);
+            renderMoonsBoard();
+        }
+
+        function renderMoonsBoard() {
+            const container = document.getElementById('game-stage');
+            const totalPlaced = Object.keys(moonsState.placed).length;
+            const isMedia = currentDifficulty === 'media';
+
+            let html = `
+                <div class="moons-game-board">
+                    <div class="planets-nests">`;
+
+            MOON_PARENT_PLANETS.forEach(parent => {
+                const assignedMoons = MOONS.filter(m => moonsState.placed[m.id] === parent.id);
+
+                html += `
+                    <div class="planet-nest" 
+                         ondragover="handleDragOver(event)" 
+                         ondragleave="handleDragLeave(event)" 
+                         ondrop="handleMoonDrop(event, '${parent.id}')"
+                         onclick="handlePlanetNestTap('${parent.id}')">
+                        <div class="planet-sphere" style="background-image: url('${parent.img}'), radial-gradient(circle, ${parent.color}, #000); width: 62px; height: 62px;"></div>
+                        <span style="font-weight: bold; font-size: 1.05em; color: #fff;">${parent.name}</span>
+                        <span style="font-size: 0.78em; color: #94a3b8;">Lune: ${assignedMoons.length} / ${parent.totalMoons}</span>
+                        
+                        <div class="nest-slots-container">
+                            ${assignedMoons.length > 0 ? assignedMoons.map(m => `
+                                <div style="background: rgba(168,85,247,0.3); border: 1px solid #d8b4fe; border-radius: 8px; padding: 4px 8px; font-size: 0.82em; display: flex; align-items: center; gap: 4px;">
+                                    <span>${m.emoji}</span> <span style="color:#fff; font-weight:bold;">${m.name}</span>
+                                </div>
+                            `).join('') : '<span style="color: rgba(255,255,255,0.3); font-size: 0.78em; align-self: center;">Nessun satellite</span>'}
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += `</div>
+
+                    <div class="moons-tray">
+                        <div style="font-weight: bold; color: #d8b4fe; margin-bottom: 6px;">
+                            <span>🌌 Satelliti da Assegnare (${MOONS.length - totalPlaced}):</span>
+                        </div>`;
+
+            moonsState.shuffledMoons.forEach(m => {
+                if (!moonsState.placed[m.id]) {
+                    html += `
+                        <div class="moon-item ${tappedSourceItem === m.id ? 'selected-tap' : ''}" 
+                             draggable="true" 
+                             ondragstart="handleMoonDragStart(event, '${m.id}')"
+                             onclick="handleMoonItemTap('${m.id}')">
+                            <div class="moon-badge-circle">${m.emoji}</div>
+                            <div>
+                                <div style="font-weight: bold; color: #fff;">${m.name}</div>
+                                <div style="font-size: 0.76em; color: #cbd5e1; line-height:1.2;">
+                                    ${isMedia ? m.mediaClue : m.juniorClue}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+
+            html += `</div>
+                </div>
+            `;
+
+            container.innerHTML = html;
+        }
+
+        let draggedMoonId = null;
+        function handleMoonDragStart(ev, moonId) {
+            draggedMoonId = moonId;
+            ev.dataTransfer.setData('text/plain', moonId);
+            playTone(450, 'sine', 0.08, 0.15);
+        }
+
+        function handleMoonDrop(ev, planetId) {
+            ev.preventDefault();
+            ev.currentTarget.classList.remove('drag-over');
+            const moonId = ev.dataTransfer.getData('text/plain') || draggedMoonId;
+            verifyMoonToPlanet(moonId, planetId);
+        }
+
+        function handleMoonItemTap(moonId) {
+            tappedSourceItem = (tappedSourceItem === moonId) ? null : moonId;
+            playTone(550, 'sine', 0.08, 0.15);
+            renderMoonsBoard();
+            if (tappedSourceItem) {
+                const moon = MOONS.find(m => m.id === moonId);
+                showToast(`Selezionato ${moon.name}! Tocca il pianeta madre.`);
+            }
+        }
+
+        function handlePlanetNestTap(planetId) {
+            if (tappedSourceItem) {
+                verifyMoonToPlanet(tappedSourceItem, planetId);
+                tappedSourceItem = null;
+            } else {
+                showToast('Tocca prima un satellite dal vassoio!');
+            }
+        }
+
+        function verifyMoonToPlanet(moonId, planetId) {
+            const moon = MOONS.find(m => m.id === moonId);
+            if (!moon) return;
+
+            if (moon.planetId === planetId) {
+                moonsState.placed[moonId] = planetId;
+                playSnapSound();
+                addStar(1);
+                showToast(`Corretto! ${moon.name} orbita attorno a ${MOON_PARENT_PLANETS.find(p=>p.id===planetId).name}! 🎉`, 'correct');
+                renderMoonsBoard();
+                if (Object.keys(moonsState.placed).length === MOONS.length) {
+                    setTimeout(() => advanceAdventureOrVictory('Sistemi Satellitari'), 600);
+                }
+            } else {
+                playWrongSound();
+                showToast(`Non corrisponde! ${moon.name} non orbita attorno a ${MOON_PARENT_PLANETS.find(p=>p.id===planetId).name}.`, 'wrong');
+            }
+        }
+
+        /* =========================================================================
+           7. MINIGAME: GRAVITÀ & PESO COSMICO (SCUOLA MEDIA)
+        ========================================================================== */
+        let gravityState = { placed: {}, pool: [] };
+
+        function setupGravityGame() {
+            document.getElementById('arena-icon').innerText = '⚖️';
+            document.getElementById('arena-name').innerText = 'Sfida della Gravità & Peso Spaziale';
+            document.getElementById('instruction-text').innerText = 'Se sulla Terra pesi 50 kg (g = 9.81 m/s²), dove peseresti di meno e dove di più? Ordina dal PIÙ LEGGERO al PIÙ PESANTE!';
+
+            // 5 items to order by surface gravity
+            const candidateIds = ['mercurio', 'marte', 'terra', 'saturno', 'giove'];
+            gravityState.pool = PLANETS.filter(p => candidateIds.includes(p.id));
+            gravityState.correctOrder = [...gravityState.pool].sort((a,b) => parseFloat(a.g) - parseFloat(b.g));
+            gravityState.placed = {};
+
+            renderGravityBoard();
+        }
+
+        function renderGravityBoard() {
+            const container = document.getElementById('game-stage');
+
+            let html = `
+                <div class="gravity-board">
+                    <div class="gravity-slots-grid">`;
+
+            for (let i = 0; i < 5; i++) {
+                const filledPlanetId = gravityState.placed[i];
+                const planet = filledPlanetId ? PLANETS.find(p => p.id === filledPlanetId) : null;
+                const labels = ['1° Piuma (Minima g)', '2° Leggero', '3° Medio (Terra)', '4° Forte', '5° Schiacciante (Max g)'];
+
+                html += `
+                    <div class="gravity-slot ${planet ? 'filled' : ''}" 
+                         ondragover="handleDragOver(event)" 
+                         ondragleave="handleDragLeave(event)" 
+                         ondrop="handleGravityDrop(event, ${i})"
+                         onclick="handleGravitySlotTap(${i})">
+                        <span style="font-size:0.8em; color:var(--accent); font-weight:bold;">${labels[i]}</span>
+                        
+                        ${planet ? `
+                            <div class="planet-sphere" style="background-image: url('${planet.img}'), radial-gradient(circle, ${planet.color}, #000); width: 54px; height: 54px;"></div>
+                            <span style="font-weight:bold; color:#fff;">${planet.name}</span>
+                            <span class="data-tag">g: ${planet.g}</span>
+                            <span style="font-size:0.75em; color:#ffd000;">Peso: ${planet.weight50kg}</span>
+                        ` : `
+                            <div style="font-size:1.8em; opacity:0.3;">⚖️</div>
+                            <span style="font-size:0.75em; color:rgba(255,255,255,0.4);">Inserisci qui</span>
+                        `}
+                    </div>
+                `;
+            }
+
+            html += `</div>
+
+                    <div style="background: rgba(15,23,42,0.8); border: 2px solid rgba(0,240,255,0.3); border-radius: 16px; padding: 16px;">
+                        <div style="font-weight:bold; color:#38bdf8; margin-bottom:10px;">
+                            <span>Trascina i pianeti ordinandoli per forza di gravità superficiale:</span>
+                        </div>
+                        <div style="display:flex; gap:14px; flex-wrap:wrap; justify-content:center;">
+                            ${gravityState.pool.filter(p => !Object.values(gravityState.placed).includes(p.id)).map(p => `
+                                <div class="planet-draggable ${tappedSourceItem === p.id ? 'selected-tap' : ''}" 
+                                     draggable="true" 
+                                     ondragstart="handlePlanetDragStart(event, '${p.id}')"
+                                     onclick="handlePlanetItemTap('${p.id}')">
+                                    <div class="planet-sphere" style="background-image: url('${p.img}'), radial-gradient(circle, ${p.color}, #000);"></div>
+                                    <span class="p-name">${p.name}</span>
+                                    <span class="data-tag">Tu: ${p.weight50kg}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            container.innerHTML = html;
+        }
+
+        function handleGravityDrop(ev, slotIndex) {
+            ev.preventDefault();
+            ev.currentTarget.classList.remove('drag-over');
+            const planetId = ev.dataTransfer.getData('text/plain') || draggedPlanetId;
+            verifyGravityPlacement(planetId, slotIndex);
+        }
+
+        function handleGravitySlotTap(slotIndex) {
+            if (tappedSourceItem) {
+                verifyGravityPlacement(tappedSourceItem, slotIndex);
+                tappedSourceItem = null;
+            } else {
+                showToast('Tocca prima un pianeta in basso da posizionare sulla bilancia!');
+            }
+        }
+
+        function verifyGravityPlacement(planetId, slotIndex) {
+            const correctAtSlot = gravityState.correctOrder[slotIndex];
+            if (correctAtSlot.id === planetId) {
+                gravityState.placed[slotIndex] = planetId;
+                playSnapSound();
+                addStar(1);
+                showToast(`Esatto! Su ${correctAtSlot.name} g = ${correctAtSlot.g} (peseresti ${correctAtSlot.weight50kg})!`, 'correct');
+                renderGravityBoard();
+                if (Object.keys(gravityState.placed).length === 5) {
+                    setTimeout(() => advanceAdventureOrVictory('Sfida della Gravità'), 600);
+                }
+            } else {
+                playWrongSound();
+                showToast(`Non corrisponde! Controlla il valore di accelerazione g di ${PLANETS.find(p=>p.id===planetId).name}.`, 'wrong');
+            }
+        }
+
+        /* =========================================================================
+           8. MINIGAME: MISSIONI & SONDE SPAZIALI (SCUOLA MEDIA)
+        ========================================================================== */
+        let missionsState = {
+            matched: {}, // spacecraftId: targetId
+            selectedSpacecraft: null,
+            selectedTarget: null
+        };
+
+        function setupMissionsGame() {
+            document.getElementById('arena-icon').innerText = '🛰️';
+            document.getElementById('arena-name').innerText = 'Sonde & Grandi Esplorazioni Spaziali';
+            document.getElementById('instruction-text').innerText = 'Seleziona una sonda o telescopio spaziale a sinistra e abbinalo al suo obiettivo scientifico a destra!';
+
+            missionsState.matched = {};
+            missionsState.selectedSpacecraft = null;
+            missionsState.selectedTarget = null;
+            renderMissionsBoard();
+        }
+
+        function renderMissionsBoard() {
+            const container = document.getElementById('game-stage');
+
+            let html = `
+                <div class="missions-board">
+                    <!-- Spacecraft column -->
+                    <div class="spacecraft-cards-col">
+                        <div style="font-weight:bold; color:#38bdf8; margin-bottom:4px;">🛰️ Sonde & Missioni:</div>
+                        ${SPACE_MISSIONS.map(m => `
+                            <div class="mission-match-item ${missionsState.matched[m.id] ? 'matched' : ''} ${missionsState.selectedSpacecraft === m.id ? 'selected' : ''}" 
+                                 id="craft-${m.id}"
+                                 onclick="selectSpacecraft('${m.id}')">
+                                <span style="font-size:1.6em;">${m.emoji}</span>
+                                <div>
+                                    <div style="font-weight:bold; color:#fff;">${m.name}</div>
+                                    <div style="font-size:0.78em; color:#cbd5e1; line-height:1.2;">${m.desc}</div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+
+                    <!-- Targets column -->
+                    <div class="target-cards-col">
+                        <div style="font-weight:bold; color:#ffd000; margin-bottom:4px;">🎯 Obiettivi Scientifici:</div>
+                        ${MISSION_TARGETS.map(t => {
+                            const isMatched = Object.values(missionsState.matched).includes(t.id);
+                            return `
+                                <div class="mission-match-item ${isMatched ? 'matched' : ''} ${missionsState.selectedTarget === t.id ? 'selected' : ''}" 
+                                     id="target-${t.id}"
+                                     onclick="selectMissionTarget('${t.id}')">
+                                    <span style="font-size:1.6em;">${t.emoji}</span>
+                                    <div style="font-weight:bold; color:#f1f5f9;">${t.name}</div>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                </div>
+            `;
+
+            container.innerHTML = html;
+        }
+
+        function selectSpacecraft(id) {
+            if (missionsState.matched[id]) return;
+            missionsState.selectedSpacecraft = id;
+            playTone(450, 'sine', 0.08, 0.15);
+            checkMissionPair();
+            renderMissionsBoard();
+        }
+
+        function selectMissionTarget(targetId) {
+            if (Object.values(missionsState.matched).includes(targetId)) return;
+            missionsState.selectedTarget = targetId;
+            playTone(550, 'sine', 0.08, 0.15);
+            checkMissionPair();
+            renderMissionsBoard();
+        }
+
+        function checkMissionPair() {
+            if (missionsState.selectedSpacecraft && missionsState.selectedTarget) {
+                const craft = SPACE_MISSIONS.find(m => m.id === missionsState.selectedSpacecraft);
+                if (craft.targetId === missionsState.selectedTarget) {
+                    missionsState.matched[craft.id] = missionsState.selectedTarget;
+                    playSnapSound();
+                    addStar(2);
+                    showToast(`Grande abbinamento! ${craft.name} -> ${MISSION_TARGETS.find(t=>t.id===craft.targetId).name}! 🎯`, 'correct');
+                    missionsState.selectedSpacecraft = null;
+                    missionsState.selectedTarget = null;
+                    renderMissionsBoard();
+
+                    if (Object.keys(missionsState.matched).length === SPACE_MISSIONS.length) {
+                        setTimeout(() => advanceAdventureOrVictory('Sonde & Esplorazioni'), 600);
+                    }
+                } else {
+                    playWrongSound();
+                    showToast(`Abbinamento errato per ${craft.name}. Riprova!`, 'wrong');
+                    missionsState.selectedSpacecraft = null;
+                    missionsState.selectedTarget = null;
+                }
+            }
+        }
+
+        /* =========================================================================
+           9. MINIGIOCO: SMISTATORE COSMICO
+        ========================================================================== */
+        let sorterState = { sorted: {}, pool: [] };
+
+        function setupSorterGame() {
+            const isMedia = currentDifficulty === 'media';
+            document.getElementById('arena-icon').innerText = '🪨💨';
+            document.getElementById('arena-name').innerText = isMedia ? 'Smistatore di Densità & Composizione' : 'Smistatore Cosmico';
+            document.getElementById('instruction-text').innerText = isMedia
+                ? 'Separa i corpi rocciosi ad alta densità (silicati/metalli > 3.9 g/cm³) dai giganti a bassa densità (< 1.7 g/cm³)!'
+                : 'Separa i Pianeti Rocciosi dai Giganti Gassosi e Ghiacciati trascinandoli nel portale giusto!';
+
+            sorterState.sorted = {};
+            sorterState.pool = [...PLANETS].sort(() => Math.random() - 0.5);
+            renderSorterBoard();
+        }
+
+        function renderSorterBoard() {
+            const container = document.getElementById('game-stage');
+            const remaining = sorterState.pool.filter(p => !sorterState.sorted[p.id]);
+            const isMedia = currentDifficulty === 'media';
+
+            let html = `
+                <div class="sorter-board">
+                    <div class="sorter-portals">
+                        <div class="portal-bin rocky" 
+                             ondragover="handleDragOver(event)" 
+                             ondragleave="handleDragLeave(event)" 
+                             ondrop="handleSorterDrop(event, 'rocky')"
+                             onclick="handleSorterBinTap('rocky')">
+                            <h3>🪨 ${isMedia ? 'Corpi Rocciosi ad Alta Densità' : 'Pianeti Rocciosi (Terrestri)'}</h3>
+                            <p>${isMedia ? 'Composti da silicati e nucleo di ferro/nichel (Densità: 3.9 - 5.5 g/cm³)' : 'Superficie dura su cui camminare!'}</p>
+                            <div class="portal-items">
+                                ${PLANETS.filter(p => sorterState.sorted[p.id] === 'rocky').map(p => `
+                                    <div style="display:flex; flex-direction:column; align-items:center; gap:3px;">
+                                        <div class="planet-sphere" style="background-image: url('${p.img}'), radial-gradient(circle, ${p.color}, #000); width:46px; height:46px;"></div>
+                                        <span style="font-size:0.82em; font-weight:bold; color:#fde68a;">${p.name}</span>
+                                        ${isMedia ? `<span class="data-tag">${p.density}</span>` : ''}
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+
+                        <div class="portal-bin gas" 
+                             ondragover="handleDragOver(event)" 
+                             ondragleave="handleDragLeave(event)" 
+                             ondrop="handleSorterDrop(event, 'gas')"
+                             onclick="handleSorterBinTap('gas')">
+                            <h3>💨❄️ ${isMedia ? 'Giganti Gassosi / Ghiacciati' : 'Giganti Gassosi e Ghiacciati'}</h3>
+                            <p>${isMedia ? 'Idrogeno, elio, ammoniaca e metano (Densità: 0.69 - 1.64 g/cm³)' : 'Immensi mondi senza superficie solida!'}</p>
+                            <div class="portal-items">
+                                ${PLANETS.filter(p => sorterState.sorted[p.id] === 'gas').map(p => `
+                                    <div style="display:flex; flex-direction:column; align-items:center; gap:3px;">
+                                        <div class="planet-sphere" style="background-image: url('${p.img}'), radial-gradient(circle, ${p.color}, #000); width:46px; height:46px;"></div>
+                                        <span style="font-size:0.82em; font-weight:bold; color:#bae6fd;">${p.name}</span>
+                                        ${isMedia ? `<span class="data-tag">${p.density}</span>` : ''}
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="background: rgba(15,23,42,0.8); border: 2px solid rgba(0,240,255,0.3); border-radius: 16px; padding: 16px;">
+                        <div style="font-weight:bold; color:#38bdf8; margin-bottom:10px;">
+                            <span>🪐 Pianeti da smistare (rimasti: ${remaining.length}):</span>
+                        </div>
+                        <div style="display:flex; gap:14px; flex-wrap:wrap; justify-content:center;">
+                            ${remaining.map(p => `
+                                <div class="planet-draggable ${tappedSourceItem === p.id ? 'selected-tap' : ''}" 
+                                     draggable="true" 
+                                     ondragstart="handlePlanetDragStart(event, '${p.id}')"
+                                     onclick="handlePlanetItemTap('${p.id}')">
+                                    <div class="planet-sphere" style="background-image: url('${p.img}'), radial-gradient(circle, ${p.color}, #000);"></div>
+                                    <span class="p-name">${p.name}</span>
+                                    ${isMedia ? `<span class="data-tag">${p.density}</span>` : ''}
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            container.innerHTML = html;
+        }
+
+        function handleSorterDrop(ev, binType) {
+            ev.preventDefault();
+            ev.currentTarget.classList.remove('drag-over');
+            const planetId = ev.dataTransfer.getData('text/plain') || draggedPlanetId;
+            verifyPlanetSort(planetId, binType);
+        }
+
+        function handleSorterBinTap(binType) {
+            if (tappedSourceItem) {
+                verifyPlanetSort(tappedSourceItem, binType);
+                tappedSourceItem = null;
+            } else {
+                showToast('Tocca prima un pianeta da smistare!');
+            }
+        }
+
+        function verifyPlanetSort(planetId, binType) {
+            const planet = PLANETS.find(p => p.id === planetId);
+            if (!planet) return;
+
+            if (planet.type === binType) {
+                sorterState.sorted[planetId] = binType;
+                playSnapSound();
+                addStar(1);
+                showToast(`Ottimo! ${planet.name} è un ${binType === 'rocky' ? 'Pianeta Roccioso' : 'Gigante Gassoso'}!`, 'correct');
+                renderSorterBoard();
+                if (Object.keys(sorterState.sorted).length === PLANETS.length) {
+                    setTimeout(() => advanceAdventureOrVictory('Smistatore Cosmico'), 600);
+                }
+            } else {
+                playWrongSound();
+                showToast(`No! ${planet.name} non appartiene a questa categoria.`, 'wrong');
+            }
+        }
+
+        /* =========================================================================
+           10. MINIGAME: SFIDA DELLE DIMENSIONI (JUNIOR)
+        ========================================================================== */
+        let sizesState = { placed: {}, currentPlanets: [] };
+
+        function setupSizesGame() {
+            document.getElementById('arena-icon').innerText = '⚖️';
+            document.getElementById('arena-name').innerText = 'Sfida delle Dimensioni';
+            document.getElementById('instruction-text').innerText = 'Ordina questi 5 corpi celesti dal PIÙ PICCOLO al PIÙ GIGANTE!';
+
+            sizesState.currentPlanets = [...PLANETS].sort(() => Math.random() - 0.5).slice(0, 5);
+            sizesState.correctOrder = [...sizesState.currentPlanets].sort((a,b) => a.sizeRank - b.sizeRank);
+            sizesState.placed = {};
+            renderSizesBoard();
+        }
+
+        function renderSizesBoard() {
+            const container = document.getElementById('game-stage');
+
+            let html = `
+                <div class="size-challenge-board">
+                    <div style="display:flex; justify-content:space-between; gap:10px; overflow-x:auto; padding:15px 5px;">`;
+
+            for (let i = 0; i < 5; i++) {
+                const filledPlanetId = sizesState.placed[i];
+                const planet = filledPlanetId ? PLANETS.find(p => p.id === filledPlanetId) : null;
+                const labels = ['1° Più Piccolo 🤏', '2° Medio-Piccolo', '3° Medio', '4° Grande 🪐', '5° Gigante! 👑'];
+
+                html += `
+                    <div class="gravity-slot ${planet ? 'filled' : ''}" 
+                         ondragover="handleDragOver(event)" 
+                         ondragleave="handleDragLeave(event)" 
+                         ondrop="handleSizeDrop(event, ${i})"
+                         onclick="handleSizeSlotTap(${i})">
+                        <span style="font-size:0.8em; color:var(--accent); font-weight:bold;">${labels[i]}</span>
+                        ${planet ? `
+                            <div class="planet-sphere" style="background-image: url('${planet.img}'), radial-gradient(circle, ${planet.color}, #000); width: ${50 + i * 8}px; height: ${50 + i * 8}px;"></div>
+                            <span style="font-weight:bold; color:#fff;">${planet.name}</span>
+                        ` : `
+                            <div style="font-size: 1.8em; opacity: 0.3;">📦</div>
+                            <span style="font-size:0.75em; color:rgba(255,255,255,0.4);">Inserisci qui</span>
+                        `}
+                    </div>
+                `;
+            }
+
+            html += `</div>
+
+                    <div style="background: rgba(15,23,42,0.8); border: 2px solid rgba(0,240,255,0.3); border-radius: 16px; padding: 16px;">
+                        <div style="font-weight:bold; color:#38bdf8; margin-bottom:10px;">
+                            <span>Trascina ciascun pianeta sul podio dimensionale corretto:</span>
+                        </div>
+                        <div style="display:flex; gap:14px; flex-wrap:wrap; justify-content:center;">
+                            ${sizesState.currentPlanets.filter(p => !Object.values(sizesState.placed).includes(p.id)).map(p => `
+                                <div class="planet-draggable ${tappedSourceItem === p.id ? 'selected-tap' : ''}" 
+                                     draggable="true" 
+                                     ondragstart="handlePlanetDragStart(event, '${p.id}')"
+                                     onclick="handlePlanetItemTap('${p.id}')">
+                                    <div class="planet-sphere" style="background-image: url('${p.img}'), radial-gradient(circle, ${p.color}, #000);"></div>
+                                    <span class="p-name">${p.name}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            container.innerHTML = html;
+        }
+
+        function handleSizeDrop(ev, slotIndex) {
+            ev.preventDefault();
+            ev.currentTarget.classList.remove('drag-over');
+            const planetId = ev.dataTransfer.getData('text/plain') || draggedPlanetId;
+            verifySizePlacement(planetId, slotIndex);
+        }
+
+        function handleSizeSlotTap(slotIndex) {
+            if (tappedSourceItem) {
+                verifySizePlacement(tappedSourceItem, slotIndex);
+                tappedSourceItem = null;
+            } else {
+                showToast('Tocca prima un pianeta in basso!');
+            }
+        }
+
+        function verifySizePlacement(planetId, slotIndex) {
+            const correctPlanetAtSlot = sizesState.correctOrder[slotIndex];
+            if (correctPlanetAtSlot.id === planetId) {
+                sizesState.placed[slotIndex] = planetId;
+                playSnapSound();
+                addStar(1);
+                showToast(`Bravo! ${correctPlanetAtSlot.name} corrisponde per diametro!`, 'correct');
+                renderSizesBoard();
+                if (Object.keys(sizesState.placed).length === 5) {
+                    setTimeout(() => advanceAdventureOrVictory('Sfida delle Dimensioni'), 600);
+                }
+            } else {
+                playWrongSound();
+                showToast(`Non corrisponde! Confronta le dimensioni con gli altri pianeti.`, 'wrong');
+            }
+        }
+
+        /* =========================================================================
+           11. MINIGAME: DETECTIVE DELLO SPAZIO (TROVA L'INTRUSO)
+        ========================================================================== */
+        const DETECTIVE_ROUNDS_JUNIOR = [
+            {
+                q: "Quale di questi 4 NON è un pianeta roccioso?",
+                items: [
+                    { name: "Terra", img: "temp_dl/earth.jpg", isIntruder: false, desc: "Pianeta roccioso" },
+                    { name: "Marte", img: "temp_dl/mars.jpg", isIntruder: false, desc: "Pianeta roccioso" },
+                    { name: "Giove", img: "temp_dl/jupiter.jpg", isIntruder: true, desc: "È un gigante fatto di gas, non di roccia!" },
+                    { name: "Venere", img: "temp_dl/venus.jpg", isIntruder: false, desc: "Pianeta roccioso" }
+                ],
+                expl: "Giove è l'intruso! È un Gigante Gassoso immenso, mentre Terra, Marte e Venere sono pianeti rocciosi."
+            },
+            {
+                q: "Quale di questi NON è un pianeta con anelli spettacolari?",
+                items: [
+                    { name: "Saturno", img: "temp_dl/saturn.jpg", isIntruder: false, desc: "Famoso per i suoi anelli" },
+                    { name: "Urano", img: "temp_dl/uranus.jpg", isIntruder: false, desc: "Ha anelli sottili e scuri" },
+                    { name: "Nettuno", img: "temp_dl/neptune.jpg", isIntruder: false, desc: "Ha anelli di polvere e ghiaccio" },
+                    { name: "Mercurio", img: "temp_dl/mercury.jpg", isIntruder: true, desc: "Non ha anelli né lune!" }
+                ],
+                expl: "Mercurio è l'intruso! È privo di anelli, mentre i giganti possiedono sistemi di anelli."
+            },
+            {
+                q: "Chi è l'intruso che NON è una luna naturale?",
+                items: [
+                    { name: "La Luna", img: "textures/2k_moon.jpg", emoji: "🌕", isIntruder: false, desc: "Luna della Terra" },
+                    { name: "Titano", bg: "radial-gradient(circle, #f59e0b, #78350f)", emoji: "🌫️", isIntruder: false, desc: "Grande luna di Saturno" },
+                    { name: "Cometa di Halley", img: "temp_dl/comet.jpg", emoji: "☄️", isIntruder: true, desc: "È una cometa di ghiaccio con la coda!" },
+                    { name: "Europa", bg: "radial-gradient(circle, #bae6fd, #0284c7)", emoji: "🧊", isIntruder: false, desc: "Luna ghiacciata di Giove" }
+                ],
+                expl: "La Cometa di Halley è l'intruso! È un corpo cometario errante con la chioma e la coda, non un satellite in orbita chiusa attorno a un pianeta!"
+            },
+            {
+                q: "Quale corpo celeste brilla di LUCE PROPRIA generata al suo interno?",
+                items: [
+                    { name: "La Luna", img: "textures/2k_moon.jpg", emoji: "🌕", isIntruder: false, desc: "Riflette la luce del Sole" },
+                    { name: "Marte", img: "temp_dl/mars.jpg", isIntruder: false, desc: "Riflette la luce solare" },
+                    { name: "Il Sole", img: "temp_dl/sun.jpg", isIntruder: true, desc: "È una stella infuocata a fusione nucleare!" },
+                    { name: "Venere", img: "temp_dl/venus.jpg", isIntruder: false, desc: "Riflette la luce solare" }
+                ],
+                expl: "Il Sole è l'intruso speciale! È una stella che produce luce propria, mentre pianeti e lune riflettono la luce solare."
+            }
+        ];
+
+        const DETECTIVE_ROUNDS_MEDIA = [
+            {
+                q: "Quale di questi 4 corpi celesti ha una densità INFERIORE a quella dell'acqua liquida (1.0 g/cm³)?",
+                items: [
+                    { name: "Mercurio (5.4 g/cm³)", img: "temp_dl/mercury.jpg", isIntruder: false, desc: "Molto denso (ferro)" },
+                    { name: "Terra (5.5 g/cm³)", img: "temp_dl/earth.jpg", isIntruder: false, desc: "Il più denso di tutti" },
+                    { name: "Saturno (0.69 g/cm³)", img: "temp_dl/saturn.jpg", isIntruder: true, desc: "Galleggerebbe se ci fosse un oceano abbastanza grande!" },
+                    { name: "Marte (3.9 g/cm³)", img: "temp_dl/mars.jpg", isIntruder: false, desc: "Roccioso denso" }
+                ],
+                expl: "Saturno è l'intruso! Ha una densità media di soli 0.69 g/cm³: è composto prevalentemente da idrogeno ed elio e galleggerebbe nell'acqua!"
+            },
+            {
+                q: "Quale fenomeno NON è causato dal moto di RIVOLUZIONE della Terra attorno al Sole?",
+                items: [
+                    { name: "Alternanza delle 4 Stagioni", isIntruder: false, desc: "Causata dalla rivoluzione e inclinazione asse (23.5°)", emoji: "🍂" },
+                    { name: "Variazione durata dì e notte", isIntruder: false, desc: "Legata alla rivoluzione", emoji: "☀️" },
+                    { name: "Alternanza dì e notte ogni 24 ore", isIntruder: true, desc: "È causata dal moto di ROTAZIONE attorno al proprio asse!", emoji: "🌍" },
+                    { name: "Anno bisestile (365 giorni e 6 ore)", isIntruder: false, desc: "Dovuto al periodo esatto di rivoluzione (365d 5h 48m)", emoji: "📅" }
+                ],
+                expl: "L'alternanza quotidiana del dì e della notte è prodotta dalla ROTAZIONE terrestre su se stessa in 24 ore, non dalla rivoluzione annuale!"
+            },
+            {
+                q: "Quale di questi NON è un pianeta con rotazione 'diretta' (antioraria) da ovest a est?",
+                items: [
+                    { name: "Terra (da ovest a est)", img: "temp_dl/earth.jpg", isIntruder: false, desc: "Rotazione diretta ordinaria" },
+                    { name: "Marte (da ovest a est)", img: "temp_dl/mars.jpg", isIntruder: false, desc: "Rotazione diretta ordinaria" },
+                    { name: "Venere (rotazione retrograda)", img: "temp_dl/venus.jpg", isIntruder: true, desc: "Gira al contrario! Il Sole sorge a ovest e tramonta a est!" },
+                    { name: "Giove (da ovest a est)", img: "temp_dl/jupiter.jpg", isIntruder: false, desc: "Rotazione velocissima diretta" }
+                ],
+                expl: "Venere è l'intruso eccezionale! Ha un moto di rotazione retrogrado (da est a ovest), probabilmente a causa di un catastrofico impatto primordiale."
+            },
+            {
+                q: "Quale di questi corpi NON fa parte del Sistema Solare né vi è legato gravitazionalmente?",
+                items: [
+                    { name: "Cometa di Halley", img: "temp_dl/comet.jpg", isIntruder: false, desc: "Cometa periodica del Sistema Solare" },
+                    { name: "Plutone & Cerere", img: "temp_dl/pluto.jpg", isIntruder: false, desc: "Pianeti nani del nostro sistema" },
+                    { name: "Galassia di Andromeda (M31)", img: "temp_dl/andromeda.jpg", isIntruder: true, desc: "È una galassia a 2.5 milioni di anni luce, con 1.000 miliardi di stelle proprie!" },
+                    { name: "Cintura di Kuiper", img: "temp_dl/asteroid_belt.jpg", isIntruder: false, desc: "Fascia periferica del Sistema Solare" }
+                ],
+                expl: "La Galassia di Andromeda (M31) è una galassia gigante autonoma posta a ben 2.5 milioni di anni luce dalla Via Lattea, del tutto esterna al Sistema Solare!"
+            }
+        ];
+
+        let detectiveCurrentIndex = 0;
+
+        function setupDetectiveGame() {
+            document.getElementById('arena-icon').innerText = '🕵️‍♂️';
+            document.getElementById('arena-name').innerText = 'Detective dello Spazio: Trova l\'Intruso';
+            detectiveCurrentIndex = 0;
+            renderDetectiveRound();
+        }
+
+        function renderDetectiveRound() {
+            const rounds = currentDifficulty === 'media' ? DETECTIVE_ROUNDS_MEDIA : DETECTIVE_ROUNDS_JUNIOR;
+            const round = rounds[detectiveCurrentIndex];
+            document.getElementById('instruction-text').innerText = `Caso ${detectiveCurrentIndex + 1} di ${rounds.length}: ${round.q}`;
+
+            const container = document.getElementById('game-stage');
+            let html = `
+                <div class="detective-board">
+                    <div class="detective-cards-grid">
+                        ${round.items.map((item, idx) => `
+                            <div class="detective-card" id="det-card-${idx}" onclick="checkDetectiveChoice(${idx})">
+                                <div class="planet-sphere" style="${item.img ? `background-image: url('${item.img}');` : (item.bg ? `background: ${item.bg};` : '')} width: 68px; height: 68px; font-size: 1.8em; display: flex; align-items: center; justify-content: center;">
+                                    ${item.emoji ? item.emoji : ''}
+                                </div>
+                                <h3 style="margin: 0; color: #fff; font-size: 1.05em;">${item.name}</h3>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div id="detective-expl" style="margin-top: 15px; width: 100%;"></div>
+                </div>
+            `;
+            container.innerHTML = html;
+        }
+
+        function checkDetectiveChoice(idx) {
+            const rounds = currentDifficulty === 'media' ? DETECTIVE_ROUNDS_MEDIA : DETECTIVE_ROUNDS_JUNIOR;
+            const round = rounds[detectiveCurrentIndex];
+            const choice = round.items[idx];
+            const card = document.getElementById(`det-card-${idx}`);
+
+            if (choice.isIntruder) {
+                card.classList.add('correct-pick');
+                playSuccessSound();
+                addStar(2);
+                document.getElementById('detective-expl').innerHTML = `
+                    <div style="background: rgba(16, 185, 129, 0.2); border: 2px solid var(--success); border-radius: 12px; padding: 16px; text-align: center;">
+                        <h3 style="color: var(--success); margin: 0 0 6px;">🎯 Identificato con Successo!</h3>
+                        <p style="font-size: 1.1em; line-height: 1.4; color: #e2e8f0; margin: 0 0 12px;">${round.expl}</p>
+                        <button class="btn-ui btn-gold" onclick="nextDetectiveRound()">Prossimo Caso ▶</button>
+                    </div>
+                `;
+            } else {
+                card.classList.add('wrong-pick');
+                playWrongSound();
+                showToast(`Non è l'intruso! ${choice.desc}. Continua ad analizzare!`, 'wrong');
+            }
+        }
+
+        function nextDetectiveRound() {
+            const rounds = currentDifficulty === 'media' ? DETECTIVE_ROUNDS_MEDIA : DETECTIVE_ROUNDS_JUNIOR;
+            detectiveCurrentIndex++;
+            if (detectiveCurrentIndex < rounds.length) {
+                renderDetectiveRound();
+            } else {
+                advanceAdventureOrVictory('Detective dello Spazio');
+            }
+        }
+
+        /* =========================================================================
+           12. MINIGAME: IL GRANDE QUIZ (JUNIOR VS SCUOLA MEDIA)
+        ========================================================================== */
+        const QUIZ_QUESTIONS_JUNIOR = [
+            {
+                q: "Qual è il pianeta più caldo dell'intero Sistema Solare?",
+                opts: ["Mercurio (il più vicino)", "Venere (effetto serra estremo)", "Marte (il pianeta rosso)", "Giove (il gigante)"],
+                ans: 1,
+                expl: "Anche se Mercurio è più vicino, l'atmosfera spessa di anidride carbonica di Venere intrappola il calore creando un inferno a oltre 460°C!"
+            },
+            {
+                q: "Cosa alimenta la luce e l'energia inesauribile del Sole?",
+                opts: ["Un fuoco di legna e carbone", "Eruzioni di lava continua", "Fusione nucleare di Idrogeno in Elio", "Fulmini galattici"],
+                ans: 2,
+                expl: "Nel cuore del Sole la gravità fonde atomi di idrogeno per formare elio, liberando luce ed energia che viaggiano fino a noi sulla Terra!"
+            },
+            {
+                q: "Qual è la caratteristica più bizzarra del pianeta Urano?",
+                opts: ["Rotola letteralmente su un fianco!", "Ha mari di cioccolato", "Gira 100 volte più veloce degli altri", "È fatto interamente d'oro"],
+                ans: 0,
+                expl: "Il suo asse di rotazione è inclinato di quasi 98 gradi! Si pensa sia stato colpito da un enorme protopianeta miliardi di anni fa."
+            },
+            {
+                q: "Vero o Falso: La Grande Macchia Rossa di Giove è una tempesta grande quanto la Terra!",
+                opts: ["Vero: è un uragano mostruoso che dura da secoli!", "Falso: è solo un lago di lava"],
+                ans: 0,
+                expl: "Vero! È un ciclone colossale che infuria da oltre 350 anni e potrebbe inghiottire l'intero nostro pianeta!"
+            },
+            {
+                q: "Cosa si trova esattamente al centro della nostra galassia, la Via Lattea?",
+                opts: ["Un enorme Buco Nero (Sagittarius A*)", "Una sola cometa solitaria", "Una gigantesca astronave aliena", "Il vuoto assoluto"],
+                ans: 0,
+                expl: "Al centro della Via Lattea si trova Sagittarius A*, un buco nero con una massa pari a oltre 4 milioni di Soli!"
+            },
+            {
+                q: "Quale pianeta possiede le due piccole lune chiamate Phobos e Deimos?",
+                opts: ["Giove", "Marte (il Pianeta Rosso)", "Saturno", "Mercurio"],
+                ans: 1,
+                expl: "Marte possiede solo due piccole lune, Phobos e Deimos, che assomigliano a patate cosmiche e sono probabilmente asteroidi catturati dalla sua gravità!"
+            },
+            {
+                q: "Qual è la luna più grande dell'intero Sistema Solare, persino più grande del pianeta Mercurio?",
+                opts: ["La nostra Luna", "Titano", "Ganimede (luna di Giove)", "Europa"],
+                ans: 2,
+                expl: "Ganimede, che orbita attorno a Giove, ha un diametro di 5.268 km ed è la luna più grande di tutte, superando persino il pianeta Mercurio!"
+            },
+            {
+                q: "Su quale affascinante luna di Giove gli astronomi pensano ci sia un gigantesco oceano di acqua liquida sotto il ghiaccio?",
+                opts: ["Europa", "La Luna", "Io", "Phobos"],
+                ans: 0,
+                expl: "Europa è ricoperta da una crosta di ghiaccio che nasconde un oceano globale profondo fino a 100 km, con il doppio dell'acqua di tutti gli oceani della Terra uniti!"
+            },
+            {
+                q: "Quale luna di Saturno è famosa per i suoi laghi e fiumi di metano liquido e una densa atmosfera arancione?",
+                opts: ["Titano", "Tritone", "Callisto", "Deimos"],
+                ans: 0,
+                expl: "Titano è l'unica luna del Sistema Solare con un'atmosfera densa e fiumi, piogge e mari liquidi, non di acqua ma di metano ed etano!"
+            },
+            {
+                q: "Perché la luna Io di Giove è considerata il luogo con più vulcani attivi di tutto il Sistema Solare?",
+                opts: [
+                    "Perché è vicina al Sole",
+                    "Perché la gravità mostruosa di Giove la schiaccia e riscalda continuamente come una spugna",
+                    "Perché è fatta di fuoco puro",
+                    "Perché si trova all'interno di una cometa"
+                ],
+                ans: 1,
+                expl: "L'immensa gravità di Giove e delle lune vicine stira e deforma Io continuamente, generando un calore interno eccezionale che alimenta oltre 400 vulcani attivi di zolfo!"
+            },
+            {
+                q: "Quale luna di Nettuno ha la caratteristica unica di orbitare al contrario (in senso retrogrado) rispetto alla rotazione del suo pianeta?",
+                opts: ["Tritone", "La Luna", "Encelado", "Titania"],
+                ans: 0,
+                expl: "Tritone orbita al contrario attorno a Nettuno! Questo dimostra che non è nata lì, ma era un pianeta nano della Fascia di Kuiper catturato in trappola dalla gravità del gigante blu!"
+            }
+        ];
+
+        const QUIZ_QUESTIONS_MEDIA = [
+            {
+                q: "Cosa provoca il fenomeno delle MAREE sulla Terra?",
+                opts: [
+                    "L'attrazione gravitazionale combinata di Luna e Sole sulle masse d'acqua",
+                    "Il vento che spira sulle onde degli oceani",
+                    "Il calore interno della Terra che fa bollire i fondali",
+                    "I moti di rotazione delle placche tettoniche sottomarine"
+                ],
+                ans: 0,
+                expl: "La forza di gravità differenziale esercitata dalla Luna (e in misura minore dal Sole) stira la massa d'acqua oceanica, creando due alte maree e due basse maree ogni 24h e 50m."
+            },
+            {
+                q: "In quale condizione si verifica un'ECLISSI SOLARE?",
+                opts: [
+                    "La Terra si trova esattamente tra il Sole e la Luna",
+                    "La Luna si trova esattamente tra il Sole e la Terra, proiettando la sua ombra sulla superficie terrestre",
+                    "Il Sole si trova tra la Terra e la Luna",
+                    "I poli magnetici della Terra si invertono oscurando il cielo"
+                ],
+                ans: 1,
+                expl: "Nell'eclissi solare, durante la Luna Nuova, la Luna si allinea perfettamente tra il Sole e la Terra, oscurando il disco solare con la sua ombra (cono d'ombra)."
+            },
+            {
+                q: "Perché durante l'inverno nell'emisfero boreale fa più freddo rispetto all'estate?",
+                opts: [
+                    "Perché la Terra è più lontana dal Sole rispetto all'estate",
+                    "Perché l'inclinazione dell'asse terrestre fa arrivare i raggi solari con un angolo più obliquo, distribuendo l'energia su un'area maggiore",
+                    "Perché il Sole brucia con minore intensità nei mesi invernali",
+                    "Perché la Luna blocca parzialmente la radiazione infrarossa"
+                ],
+                ans: 1,
+                expl: "L'inclinazione di 23.5° dell'asse terrestre determina l'angolo di incidenza dei raggi solari: d'inverno i raggi colpiscono il terreno in modo obliquo e per meno ore al giorno. Infatti, la Terra è in perielio (più vicina al Sole) proprio a gennaio!"
+            },
+            {
+                q: "Qual è il destino finale del nostro SOLE al termine del suo ciclo vitale?",
+                opts: [
+                    "Esploderà come Supernova distruggendo l'intera galassia",
+                    "Collasserà direttamente in un Buco Nero Supermassiccio",
+                    "Si espanderà in Gigante Rossa, espellerà una Nebulosa Planetaria e lascerà al centro una Nana Bianca",
+                    "Continuerà a bruciare per sempre senza cambiare dimensione"
+                ],
+                ans: 2,
+                expl: "Stelle di massa media come il Sole non hanno massa sufficiente per esplodere in supernova. Tra circa 5 miliardi di anni si espanderà in gigante rossa, poi disperderà gli strati esterni lasciando una densissima nana bianca di carbonio e ossigeno."
+            },
+            {
+                q: "Cosa definisce l'ORIZZONTE DEGLI EVENTI di un buco nero?",
+                opts: [
+                    "La superficie di fuoco visibile dall'esterno con telescopi ottici",
+                    "Il confine oltre il quale la velocità di fuga supera la velocità della luce (c = 300.000 km/s), rendendo impossibile la fuga di qualsiasi cosa",
+                    "L'anello di asteroidi che orbita attorno al buco nero",
+                    "Il punto esatto in cui il tempo scorre dieci volte più velocemente"
+                ],
+                ans: 1,
+                expl: "L'orizzonte degli eventi è il confine di non ritorno teorizzato dalla relatività generale: all'interno di questo raggio (raggio di Schwarzschild), neppure i fotoni di luce possono sfuggire alla forza di gravità."
+            },
+            {
+                q: "Quale fenomeno astrofisico è responsabile dell'attività vulcanica estrema su Io e dell'oceano subglaciale su Europa ed Encelado?",
+                opts: [
+                    "L'attrito atmosferico causato da venti solari ad altissima quota",
+                    "Il decadimento radioattivo rapido concentrato nei composti superficiali",
+                    "Il riscaldamento mareale generato dalle forze di marea gravitazionali variabili (risonanza orbitale di Laplace)",
+                    "Una reazione esotermica continua tra ammoniaca e metano liquido"
+                ],
+                ans: 2,
+                expl: "La risonanza orbitale mantiene le orbite eccentriche: l'immensa attrazione di gravità del pianeta gigante varia lungo l'orbita, flettendo e massaggiando continuamente l'interno del satellite che si riscalda per attrito viscoso (tidal dissipation)."
+            },
+            {
+                q: "Cosa rende Ganimede (luna di Giove) assolutamente unica tra tutti i satelliti naturali del Sistema Solare?",
+                opts: [
+                    "È l'unico satellite a possedere un campo magnetico proprio (magnetosfera) generato da una dinamo liquida interna",
+                    "È l'unica luna priva di nucleo roccioso-metallico",
+                    "Orbita a una velocità superiore a quella di fuga dal Sole",
+                    "È composta al 99% da diamanti e grafite compressa"
+                ],
+                ans: 0,
+                expl: "Ganimede possiede un nucleo metallico di ferro fuso che genera per effetto dinamo un campo magnetico proprio, l'unico noto per un satellite naturale, in grado di interagire e connettersi con la magnetosfera di Giove."
+            },
+            {
+                q: "Quale straordinaria evidenza ha riscontrato la sonda Cassini sorvolando le fratture «Tiger Stripes» al polo sud di Encelado?",
+                opts: [
+                    "Colate laviche basaltiche a temperatura superiore a 1000 °C",
+                    "Geyser criovulcanici che proiettano nello spazio vapore acqueo, granuli di ghiaccio, sali minerali e composti organici provenienti da un oceano globale",
+                    "Canyon scavati da fiumi di azoto liquido allo stato puro",
+                    "Un'atmosfera densa ricca di ossigeno molecolare al 70%"
+                ],
+                ans: 1,
+                expl: "La sonda Cassini ha attraversato i pennacchi di Encelado rilevando vapore d'acqua, silice e molecole organiche provenienti da sorgenti idrotermali attive sul fondale del suo oceano globale sotterraneo, confermandolo come target primario per la ricerca di vita extraterrestre!"
+            },
+            {
+                q: "Quale dinamica orbitale peculiare caratterizza la luna Tritone attorno al gigante Nettuno?",
+                opts: [
+                    "Un'orbita caotica e instabile con periodo variabile di settimana in settimana",
+                    "Un'orbita retrograda (inclinata di oltre 157°), tipica dei corpi catturati dalla Fascia di Kuiper, destinata a decadere verso il limite di Roche",
+                    "Un'orbita geostazionaria perfetta che non varia mai di un millimetro",
+                    "Un moto di allontanamento accelerato che la proietterà fuori dal Sistema Solare"
+                ],
+                ans: 1,
+                expl: "Tritone è l'unico grande satellite del Sistema Solare con moto retrogrado. Le forze di marea frenano la sua orbita: tra circa 3,6 miliardi di anni varcherà il limite di Roche di Nettuno venendo smembrata in un immenso e scintillante sistema di anelli planetari!"
+            },
+            {
+                q: "Per quale motivo il sistema Plutone-Caronte viene classificato dalla comunità scientifica come «sistema planetario doppio»?",
+                opts: [
+                    "Perché entrambi i corpi celesti hanno esattamente la medesima circonferenza equatoriale",
+                    "Perché il baricentro (centro di massa comune) si trova nello spazio aperto all'esterno della superficie di Plutone, con rotazione sincrona bidirezionale",
+                    "Perché condividono la medesima coltre atmosferica senza interruzioni",
+                    "Perché si scambiano continuamente le orbite ogni 248 anni terrestri"
+                ],
+                ans: 1,
+                expl: "Caronte ha un diametro pari a più della metà di Plutone: il centro di massa comune cade a circa 960 km sopra la superficie di Plutone. Entrambi orbitano attorno a questo punto vuoto mostrandosi sempre la medesima faccia (blocco mareale reciproco)."
+            },
+            {
+                q: "Quale storica sonda spaziale della NASA ha fotografato per la prima volta da vicino i satelliti maggiori di Urano (tra cui Titania e Oberon) nel 1986?",
+                opts: ["Voyager 2", "Pioneer 10", "Cassini-Huygens", "New Horizons"],
+                ans: 0,
+                expl: "La sonda Voyager 2 è l'unico veicolo spaziale ad aver visitato Urano e le sue lune nel gennaio 1986, scoprendo l'immenso canyon Messina Chasma su Titania e scarpate alte chilometri prima di fare rotta verso Nettuno."
+            },
+            {
+                q: "Cosa ha scoperto il modulo europeo Huygens atterrando sulla superficie della misteriosa luna Titano nel 2005?",
+                opts: [
+                    "Crateri da impatto identici a quelli della Luna senza alcuna atmosfera",
+                    "Una pianura alluvionale con ciottoli levigati di ghiaccio d'acqua e canali fluviali modellati da metano ed etano liquido",
+                    "Un oceano di magma vulcanico incandescente a cielo aperto",
+                    "Una crosta di carbonio puro diamantato priva di sedimenti"
+                ],
+                ans: 1,
+                expl: "Huygens ha svelato un mondo incredibilmente simile alla Terra ma a -180 °C: rocce formate da ghiaccio d'acqua durissimo, piogge e fiumi di metano liquido che sfociano in enormi mari di idrocarburi!"
+            }
+        ];
+
+        let quizCurrentIndex = 0;
+
+        function setupQuizGame() {
+            const isMedia = currentDifficulty === 'media';
+            document.getElementById('arena-icon').innerText = '❓';
+            document.getElementById('arena-name').innerText = isMedia ? 'Esame Scientifico di Astronomia (Scuola Media)' : 'Il Grande Quiz delle Curiosità';
+            quizCurrentIndex = 0;
+            renderQuizQuestion();
+        }
+
+        function renderQuizQuestion() {
+            const questions = currentDifficulty === 'media' ? QUIZ_QUESTIONS_MEDIA : QUIZ_QUESTIONS_JUNIOR;
+            const item = questions[quizCurrentIndex];
+            document.getElementById('instruction-text').innerText = `Quesito ${quizCurrentIndex + 1} di ${questions.length}`;
+
+            const container = document.getElementById('game-stage');
+            let html = `
+                <div class="quiz-board">
+                    <div class="quiz-question-text">${item.q}</div>
+                    <div class="quiz-options-grid">
+                        ${item.opts.map((opt, idx) => `
+                            <button class="quiz-btn" id="q-btn-${idx}" onclick="checkQuizAnswer(${idx})">
+                                <span style="font-size:1.3em;">🚀</span>
+                                <span>${opt}</span>
+                            </button>
+                        `).join('')}
+                    </div>
+                    <div id="quiz-expl-box" style="margin-top: 18px;"></div>
+                </div>
+            `;
+            container.innerHTML = html;
+        }
+
+        function checkQuizAnswer(idx) {
+            const questions = currentDifficulty === 'media' ? QUIZ_QUESTIONS_MEDIA : QUIZ_QUESTIONS_JUNIOR;
+            const item = questions[quizCurrentIndex];
+            const btn = document.getElementById(`q-btn-${idx}`);
+            const allBtns = document.querySelectorAll('.quiz-btn');
+            allBtns.forEach(b => b.style.pointerEvents = 'none');
+
+            if (idx === item.ans) {
+                btn.classList.add('correct');
+                playSuccessSound();
+                addStar(2);
+                showQuizExpl(true, item.expl);
+            } else {
+                btn.classList.add('wrong');
+                document.getElementById(`q-btn-${item.ans}`).classList.add('correct');
+                playWrongSound();
+                showQuizExpl(false, item.expl);
+            }
+        }
+
+        function showQuizExpl(isCorrect, expl) {
+            document.getElementById('quiz-expl-box').innerHTML = `
+                <div style="background: rgba(0,0,0,0.4); border-left: 5px solid ${isCorrect ? 'var(--success)' : 'var(--danger)'}; padding: 16px; border-radius: 8px;">
+                    <h3 style="color: ${isCorrect ? 'var(--success)' : 'var(--danger)'}; margin: 0 0 6px;">
+                        ${isCorrect ? '✨ Risposta Corretta!' : '💡 Analisi Scientifica del Quesito:'}
+                    </h3>
+                    <p style="font-size: 1.1em; line-height: 1.45; color: #f1f5f9; margin: 0 0 12px;">${expl}</p>
+                    <button class="btn-ui btn-gold" onclick="nextQuizQuestion()">Continua ▶</button>
+                </div>
+            `;
+        }
+
+        function nextQuizQuestion() {
+            const questions = currentDifficulty === 'media' ? QUIZ_QUESTIONS_MEDIA : QUIZ_QUESTIONS_JUNIOR;
+            quizCurrentIndex++;
+            if (quizCurrentIndex < questions.length) {
+                renderQuizQuestion();
+            } else {
+                advanceAdventureOrVictory('Esame di Astronomia');
+            }
+        }
+
+        /* =========================================================================
+           13. HINTS
+        ========================================================================== */
+        function giveHint() {
+            const isMedia = currentDifficulty === 'media';
+            if (currentGameMode === 'orbits') {
+                showToast(isMedia ? "💡 Unità Astronomiche: Mercurio 0.39 UA, Venere 0.72 UA, Terra 1.0 UA, Marte 1.52 UA, Giove 5.2 UA, Saturno 9.5 UA, Urano 19.2 UA, Nettuno 30 UA!" : "💡 Mercurio è 1°, poi Venere, Terra, Marte, Giove, Saturno, Urano, Nettuno!");
+            } else if (currentGameMode === 'moons') {
+                showToast(isMedia ? "💡 Titano ed Encelado orbitano attorno a Saturno; Io, Europa e Ganimede attorno a Giove; Phobos e Deimos attorno a Marte!" : "💡 La Luna è della Terra, Phobos di Marte, Europa di Giove, Titano di Saturno!");
+            } else if (currentGameMode === 'gravity') {
+                showToast("💡 La gravità dipende dalla massa e dal raggio: Mercurio/Marte (circa 3.7 m/s²) < Venere/Urano (8.7-8.9 m/s²) < Terra (9.81 m/s²) < Saturno (10.4 m/s²) < Giove (24.8 m/s²)!");
+            } else if (currentGameMode === 'missions') {
+                showToast("💡 Le Voyager viaggiano nello spazio interstellare, Cassini ha esplorato Saturno, JWST è al punto L2, e Rosetta ha studiato la cometa 67P!");
+            } else if (currentGameMode === 'sorter') {
+                showToast("💡 Rocciosi/Densi: Mercurio, Venere, Terra, Marte. Gassosi/Bassa Densità: Giove, Saturno, Urano, Nettuno!");
+            } else if (currentGameMode === 'detective') {
+                showToast("💡 Analizza bene: è una caratteristica del moto di rotazione/rivoluzione, o un valore di densità relativo all'acqua?");
+            } else if (currentGameMode === 'quiz') {
+                showToast("💡 Ricorda i programmi di scienze: eclissi con la Luna tra Sole e Terra, maree dovute all'attrazione gravitazionale, e le stagioni legate all'inclinazione dell'asse!");
+            }
+        }
+
+        // Init on startup
+        setDifficulty(currentDifficulty);
+    </script>
+</body>
+</html>
