@@ -843,6 +843,150 @@
             }
         }
 
+        /* --- MODALITÀ VOLO LIBERO E SGUARDO PULITO --- */
+        body.is-flying #time-controls,
+        body.is-flying .nav-panel,
+        body.clean-flight-mode #time-controls,
+        body.clean-flight-mode .nav-panel,
+        body.clean-flight-mode #btn-quiz-cta,
+        body.clean-flight-mode .info-panel {
+            opacity: 0 !important;
+            pointer-events: none !important;
+            transition: opacity 0.25s ease;
+        }
+
+        /* --- OTTIMIZZAZIONE SPECIFICA PER SMARTPHONE IN LANDSCAPE (ORIZZONTALE) --- */
+        @media (orientation: landscape) and (max-height: 550px), (max-height: 480px) {
+            .cockpit-frame {
+                border-width: 0 !important;
+            }
+            #nav-menu-toggle {
+                display: flex !important;
+                position: fixed !important;
+                top: 8px !important;
+                left: 8px !important;
+                padding: 5px 11px !important;
+                font-size: 11px !important;
+                border-radius: 14px !important;
+                z-index: 2100 !important;
+            }
+            #btn-quiz-cta {
+                display: flex !important;
+                position: fixed !important;
+                top: 8px !important;
+                right: 8px !important;
+                left: auto !important;
+                padding: 5px 11px !important;
+                font-size: 11px !important;
+                border-radius: 14px !important;
+                z-index: 2100 !important;
+            }
+            .hud-header {
+                position: fixed !important;
+                top: 8px !important;
+                left: 50% !important;
+                transform: translateX(-50%) !important;
+                width: auto !important;
+                max-width: calc(100vw - 220px) !important;
+                font-size: 9.5px !important;
+                padding: 3px 10px !important;
+                gap: 6px !important;
+                border-radius: 14px !important;
+                flex-wrap: nowrap !important;
+                justify-content: center !important;
+                background: rgba(15, 23, 42, 0.75) !important;
+                z-index: 100 !important;
+            }
+            .hud-header .speed-control-group,
+            .hud-header .hud-sep:nth-of-type(1) {
+                display: none !important;
+            }
+            .hud-header .hud-btn {
+                padding: 2px 6px !important;
+                font-size: 9px !important;
+            }
+            #btn-touch-thrust {
+                position: fixed !important;
+                bottom: 12px !important;
+                right: 12px !important;
+                left: auto !important;
+                transform: none !important;
+                padding: 12px 22px !important;
+                font-size: 12px !important;
+                font-weight: 800 !important;
+                border-radius: 30px !important;
+                box-shadow: 0 0 20px rgba(255, 69, 0, 0.7) !important;
+                z-index: 2200 !important;
+            }
+            #time-controls {
+                position: fixed !important;
+                bottom: 8px !important;
+                left: 8px !important;
+                transform: none !important;
+                width: auto !important;
+                max-width: 320px !important;
+                padding: 4px 8px !important;
+                gap: 5px !important;
+                border-radius: 10px !important;
+                background: rgba(15, 23, 42, 0.7) !important;
+                z-index: 100 !important;
+            }
+            #time-controls .time-speed-wrap {
+                width: 70px !important;
+            }
+            #time-controls input[type="date"] {
+                font-size: 9px !important;
+                padding: 2px 3px !important;
+                max-width: 90px !important;
+            }
+            /* Info panel laterale a destra per liberare la navigazione 3D */
+            .info-panel {
+                position: fixed !important;
+                top: 8px !important;
+                bottom: 8px !important;
+                right: 8px !important;
+                left: auto !important;
+                transform: none !important;
+                width: 310px !important;
+                max-width: 42vw !important;
+                max-height: calc(100vh - 16px) !important;
+                border-radius: 14px !important;
+                padding: 12px 14px !important;
+                background: rgba(15, 23, 42, 0.94) !important;
+                border: 1px solid rgba(0, 240, 255, 0.45) !important;
+                box-shadow: -5px 0 30px rgba(0, 0, 0, 0.95) !important;
+                z-index: 2300 !important;
+            }
+            .info-panel img {
+                max-height: 95px !important;
+            }
+            .info-panel h2 {
+                font-size: 16px !important;
+            }
+            .info-panel p {
+                font-size: 11.5px !important;
+                line-height: 1.45 !important;
+                margin-bottom: 8px !important;
+            }
+            .info-panel .specs-table {
+                font-size: 11px !important;
+            }
+            .btn-audio-guide-cta {
+                padding: 6px 10px !important;
+                font-size: 11.5px !important;
+                margin: 5px 0 8px 0 !important;
+            }
+            .nav-panel {
+                position: fixed !important;
+                top: 0 !important;
+                bottom: 0 !important;
+                left: 0 !important;
+                width: 250px !important;
+                max-width: 50vw !important;
+                padding: 42px 10px 14px 10px !important;
+            }
+        }
+
     </style>
     <!-- Three.js + OrbitControls -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -893,6 +1037,7 @@
             </div>
             <div class="hud-sep">|</div>
             <button id="btn-audio-mute" class="hud-btn active" onclick="toggleAudioGuideMute()" title="Attiva/Disattiva voce guida automatica">🔊 Audio: ON</button>
+            <button id="btn-cockpit-clean" class="hud-btn" onclick="toggleCleanFlightMode()" title="Libera la visuale per navigare e volare senza finestre">👁️ Vista Volo</button>
             <button id="btn-gyro" class="hud-btn" onclick="toggleGyro()" title="Attiva navigazione con giroscopio dello smartphone">🧭 Giroscopio: OFF</button>
             <button id="btn-recal" class="hud-btn" onclick="recalibrateGyro()" style="display:none;" title="Azzera la posizione neutra">🎯 Centra</button>
         </div>
@@ -1360,12 +1505,22 @@
                 isThrusting = true;
                 thrustBtn.classList.add('pressed');
                 startThrusterSound();
+                
+                // Durante l'accelerazione attiva la modalità di volo pulito: nasconde le finestre d'ingombro
+                document.body.classList.add('is-flying');
+                const panel = document.getElementById('info-panel');
+                if (panel && panel.style.opacity === '1') {
+                    closeInfoPanel();
+                }
+                const nav = document.querySelector('.nav-panel');
+                if (nav) nav.classList.remove('open');
             };
             const stopThrust = (e) => {
                 e.preventDefault();
                 isThrusting = false;
                 thrustBtn.classList.remove('pressed');
                 stopThrusterSound();
+                document.body.classList.remove('is-flying');
             };
 
             thrustBtn.addEventListener('mousedown', startThrust);
@@ -1375,6 +1530,21 @@
             thrustBtn.addEventListener('touchstart', startThrust, { passive: false });
             thrustBtn.addEventListener('touchend', stopThrust, { passive: false });
             thrustBtn.addEventListener('touchcancel', stopThrust, { passive: false });
+        }
+
+        function toggleCleanFlightMode() {
+            document.body.classList.toggle('clean-flight-mode');
+            const btn = document.getElementById('btn-cockpit-clean');
+            if (btn) {
+                if (document.body.classList.contains('clean-flight-mode')) {
+                    btn.innerText = '🛰️ Vista Completa';
+                    btn.classList.add('active');
+                    closeInfoPanel();
+                } else {
+                    btn.innerText = '👁️ Vista Volo';
+                    btn.classList.remove('active');
+                }
+            }
         }
 
         // Configurazione velocità e comandi di navigazione
