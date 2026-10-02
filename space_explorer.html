@@ -637,6 +637,56 @@
             color: #020617;
         }
 
+        /* --- PULSANTE AUDIO GUIDA NARRATA CTA --- */
+        .btn-audio-guide-cta {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 9px 12px;
+            margin: 8px 0 12px 0;
+            background: linear-gradient(135deg, rgba(0, 240, 255, 0.22), rgba(14, 165, 233, 0.38));
+            border: 1px solid #00f0ff;
+            border-radius: 10px;
+            color: #ffffff;
+            font-size: 12.5px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            box-shadow: 0 0 14px rgba(0, 240, 255, 0.3);
+            transition: all 0.2s ease;
+        }
+        .btn-audio-guide-cta:active {
+            transform: scale(0.97);
+        }
+        .btn-audio-guide-cta.speaking {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.4), rgba(220, 38, 38, 0.6));
+            border-color: #ef4444;
+            box-shadow: 0 0 18px rgba(239, 68, 68, 0.6);
+            animation: pulse-audio 1.4s infinite alternate;
+        }
+        @keyframes pulse-audio {
+            0% { box-shadow: 0 0 8px rgba(239, 68, 68, 0.4); }
+            100% { box-shadow: 0 0 20px rgba(239, 68, 68, 0.85); }
+        }
+
+        /* ANTI-SOVRAPPOSIZIONE: quando la scheda è aperta, nascondi i comandi di navigazione */
+        body.info-panel-open #btn-touch-thrust,
+        body.info-panel-open #time-controls {
+            display: none !important;
+        }
+
+        /* MODALITÀ RIDOTTA DELLA SCHEDA PER AMMIRARE IL PIANETA */
+        .info-panel.minimized {
+            max-height: 82px !important;
+            overflow: hidden !important;
+            padding-bottom: 6px !important;
+        }
+        .info-panel.minimized .info-panel-collapsible {
+            display: none !important;
+        }
+
         /* --- OTTIMIZZAZIONE PER SMARTPHONE & DISPLAY TOUCH --- */
         @media (max-width: 768px) {
             #nav-menu-toggle {
@@ -644,41 +694,51 @@
                 align-items: center;
                 gap: 5px;
                 position: fixed;
-                top: 12px;
-                left: 12px;
-                padding: 7px 12px;
-                font-size: 11px;
-                border-radius: 12px;
+                top: 10px;
+                left: 10px;
+                padding: 7px 13px;
+                font-size: 11.5px;
+                font-weight: bold;
+                border-radius: 16px;
+                background: rgba(15, 23, 42, 0.9);
+                border: 1px solid #00f0ff;
+                box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
                 z-index: 2100;
             }
             #btn-quiz-cta {
                 position: fixed;
-                top: 12px;
-                left: 95px;
+                top: 10px;
+                right: 10px;
+                left: auto;
                 padding: 7px 13px;
-                font-size: 11px;
-                border-radius: 20px;
+                font-size: 11.5px;
+                border-radius: 16px;
                 z-index: 2100;
             }
             .hud-header {
                 position: fixed;
-                top: 50px;
+                top: 48px;
                 left: 50%;
                 transform: translateX(-50%);
                 width: calc(100vw - 20px);
-                max-width: 430px;
+                max-width: 410px;
                 font-size: 10px;
-                padding: 5px 8px;
-                gap: 6px 8px;
-                border-radius: 12px;
-                flex-wrap: wrap;
-                justify-content: center;
+                padding: 4px 10px;
+                gap: 6px;
+                border-radius: 14px;
+                flex-wrap: nowrap;
+                justify-content: space-between;
                 z-index: 100;
             }
+            /* Su mobile nascondiamo i bottoni ridondanti di velocità dalla top bar (sono comodi nel menu Rotte) */
+            .hud-header .speed-control-group,
+            .hud-header .hud-sep:nth-of-type(1) {
+                display: none !important;
+            }
             .hud-header .hud-btn {
-                padding: 3px 7px;
-                font-size: 9.5px;
-                border-radius: 10px;
+                padding: 3px 6px;
+                font-size: 9px;
+                border-radius: 8px;
             }
             .nav-hint-bar {
                 display: none;
@@ -689,8 +749,8 @@
                 bottom: 0;
                 left: 0;
                 transform: translateX(-100%);
-                width: 270px;
-                max-width: 82vw;
+                width: 275px;
+                max-width: 84vw;
                 max-height: 100vh;
                 height: 100vh;
                 border-radius: 0 16px 16px 0;
@@ -703,9 +763,9 @@
                 transform: translateX(0);
             }
             .nav-panel .nav-item {
-                padding: 10px 12px;
-                font-size: 12.5px;
-                margin-bottom: 5px;
+                padding: 9px 12px;
+                font-size: 12px;
+                margin-bottom: 4px;
                 border-radius: 8px;
             }
             .info-panel {
@@ -717,17 +777,19 @@
                 transform: translateY(0);
                 width: 100vw;
                 max-width: 100vw;
-                max-height: 68vh;
+                max-height: 58vh;
                 border-radius: 20px 20px 0 0;
                 border-left: none;
                 border-right: none;
                 border-bottom: none;
-                padding: 16px 16px 24px 16px;
+                padding: 14px 14px 24px 14px;
                 box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.95);
                 z-index: 2300;
+                -webkit-overflow-scrolling: touch;
             }
             .info-panel img {
-                height: 140px;
+                max-height: 120px;
+                object-fit: cover;
             }
             #btn-touch-thrust {
                 position: fixed;
@@ -807,10 +869,10 @@
             </div>
         </div>
     </div>
-    <button id="nav-menu-toggle" onclick="toggleNavMenu()">📋 Rotte</button>
+    <button id="nav-menu-toggle" onclick="toggleNavMenu()">🪐 Esplora Corpi</button>
     <button id="btn-touch-thrust" title="Tieni premuto per accelerare nello spazio">🚀 Accelera</button>
 
-    <a href="quiz.html" id="btn-quiz-cta">🏆 Sfida Quiz & Giochi</a>
+    <a href="quiz.html" id="btn-quiz-cta">🏆 Quiz & Giochi</a>
 
     <div class="cockpit-frame">
         <div class="crosshair">
@@ -822,15 +884,15 @@
 
         <div class="hud-header">
             <div>DESTINAZIONE: <span id="target-label" class="target-value">SISTEMA SOLARE</span></div>
-            <div>|</div>
-            <div style="display:flex; align-items:center; gap:6px;">
+            <div class="hud-sep">|</div>
+            <div class="speed-control-group" style="display:flex; align-items:center; gap:6px;">
                 <span style="font-size:10px; color:#94a3b8; letter-spacing:0.5px;">VELOCITÀ:</span>
                 <button id="btn-spd-slow" class="hud-btn" onclick="setNavSpeed(0.25)" title="Manovra lenta e precisa (0.25x)">🐌 Lenta</button>
                 <button id="btn-spd-norm" class="hud-btn active" onclick="setNavSpeed(1.0)" title="Velocità normale di crociera (1x)">🚀 Normale</button>
                 <button id="btn-spd-fast" class="hud-btn" onclick="setNavSpeed(2.5)" title="Velocità sostenuta (2.5x)">⚡ Veloce</button>
             </div>
-            <div>|</div>
-            <button id="btn-audio-mute" class="hud-btn" onclick="toggleAudioGuideMute()" title="Attiva/Disattiva voce guida automatica">🔊 Audio: ON</button>
+            <div class="hud-sep">|</div>
+            <button id="btn-audio-mute" class="hud-btn active" onclick="toggleAudioGuideMute()" title="Attiva/Disattiva voce guida automatica">🔊 Audio: ON</button>
             <button id="btn-gyro" class="hud-btn" onclick="toggleGyro()" title="Attiva navigazione con giroscopio dello smartphone">🧭 Giroscopio: OFF</button>
             <button id="btn-recal" class="hud-btn" onclick="recalibrateGyro()" style="display:none;" title="Azzera la posizione neutra">🎯 Centra</button>
         </div>
@@ -840,8 +902,20 @@
 
         <div class="nav-panel">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                <span style="font-size: 11px; font-weight: 800; color: #00f0ff; letter-spacing: 1px; text-transform: uppercase;">📋 Rotte & Corpi</span>
-                <button onclick="toggleNavMenu()" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(0,240,255,0.3); color: #00f0ff; width: 26px; height: 26px; border-radius: 50%; font-size: 13px; cursor: pointer; display: flex; align-items: center; justify-content: center;" title="Chiudi menu">✕</button>
+                <span style="font-size: 11px; font-weight: 800; color: #00f0ff; letter-spacing: 1px; text-transform: uppercase;">🪐 Rotte & Corpi Celesti</span>
+                <button onclick="toggleNavMenu()" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(0,240,255,0.3); color: #00f0ff; width: 28px; height: 28px; border-radius: 50%; font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center;" title="Chiudi menu">✕</button>
+            </div>
+
+            <!-- CONTROLLI NAVE INTEGRATI (VELOCITÀ & GIROSCOPIO) -->
+            <div style="margin-bottom: 12px; padding: 10px; background: rgba(0, 240, 255, 0.08); border: 1px solid rgba(0, 240, 255, 0.25); border-radius: 8px;">
+                <div style="font-size: 10px; color: #94a3b8; margin-bottom: 6px; text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px;">⚡ Velocità Navigazione:</div>
+                <div style="display: flex; gap: 4px; margin-bottom: 8px;">
+                    <button class="nav-item" style="margin: 0; justify-content: center; text-align: center; padding: 5px;" onclick="setNavSpeed(0.25)">🐌 Lenta</button>
+                    <button class="nav-item active" style="margin: 0; justify-content: center; text-align: center; padding: 5px;" onclick="setNavSpeed(1.0)">🚀 Normale</button>
+                    <button class="nav-item" style="margin: 0; justify-content: center; text-align: center; padding: 5px;" onclick="setNavSpeed(2.5)">⚡ Veloce</button>
+                </div>
+                <div style="font-size: 10px; color: #94a3b8; margin-bottom: 6px; text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px;">🧭 Sensore Inclinazione Telefono:</div>
+                <button class="nav-item" onclick="toggleGyro()" style="margin: 0; justify-content: center; text-align: center; width: 100%;">🧭 Attiva/Disattiva Giroscopio</button>
             </div>
             <h4>Sistema Solare</h4>
             <button class="nav-item active" onclick="flyToTarget('system')">🌌 Vista Globale</button>
@@ -1820,7 +1894,6 @@
                 type: "Satellite Naturale della Terra",
                 isMoon: true, size: 0.27,
                 realPhoto: "textures/2k_moon.jpg",
-                localVideo: "textures/earth.gif",
                 colorHex: "#cbd5e1",
                 desc: "L'unico satellite naturale della Terra (a 384.400 km). Si trova in rotazione sincrona (ci mostra sempre la stessa faccia). La sua gravità (1.62 m/s², circa 1/6 della Terra: un ragazzo di 50 kg qui ne pesa solo 8.3!) genera le maree oceaniche combinandosi con l'attrazione del Sole, e causa le spettacolari eclissi solari e lunari.",
                 specs: { "Pianeta Madre": "Terra (Distanza: 384.400 km)", "Diametro": "3.474 km (1/4 della Terra)", "Accelerazione Gravità (g)": "1.62 m/s² (0.16 g, peso 50 kg = 8.3 kg!)", "Periodo Orbitale": "27.3 giorni (Rotazione Sincrona)", "Fenomeni Generati": "Maree oceaniche & Eclissi", "Missioni Storiche": "Programma Apollo (1969-1972), Artemis" },
@@ -2872,15 +2945,123 @@ function buildSolarSystem() {
             });
         }
         
-        function toggleAudio(text) {
-            if (!window.speechSynthesis) return;
-            if (window.speechSynthesis.speaking) {
-                window.speechSynthesis.cancel();
-            } else {
-                const u = new SpeechSynthesisUtterance(text);
-                u.lang = 'it-IT'; u.rate = 0.92;
-                window.speechSynthesis.speak(u);
+        // =========================================================================
+        // SISTEMA AUDIO GUIDA VOCALE ULTRA-COMPATIBILE MOBILE (iOS & Android)
+        // =========================================================================
+        let currentAudioGuideText = '';
+        let isAudioSpeaking = false;
+        window._activeSpeechUtterance = null;
+        let mobileAudioUnlocked = false;
+
+        // Sblocca lo stack audio di Safari/iOS e Web Audio al primissimo tocco utente
+        function unlockMobileAudioStack() {
+            if (mobileAudioUnlocked) return;
+            mobileAudioUnlocked = true;
+            initAudio();
+            if (window.speechSynthesis) {
+                try {
+                    const silent = new SpeechSynthesisUtterance(' ');
+                    silent.volume = 0.001;
+                    window.speechSynthesis.speak(silent);
+                } catch(e) {}
             }
+        }
+        ['touchstart', 'touchend', 'click', 'pointerdown'].forEach(evt => {
+            window.addEventListener(evt, unlockMobileAudioStack, { passive: true, once: false });
+        });
+
+        if (typeof window !== 'undefined' && window.speechSynthesis) {
+            window.speechSynthesis.onvoiceschanged = () => {
+                try { window.speechSynthesis.getVoices(); } catch(e){}
+            };
+        }
+
+        function stopAudioGuide() {
+            if (window.speechSynthesis) {
+                try {
+                    window.speechSynthesis.cancel();
+                } catch(e){}
+            }
+            isAudioSpeaking = false;
+            window._activeSpeechUtterance = null;
+            updateAudioGuideButtonsUI(false);
+        }
+
+        function toggleAudio(text) {
+            if (!text) text = currentAudioGuideText;
+            if (!text) return;
+            currentAudioGuideText = text;
+
+            if (!('speechSynthesis' in window)) {
+                alert("La sintesi vocale non è supportata dal tuo browser.");
+                return;
+            }
+
+            if (isAudioSpeaking || (window.speechSynthesis && window.speechSynthesis.speaking)) {
+                stopAudioGuide();
+                return;
+            }
+
+            playSpeechText(text);
+        }
+
+        function playSpeechText(text) {
+            if (!window.speechSynthesis || !text) return;
+
+            try {
+                window.speechSynthesis.cancel();
+                if (window.speechSynthesis.paused) window.speechSynthesis.resume();
+
+                const u = new SpeechSynthesisUtterance(text);
+                u.lang = 'it-IT';
+                u.rate = 0.95;
+                u.pitch = 1.0;
+
+                // Cerca voce italiana se disponibile
+                const voices = window.speechSynthesis.getVoices();
+                const itVoice = voices.find(v => v.lang === 'it-IT' || v.lang === 'it_IT' || (v.lang && v.lang.startsWith('it')));
+                if (itVoice) u.voice = itVoice;
+
+                // Conserva il riferimento globale per impedire la Garbage Collection su mobile
+                window._activeSpeechUtterance = u;
+
+                u.onstart = () => {
+                    isAudioSpeaking = true;
+                    updateAudioGuideButtonsUI(true);
+                };
+                u.onend = () => {
+                    isAudioSpeaking = false;
+                    window._activeSpeechUtterance = null;
+                    updateAudioGuideButtonsUI(false);
+                };
+                u.onerror = (e) => {
+                    console.warn("Speech synthesis notice:", e);
+                    isAudioSpeaking = false;
+                    window._activeSpeechUtterance = null;
+                    updateAudioGuideButtonsUI(false);
+                };
+
+                window.speechSynthesis.speak(u);
+                isAudioSpeaking = true;
+                updateAudioGuideButtonsUI(true);
+            } catch(err) {
+                console.error("Errore sintesi vocale:", err);
+                isAudioSpeaking = false;
+                updateAudioGuideButtonsUI(false);
+            }
+        }
+
+        function updateAudioGuideButtonsUI(speaking) {
+            const btns = document.querySelectorAll('.btn-audio-guide-cta');
+            btns.forEach(btn => {
+                if (speaking) {
+                    btn.innerHTML = '⏹️ FERMA VOCE GUIDA';
+                    btn.classList.add('speaking');
+                } else {
+                    btn.innerHTML = '🔊 ASCOLTA GUIDA VOCALE';
+                    btn.classList.remove('speaking');
+                }
+            });
         }
 
         function flyToTarget(key) {
@@ -2967,9 +3148,21 @@ function buildSolarSystem() {
             updateInfoPanel(data);
         }
 
+        function toggleInfoPanelMinimize() {
+            const panel = document.getElementById('info-panel');
+            if (panel) {
+                panel.classList.toggle('minimized');
+            }
+        }
+
         function updateInfoPanel(data) {
             const panel = document.getElementById('info-panel');
+            if (!panel) return;
             
+            // Ferma eventuale audio guida precedente
+            stopAudioGuide();
+            currentAudioGuideText = data.audioGuide || '';
+
             let specsHtml = '';
             if (data.specs) {
                 specsHtml = Object.entries(data.specs)
@@ -2987,22 +3180,22 @@ function buildSolarSystem() {
 
             let mediaHtml = '';
             if (photoSrc) {
-                mediaHtml += `<div class="photo-container" style="margin: 12px 0 8px 0; border: 1px solid rgba(0, 240, 255, 0.4); border-radius: 8px; overflow: hidden; background: #000;">
+                mediaHtml += `<div class="photo-container" style="margin: 10px 0 8px 0; border: 1px solid rgba(0, 240, 255, 0.4); border-radius: 8px; overflow: hidden; background: #000;">
                     <div style="font-size: 10px; color: #00f0ff; padding: 3px 8px; background: rgba(0,240,255,0.15); border-bottom: 1px solid rgba(0,240,255,0.2); text-transform: uppercase; letter-spacing: 0.5px;">📷 Foto Reale NASA / Sonda</div>
-                    <img src="${photoSrc}" alt="${data.name}" style="width: 100%; max-height: 200px; object-fit: cover; display: block;">
+                    <img src="${photoSrc}" alt="${data.name}" style="width: 100%; max-height: 140px; object-fit: cover; display: block;">
                 </div>`;
             }
             if (data.localVideo) {
-                mediaHtml += `<div class="photo-container" style="margin: 8px 0 12px 0; border: 1px solid rgba(0, 240, 255, 0.4); border-radius: 8px; overflow: hidden; background: #000;">
+                mediaHtml += `<div class="photo-container" style="margin: 8px 0 10px 0; border: 1px solid rgba(0, 240, 255, 0.4); border-radius: 8px; overflow: hidden; background: #000;">
                     <div style="font-size: 10px; color: #38bdf8; padding: 3px 8px; background: rgba(56,189,248,0.15); border-bottom: 1px solid rgba(56,189,248,0.2); text-transform: uppercase; letter-spacing: 0.5px;">🎬 Animazione Dinamica / Orbita</div>
-                    <img src="${data.localVideo}" alt="${data.name} Animazione" style="width: 100%; max-height: 180px; object-fit: cover; display: block;">
+                    <img src="${data.localVideo}" alt="${data.name} Animazione" style="width: 100%; max-height: 140px; object-fit: cover; display: block;">
                 </div>`;
             }
 
             // Se è una LUNA: bottone rapido per tornare al pianeta madre
             let parentNavHtml = '';
             if (data.isMoon && data.parentKey) {
-                parentNavHtml = `<button onclick="flyToTarget('${data.parentKey}')" class="nav-item" style="margin-bottom: 12px; width: 100%; border-color: #38bdf8; color: #38bdf8; text-align: center; justify-content: center; background: rgba(56,189,248,0.12); font-weight: bold; cursor: pointer;">⬅ Torna all'orbita di ${data.parentPlanet}</button>`;
+                parentNavHtml = `<button onclick="flyToTarget('${data.parentKey}')" class="nav-item" style="margin-bottom: 10px; width: 100%; border-color: #38bdf8; color: #38bdf8; text-align: center; justify-content: center; background: rgba(56,189,248,0.15); font-weight: bold; cursor: pointer;">⬅ Torna all'orbita di ${data.parentPlanet}</button>`;
             }
 
             // Se è un PIANETA con LUNE: elenco lune cliccabili direttamente nel pannello info
@@ -3011,12 +3204,12 @@ function buildSolarSystem() {
                 const moonButtons = data.moons.map(mKey => {
                     const mData = celestialData[mKey];
                     const mName = mData ? mData.name : mKey.replace('Moon_', '');
-                    return `<button onclick="flyToTarget('${mKey}')" style="background: rgba(0, 240, 255, 0.12); border: 1px solid #00f0ff; color: #fff; padding: 5px 10px; border-radius: 5px; font-size: 12px; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.background='rgba(0,240,255,0.35)'; this.style.borderColor='#ffffff';" onmouseout="this.style.background='rgba(0,240,255,0.12)'; this.style.borderColor='#00f0ff';">🌕 ${mName}</button>`;
+                    return `<button onclick="flyToTarget('${mKey}')" style="background: rgba(0, 240, 255, 0.12); border: 1px solid #00f0ff; color: #fff; padding: 6px 10px; border-radius: 6px; font-size: 12px; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.background='rgba(0,240,255,0.35)'; this.style.borderColor='#ffffff';" onmouseout="this.style.background='rgba(0,240,255,0.12)'; this.style.borderColor='#00f0ff';">🌕 ${mName}</button>`;
                 }).join('');
 
                 moonsListHtml = `
-                    <div style="margin: 14px 0; padding: 10px; background: rgba(0, 30, 60, 0.6); border: 1px solid rgba(0, 240, 255, 0.3); border-radius: 8px;">
-                        <div style="color: #00f0ff; font-weight: bold; font-size: 12px; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px;">🌕 Satelliti Principali (Clicca per esplorare):</div>
+                    <div style="margin: 12px 0; padding: 10px; background: rgba(0, 30, 60, 0.6); border: 1px solid rgba(0, 240, 255, 0.3); border-radius: 8px;">
+                        <div style="color: #00f0ff; font-weight: bold; font-size: 11.5px; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px;">🌕 Satelliti Principali (Tocca per esplorare):</div>
                         <div style="display: flex; flex-wrap: wrap; gap: 6px;">
                             ${moonButtons}
                         </div>
@@ -3024,49 +3217,50 @@ function buildSolarSystem() {
                 `;
             }
 
+            // Pulsante Audio Guida posizionato IN ALTO per accesso immediato su smartphone!
             let audioBtn = '';
             if (data.audioGuide) {
-                const safeText = data.audioGuide.replace(/'/g, "\\'").replace(/"/g, '&quot;');
-                audioBtn = `<button onclick="toggleAudio('${safeText}')" class="nav-item active" style="margin-top: 15px; width: 100%; border-color: #00ffff; color: #00ffff; text-align: center; justify-content: center; background: rgba(0,255,255,0.15); font-weight: bold; cursor: pointer;">🔊 Ascolta Audio Guida Narrata</button>`;
-                
-                // Stop audio in corso
-                if (window.speechSynthesis && window.speechSynthesis.speaking) {
-                    window.speechSynthesis.cancel();
-                }
-                
-                // Auto-play audio se non silenziato
-                if (!isAudioGuideMuted && window.speechSynthesis) {
-                    setTimeout(() => {
-                        const u = new SpeechSynthesisUtterance(data.audioGuide);
-                        u.lang = 'it-IT'; 
-                        u.rate = 0.92;
-                        window.speechSynthesis.speak(u);
-                    }, 150);
-                }
+                audioBtn = `<button onclick="toggleAudio()" class="btn-audio-guide-cta" title="Ascolta o ferma la spiegazione narrata">🔊 ASCOLTA GUIDA VOCALE</button>`;
             }
 
             panel.innerHTML = `
-                <button onclick="closeInfoPanel()" style="position: absolute; top: 12px; right: 14px; background: rgba(255,255,255,0.08); border: 1px solid rgba(0,240,255,0.3); color: #00f0ff; width: 28px; height: 28px; border-radius: 50%; font-size: 13px; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 30; transition: all 0.2s;" onmouseover="this.style.background='rgba(255,0,85,0.4)'; this.style.borderColor='#ff0055'; this.style.color='#fff';" onmouseout="this.style.background='rgba(255,255,255,0.08)'; this.style.borderColor='rgba(0,240,255,0.3)'; this.style.color='#00f0ff';" title="Chiudi scheda informativa">✕</button>
+                <div style="position: absolute; top: 10px; right: 10px; display: flex; gap: 6px; z-index: 35;">
+                    <button onclick="toggleInfoPanelMinimize()" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(0,240,255,0.4); color: #00f0ff; width: 30px; height: 30px; border-radius: 50%; font-size: 13px; cursor: pointer; display: flex; align-items: center; justify-content: center;" title="Riduci/Espandi scheda per vedere il 3D">↕️</button>
+                    <button onclick="closeInfoPanel()" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(0,240,255,0.4); color: #00f0ff; width: 30px; height: 30px; border-radius: 50%; font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center;" title="Chiudi scheda informativa">✕</button>
+                </div>
                 ${parentNavHtml}
-                <h2 style="margin-bottom: 4px; padding-right: 32px; color: #fff; text-shadow: 0 0 10px rgba(0,240,255,0.5);">${data.name ? data.name.toUpperCase() : ''}</h2>
-                <div class="category-badge" style="margin-bottom: 12px; display: inline-block;">${data.type || ''}</div>
-                ${mediaHtml}
-                ${moonsListHtml}
-                <p style="color: #b0c4de; font-size: 14px; line-height: 1.6; margin-bottom: 16px;">${data.desc || ''}</p>
-                <table class="specs-table" style="width: 100%; border-collapse: collapse; font-size: 13px;">
-                    ${specsHtml}
-                </table>
+                <h2 style="margin-bottom: 2px; padding-right: 75px; color: #fff; text-shadow: 0 0 10px rgba(0,240,255,0.5); font-size: 19px;">${data.name ? data.name.toUpperCase() : ''}</h2>
+                <div class="category-badge" style="margin-bottom: 8px; display: inline-block;">${data.type || ''}</div>
                 ${audioBtn}
+                <div class="info-panel-collapsible">
+                    ${mediaHtml}
+                    ${moonsListHtml}
+                    <p style="color: #b0c4de; font-size: 13.5px; line-height: 1.55; margin-bottom: 14px;">${data.desc || ''}</p>
+                    <table class="specs-table" style="width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 12px;">
+                        ${specsHtml}
+                    </table>
+                </div>
             `;
+            
+            // Attiva anti-sovrapposizione
+            document.body.classList.add('info-panel-open');
+            panel.classList.remove('minimized');
             panel.style.opacity = '1';
+
+            // Auto-play audio se non silenziato
+            if (!isAudioGuideMuted && data.audioGuide) {
+                playSpeechText(data.audioGuide);
+            }
         }
 
         function closeInfoPanel() {
             const panel = document.getElementById('info-panel');
-            if (panel) panel.style.opacity = '0';
-            if (window.speechSynthesis && window.speechSynthesis.speaking) {
-                window.speechSynthesis.cancel();
+            if (panel) {
+                panel.style.opacity = '0';
+                panel.classList.remove('minimized');
             }
+            document.body.classList.remove('info-panel-open');
+            stopAudioGuide();
         }
 
 function animate() {
