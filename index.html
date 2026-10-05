@@ -48,7 +48,7 @@
             top: 20px;
             left: 50%;
             transform: translateX(-50%);
-            z-index: 20;
+            z-index: 100;
             display: flex;
             align-items: center;
             gap: 16px;
@@ -60,6 +60,7 @@
             font-size: 13px;
             letter-spacing: 1.5px;
             text-transform: uppercase;
+            pointer-events: auto;
         }
 
         .hud-header .hud-target-row {
@@ -78,6 +79,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            pointer-events: auto;
         }
 
         /* RETICOLO MIRINO */
@@ -739,12 +741,31 @@
             100% { box-shadow: 0 0 20px rgba(239, 68, 68, 0.85); }
         }
 
-        /* ANTI-SOVRAPPOSIZIONE: quando la scheda è aperta, nascondi i comandi di navigazione */
+        /* ANTI-SOVRAPPOSIZIONE: quando la scheda o il menu è aperto, nascondi i comandi di navigazione */
         body.info-panel-open .flight-btn-group,
         body.info-panel-open #btn-touch-thrust,
         body.info-panel-open #btn-touch-sun,
-        body.info-panel-open #time-controls {
+        body.info-panel-open #time-controls,
+        body.nav-open .flight-btn-group,
+        body.nav-open #btn-touch-thrust,
+        body.nav-open #btn-touch-sun,
+        body.nav-open #time-controls {
             display: none !important;
+        }
+
+        #nav-backdrop {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(4px);
+            z-index: 2400;
+        }
+        #nav-backdrop.active {
+            display: block;
         }
 
         /* MODALITÀ RIDOTTA DELLA SCHEDA PER AMMIRARE IL PIANETA */
@@ -760,48 +781,53 @@
         /* --- OTTIMIZZAZIONE PER SMARTPHONE & DISPLAY TOUCH (PORTRAIT / VERTICALE) --- */
         @media (max-width: 768px) {
             #nav-menu-toggle {
-                display: flex;
+                display: flex !important;
                 align-items: center;
                 gap: 5px;
                 position: fixed;
                 top: 8px;
                 left: 8px;
-                padding: 6px 11px;
+                padding: 7px 12px;
                 font-size: 11px;
                 font-weight: bold;
                 border-radius: 14px;
-                background: rgba(15, 23, 42, 0.9);
+                background: rgba(15, 23, 42, 0.92);
                 border: 1px solid #00f0ff;
-                box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
-                z-index: 2100;
+                box-shadow: 0 0 15px rgba(0, 240, 255, 0.35);
+                z-index: 2200;
+                pointer-events: auto;
+                cursor: pointer;
             }
             #btn-quiz-cta {
+                display: inline-flex !important;
                 position: fixed;
                 top: 8px;
                 right: 8px;
                 left: auto;
-                padding: 6px 11px;
+                padding: 7px 12px;
                 font-size: 11px;
                 border-radius: 14px;
-                z-index: 2100;
+                z-index: 2200;
+                pointer-events: auto;
             }
             .hud-header {
                 position: fixed;
-                top: 44px;
+                top: 48px;
                 left: 50%;
                 transform: translateX(-50%);
                 width: calc(100vw - 16px);
                 max-width: 440px;
                 font-size: 10px;
-                padding: 5px 8px;
-                gap: 4px;
+                padding: 6px 10px;
+                gap: 6px;
                 border-radius: 12px;
                 flex-direction: column;
                 align-items: center;
-                background: rgba(15, 23, 42, 0.88);
+                background: rgba(15, 23, 42, 0.92);
                 backdrop-filter: blur(10px);
-                z-index: 100;
-                box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+                z-index: 1500;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.65);
+                pointer-events: auto;
             }
             .hud-header .hud-target-row {
                 font-size: 10px;
@@ -817,19 +843,22 @@
                 color: #00f0ff;
             }
             .hud-header .speed-control-group,
-            .hud-header .hud-sep {
+            .hud-header .hud-sep,
+            .hud-header #btn-sun-align {
                 display: none !important;
             }
             .hud-header .hud-actions-scroll {
                 display: flex;
                 align-items: center;
-                justify-content: flex-start;
+                justify-content: center;
                 gap: 5px;
                 width: 100%;
                 overflow-x: auto;
                 -webkit-overflow-scrolling: touch;
                 scrollbar-width: none;
                 padding: 2px 0;
+                pointer-events: auto;
+                touch-action: pan-x;
             }
             .hud-header .hud-actions-scroll::-webkit-scrollbar {
                 display: none;
@@ -840,9 +869,12 @@
                 font-size: 9.5px;
                 border-radius: 8px;
                 white-space: nowrap;
+                pointer-events: auto;
+                touch-action: manipulation;
+                cursor: pointer;
             }
             .nav-hint-bar {
-                display: none;
+                display: none !important;
             }
             .nav-panel {
                 position: fixed;
@@ -850,13 +882,14 @@
                 bottom: 0;
                 left: 0;
                 transform: translateX(-100%);
-                width: 285px;
+                width: 290px;
                 max-width: 86vw;
                 max-height: 100vh;
                 height: 100vh;
                 border-radius: 0 16px 16px 0;
-                padding: 50px 14px 20px 14px;
+                padding: 50px 14px 24px 14px;
                 z-index: 2500;
+                background: rgba(10, 15, 30, 0.98);
                 box-shadow: 10px 0 40px rgba(0,0,0,0.95);
                 transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
             }
@@ -864,10 +897,13 @@
                 transform: translateX(0);
             }
             .nav-panel .nav-item {
-                padding: 9px 12px;
+                padding: 10px 12px;
                 font-size: 12px;
-                margin-bottom: 4px;
+                margin-bottom: 5px;
                 border-radius: 8px;
+                pointer-events: auto;
+                touch-action: manipulation;
+                cursor: pointer;
             }
             .info-panel {
                 position: fixed;
@@ -892,7 +928,6 @@
                 max-height: 120px;
                 object-fit: cover;
             }
-            /* Controlli volo verticali centrati e distanziati chiaramente da time-controls */
             .flight-btn-group {
                 position: fixed;
                 bottom: 54px;
@@ -903,18 +938,23 @@
                 align-items: center;
                 gap: 10px;
                 z-index: 130;
+                pointer-events: auto;
             }
             #btn-touch-sun {
-                padding: 8px 14px;
+                padding: 9px 15px;
                 font-size: 11px;
                 border-radius: 22px;
                 white-space: nowrap;
+                pointer-events: auto;
+                touch-action: manipulation;
             }
             #btn-touch-thrust {
-                padding: 8px 18px;
+                padding: 9px 18px;
                 font-size: 11px;
                 border-radius: 22px;
                 white-space: nowrap;
+                pointer-events: auto;
+                touch-action: none;
             }
             #time-controls {
                 position: fixed;
@@ -931,6 +971,7 @@
                 display: flex;
                 align-items: center;
                 z-index: 120;
+                pointer-events: auto;
             }
             #btn-play-pause {
                 padding: 5px 8px;
@@ -957,43 +998,37 @@
             }
         }
 
-        /* --- MODALITÀ VOLO LIBERO E SGUARDO PULITO --- */
-        body.is-flying #time-controls,
-        body.is-flying .nav-panel,
-        body.clean-flight-mode #time-controls,
-        body.clean-flight-mode .nav-panel,
-        body.clean-flight-mode #btn-quiz-cta,
-        body.clean-flight-mode .info-panel {
-            opacity: 0 !important;
-            pointer-events: none !important;
-            transition: opacity 0.25s ease;
-        }
-
         /* --- OTTIMIZZAZIONE SPECIFICA PER SMARTPHONE IN LANDSCAPE (ORIZZONTALE) --- */
         @media (orientation: landscape) and (max-height: 550px), (max-height: 480px) {
             .cockpit-frame {
                 border-width: 0 !important;
+            }
+            .nav-hint-bar {
+                display: none !important;
             }
             #nav-menu-toggle {
                 display: flex !important;
                 position: fixed !important;
                 top: 6px !important;
                 left: 8px !important;
-                padding: 5px 10px !important;
+                padding: 6px 12px !important;
                 font-size: 10.5px !important;
-                border-radius: 12px !important;
-                z-index: 2100 !important;
+                border-radius: 14px !important;
+                z-index: 2200 !important;
+                pointer-events: auto !important;
+                cursor: pointer !important;
             }
             #btn-quiz-cta {
-                display: flex !important;
+                display: inline-flex !important;
                 position: fixed !important;
                 top: 6px !important;
                 right: 8px !important;
                 left: auto !important;
-                padding: 5px 10px !important;
+                padding: 6px 12px !important;
                 font-size: 10.5px !important;
-                border-radius: 12px !important;
-                z-index: 2100 !important;
+                border-radius: 14px !important;
+                z-index: 2200 !important;
+                pointer-events: auto !important;
             }
             .hud-header {
                 position: fixed !important;
@@ -1001,25 +1036,27 @@
                 left: 50% !important;
                 transform: translateX(-50%) !important;
                 width: auto !important;
-                max-width: calc(100vw - 230px) !important;
-                font-size: 9px !important;
-                padding: 2px 8px !important;
-                gap: 6px !important;
-                border-radius: 12px !important;
+                max-width: calc(100vw - 280px) !important;
+                font-size: 9.5px !important;
+                padding: 3px 10px !important;
+                gap: 5px !important;
+                border-radius: 14px !important;
                 flex-direction: row !important;
                 align-items: center !important;
                 justify-content: center !important;
-                background: rgba(15, 23, 42, 0.85) !important;
-                z-index: 100 !important;
-                box-shadow: 0 2px 14px rgba(0,0,0,0.6) !important;
+                background: rgba(15, 23, 42, 0.92) !important;
+                z-index: 2050 !important;
+                pointer-events: auto !important;
+                box-shadow: 0 3px 16px rgba(0,0,0,0.7) !important;
             }
             .hud-header .hud-target-row {
                 font-size: 9px !important;
                 white-space: nowrap !important;
-                margin-right: 2px !important;
+                margin-right: 4px !important;
             }
             .hud-header .speed-control-group,
-            .hud-header .hud-sep {
+            .hud-header .hud-sep,
+            .hud-header #btn-sun-align {
                 display: none !important;
             }
             .hud-header .hud-actions-scroll {
@@ -1031,20 +1068,25 @@
                 scrollbar-width: none !important;
                 max-width: 100% !important;
                 white-space: nowrap !important;
+                pointer-events: auto !important;
+                touch-action: pan-x !important;
             }
             .hud-header .hud-actions-scroll::-webkit-scrollbar {
                 display: none !important;
             }
             .hud-header .hud-btn {
                 flex-shrink: 0 !important;
-                padding: 2px 6px !important;
-                font-size: 8.5px !important;
+                padding: 3px 7px !important;
+                font-size: 9px !important;
                 border-radius: 6px !important;
                 white-space: nowrap !important;
+                pointer-events: auto !important;
+                touch-action: manipulation !important;
+                cursor: pointer !important;
             }
             .flight-btn-group {
                 position: fixed !important;
-                bottom: 6px !important;
+                bottom: 8px !important;
                 right: 8px !important;
                 left: auto !important;
                 transform: none !important;
@@ -1052,45 +1094,51 @@
                 gap: 6px !important;
                 display: flex !important;
                 align-items: center !important;
+                pointer-events: auto !important;
             }
             #btn-touch-sun {
-                padding: 6px 12px !important;
+                padding: 7px 13px !important;
                 font-size: 10px !important;
                 border-radius: 18px !important;
                 white-space: nowrap !important;
+                pointer-events: auto !important;
+                touch-action: manipulation !important;
             }
             #btn-touch-thrust {
                 position: static !important;
                 transform: none !important;
-                padding: 6px 14px !important;
+                padding: 7px 15px !important;
                 font-size: 10px !important;
                 font-weight: 800 !important;
                 border-radius: 18px !important;
                 box-shadow: 0 0 16px rgba(255, 69, 0, 0.7) !important;
                 white-space: nowrap !important;
+                pointer-events: auto !important;
+                touch-action: none !important;
             }
             #time-controls {
                 position: fixed !important;
-                bottom: 6px !important;
+                bottom: 8px !important;
                 left: 8px !important;
                 right: auto !important;
                 transform: none !important;
                 width: auto !important;
-                max-width: 250px !important;
-                height: 32px !important;
-                padding: 2px 6px !important;
-                gap: 4px !important;
-                border-radius: 8px !important;
-                background: rgba(15, 23, 42, 0.85) !important;
+                max-width: 260px !important;
+                height: 34px !important;
+                padding: 3px 8px !important;
+                gap: 5px !important;
+                border-radius: 10px !important;
+                background: rgba(15, 23, 42, 0.92) !important;
                 z-index: 120 !important;
                 display: flex !important;
                 align-items: center !important;
+                pointer-events: auto !important;
             }
             #time-controls label {
                 display: none !important;
             }
             #time-controls .time-speed-wrap {
-                width: 60px !important;
+                width: 65px !important;
             }
             #time-controls input[type="date"] {
                 font-size: 8.5px !important;
@@ -1098,14 +1146,13 @@
                 max-width: 85px !important;
             }
             #time-controls .btn-today {
-                padding: 2px 5px !important;
+                padding: 3px 5px !important;
                 font-size: 8.5px !important;
             }
             #btn-play-pause {
-                padding: 2px 5px !important;
+                padding: 3px 6px !important;
                 font-size: 8.5px !important;
             }
-            /* Info panel laterale a destra per liberare la navigazione 3D */
             .info-panel {
                 position: fixed !important;
                 top: 6px !important;
@@ -1113,13 +1160,13 @@
                 right: 8px !important;
                 left: auto !important;
                 transform: none !important;
-                width: 310px !important;
-                max-width: 42vw !important;
+                width: 320px !important;
+                max-width: 44vw !important;
                 max-height: calc(100vh - 12px) !important;
                 height: calc(100vh - 12px) !important;
                 border-radius: 14px !important;
                 padding: 12px 14px !important;
-                background: rgba(15, 23, 42, 0.94) !important;
+                background: rgba(10, 15, 30, 0.97) !important;
                 border: 1px solid rgba(0, 240, 255, 0.45) !important;
                 box-shadow: -5px 0 30px rgba(0, 0, 0, 0.95) !important;
                 z-index: 2300 !important;
@@ -1148,9 +1195,20 @@
                 top: 0 !important;
                 bottom: 0 !important;
                 left: 0 !important;
-                width: 250px !important;
-                max-width: 50vw !important;
-                padding: 42px 10px 14px 10px !important;
+                transform: translateX(-100%) !important;
+                transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1) !important;
+                width: 270px !important;
+                max-width: 55vw !important;
+                height: 100vh !important;
+                max-height: 100vh !important;
+                border-radius: 0 16px 16px 0 !important;
+                padding: 48px 12px 16px 12px !important;
+                z-index: 2500 !important;
+                background: rgba(10, 15, 30, 0.98) !important;
+                box-shadow: 10px 0 40px rgba(0, 0, 0, 0.95) !important;
+            }
+            .nav-panel.open {
+                transform: translateX(0) !important;
             }
         }
 
@@ -1188,6 +1246,8 @@
 
     <a href="quiz.html" id="btn-quiz-cta">🏆 Quiz & Giochi</a>
 
+    <div id="nav-backdrop" onclick="toggleNavMenu()"></div>
+
     <div class="cockpit-frame">
         <div class="crosshair">
             <div class="gyro-horizon" id="gyro-horizon"></div>
@@ -1195,106 +1255,106 @@
                 <span class="thrust-flame">🔥</span> PROPULSIONE ATTIVA <span id="thrust-pct">100%</span>
             </div>
         </div>
+    </div>
 
-        <div class="hud-header">
-            <div class="hud-target-row">DESTINAZIONE: <span id="target-label" class="target-value">SISTEMA SOLARE</span></div>
-            <div class="hud-sep">|</div>
-            <div class="speed-control-group" style="display:flex; align-items:center; gap:6px;">
-                <span style="font-size:10px; color:#94a3b8; letter-spacing:0.5px;">VELOCITÀ:</span>
-                <button id="btn-spd-slow" class="hud-btn" onclick="setNavSpeed(0.25)" title="Manovra lenta e precisa (0.25x)">🐌 Lenta</button>
-                <button id="btn-spd-norm" class="hud-btn active" onclick="setNavSpeed(1.0)" title="Velocità normale di crociera (1x)">🚀 Normale</button>
-                <button id="btn-spd-fast" class="hud-btn" onclick="setNavSpeed(2.5)" title="Velocità sostenuta (2.5x)">⚡ Veloce</button>
-            </div>
-            <div class="hud-sep">|</div>
-            <div class="hud-actions-scroll">
-                <button id="btn-sun-align" class="hud-btn" onclick="alignBowToSun()" title="Punta direttamente la prua verso il Sole (riallinea orientamento)">☀️ Prua al Sole</button>
-                <button id="btn-audio-mute" class="hud-btn active" onclick="toggleAudioGuideMute()" title="Attiva/Disattiva voce guida automatica">🔊 Audio: ON</button>
-                <button id="btn-cockpit-clean" class="hud-btn" onclick="toggleCleanFlightMode()" title="Libera la visuale per navigare e volare senza finestre">👁️ Vista Volo</button>
-                <button id="btn-gyro" class="hud-btn" onclick="toggleGyro()" title="Attiva navigazione con giroscopio dello smartphone">🧭 Giroscopio: OFF</button>
-                <button id="btn-gyro-sens" class="hud-btn" onclick="cycleGyroSensitivity()" title="Regola dolcezza del giroscopio (Dolce / Normale / Reattivo)">🕊️ Dolce</button>
-                <button id="btn-recal" class="hud-btn" onclick="recalibrateGyro()" style="display:none;" title="Azzera la posizione neutra">🎯 Centra</button>
-            </div>
+    <div class="hud-header">
+        <div class="hud-target-row">DESTINAZIONE: <span id="target-label" class="target-value">SISTEMA SOLARE</span></div>
+        <div class="hud-sep">|</div>
+        <div class="speed-control-group" style="display:flex; align-items:center; gap:6px;">
+            <span style="font-size:10px; color:#94a3b8; letter-spacing:0.5px;">VELOCITÀ:</span>
+            <button id="btn-spd-slow" class="hud-btn" onclick="setNavSpeed(0.25)" title="Manovra lenta e precisa (0.25x)">🐌 Lenta</button>
+            <button id="btn-spd-norm" class="hud-btn active" onclick="setNavSpeed(1.0)" title="Velocità normale di crociera (1x)">🚀 Normale</button>
+            <button id="btn-spd-fast" class="hud-btn" onclick="setNavSpeed(2.5)" title="Velocità sostenuta (2.5x)">⚡ Veloce</button>
         </div>
-        <div class="nav-hint-bar">
-            <span>⌨️ <strong>Tasti PC:</strong> W/S Avanti/Indietro &bull; A/D Laterale &bull; Q/E Quota &bull; Spazio Frena &bull; Shift Boost | 🖱️ <strong>Mouse:</strong> Trascina ruota, Rotellina zoom, <strong>Click su Pianeti e Lune</strong> per esplorarli!</span>
+        <div class="hud-sep">|</div>
+        <div class="hud-actions-scroll">
+            <button id="btn-sun-align" class="hud-btn" onclick="alignBowToSun()" title="Punta direttamente la prua verso il Sole (riallinea orientamento)">☀️ Prua al Sole</button>
+            <button id="btn-audio-mute" class="hud-btn active" onclick="toggleAudioGuideMute()" title="Attiva/Disattiva voce guida automatica">🔊 Audio: ON</button>
+            <button id="btn-cockpit-clean" class="hud-btn" onclick="toggleCleanFlightMode()" title="Libera la visuale per navigare e volare senza finestre">👁️ Vista Volo</button>
+            <button id="btn-gyro" class="hud-btn" onclick="toggleGyro()" title="Attiva navigazione con giroscopio dello smartphone">🧭 Giro: OFF</button>
+            <button id="btn-gyro-sens" class="hud-btn" onclick="cycleGyroSensitivity()" title="Regola dolcezza del giroscopio (Dolce / Normale / Reattivo)">🕊️ Dolce</button>
+            <button id="btn-recal" class="hud-btn" onclick="recalibrateGyro()" style="display:none;" title="Azzera la posizione neutra">🎯 Centra</button>
         </div>
+    </div>
+    <div class="nav-hint-bar">
+        <span>⌨️ <strong>Tasti PC:</strong> W/S Avanti/Indietro &bull; A/D Laterale &bull; Q/E Quota &bull; Spazio Frena &bull; Shift Boost | 🖱️ <strong>Mouse:</strong> Trascina ruota, Rotellina zoom, <strong>Click su Pianeti e Lune</strong> per esplorarli!</span>
+    </div>
 
-        <div class="nav-panel">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                <span style="font-size: 11px; font-weight: 800; color: #00f0ff; letter-spacing: 1px; text-transform: uppercase;">🪐 Rotte & Corpi Celesti</span>
-                <button onclick="toggleNavMenu()" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(0,240,255,0.3); color: #00f0ff; width: 28px; height: 28px; border-radius: 50%; font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center;" title="Chiudi menu">✕</button>
-            </div>
-
-            <!-- CONTROLLI NAVE INTEGRATI (VELOCITÀ, SOLE & GIROSCOPIO) -->
-            <div style="margin-bottom: 12px; padding: 10px; background: rgba(0, 240, 255, 0.08); border: 1px solid rgba(0, 240, 255, 0.25); border-radius: 8px;">
-                <div style="font-size: 10px; color: #94a3b8; margin-bottom: 6px; text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px;">⚡ Velocità Navigazione:</div>
-                <div style="display: flex; gap: 4px; margin-bottom: 8px;">
-                    <button class="nav-item" style="margin: 0; justify-content: center; text-align: center; padding: 5px;" onclick="setNavSpeed(0.25)">🐌 Lenta</button>
-                    <button class="nav-item active" style="margin: 0; justify-content: center; text-align: center; padding: 5px;" onclick="setNavSpeed(1.0)">🚀 Normale</button>
-                    <button class="nav-item" style="margin: 0; justify-content: center; text-align: center; padding: 5px;" onclick="setNavSpeed(2.5)">⚡ Veloce</button>
-                </div>
-                <div style="font-size: 10px; color: #94a3b8; margin-bottom: 6px; text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px;">🧭 Orientamento Prua:</div>
-                <button class="nav-item" onclick="alignBowToSun()" style="margin: 0 0 8px 0; justify-content: center; text-align: center; width: 100%; border-color: #f59e0b; color: #fcd34d; background: rgba(245, 158, 11, 0.15); font-weight: bold;">☀️ Punta Prua Verso il Sole</button>
-                <div style="font-size: 10px; color: #94a3b8; margin-bottom: 6px; text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px;">📱 Sensore Giroscopio:</div>
-                <button class="nav-item" onclick="toggleGyro()" style="margin: 0 0 6px 0; justify-content: center; text-align: center; width: 100%;">🧭 Attiva/Disattiva Giroscopio</button>
-                <div style="font-size: 10px; color: #94a3b8; margin-bottom: 4px; text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px;">🕊️ Regolazione Dolcezza / Reattività:</div>
-                <div style="display: flex; gap: 4px;">
-                    <button id="nav-sens-dolce" class="nav-item active" style="margin: 0; justify-content: center; text-align: center; padding: 4px; font-size: 11px;" onclick="setGyroSensitivity('dolce')">🕊️ Dolce</button>
-                    <button id="nav-sens-normale" class="nav-item" style="margin: 0; justify-content: center; text-align: center; padding: 4px; font-size: 11px;" onclick="setGyroSensitivity('normale')">🚀 Normale</button>
-                    <button id="nav-sens-reattivo" class="nav-item" style="margin: 0; justify-content: center; text-align: center; padding: 4px; font-size: 11px;" onclick="setGyroSensitivity('reattivo')">⚡ Reattivo</button>
-                </div>
-            </div>
-            <h4>Sistema Solare</h4>
-            <button class="nav-item active" onclick="flyToTarget('system')">🌌 Vista Globale</button>
-            <button class="nav-item" onclick="flyToTarget('Sun')">☀️ Sole</button>
-            <button class="nav-item" onclick="flyToTarget('Mercury')">☿ Mercurio</button>
-            <button class="nav-item" onclick="flyToTarget('Venus')">♀ Venere</button>
-            <button class="nav-item" onclick="flyToTarget('Earth')">🌍 Terra</button>
-            <button class="nav-item" onclick="flyToTarget('Mars')">♂ Marte</button>
-            <button class="nav-item" onclick="flyToTarget('Jupiter')">♃ Giove</button>
-            <button class="nav-item" onclick="flyToTarget('Saturn')">♄ Saturno</button>
-            <button class="nav-item" onclick="flyToTarget('Uranus')">♅ Urano</button>
-            <button class="nav-item" onclick="flyToTarget('Neptune')">♆ Nettuno</button>
-
-            <h4>Lune & Satelliti</h4>
-            <button class="nav-item" onclick="flyToTarget('Moon_Luna')">🌕 Luna (Terra)</button>
-            <button class="nav-item" onclick="flyToTarget('Moon_Phobos')">🥔 Phobos (Marte)</button>
-            <button class="nav-item" onclick="flyToTarget('Moon_Deimos')">🪨 Deimos (Marte)</button>
-            <button class="nav-item" onclick="flyToTarget('Moon_Io')">🌋 Io (Giove)</button>
-            <button class="nav-item" onclick="flyToTarget('Moon_Europa')">🧊 Europa (Giove)</button>
-            <button class="nav-item" onclick="flyToTarget('Moon_Ganimede')">🪐 Ganimede (Giove)</button>
-            <button class="nav-item" onclick="flyToTarget('Moon_Callisto')">🪨 Callisto (Giove)</button>
-            <button class="nav-item" onclick="flyToTarget('Moon_Titano')">🌫️ Titano (Saturno)</button>
-            <button class="nav-item" onclick="flyToTarget('Moon_Encelado')">❄️ Encelado (Saturno)</button>
-            <button class="nav-item" onclick="flyToTarget('Moon_Tritone')">🌀 Tritone (Nettuno)</button>
-            <button class="nav-item" onclick="flyToTarget('Moon_Caronte')">❄️ Caronte (Plutone)</button>
-
-            <h4>Pianeti Nani & Fasce</h4>
-            <button class="nav-item" onclick="flyToTarget('AsteroidBelt')">☄️ Cintura Asteroidi</button>
-            <button class="nav-item" onclick="flyToTarget('Ceres')">🪨 Cerere</button>
-            <button class="nav-item" onclick="flyToTarget('Pluto')">❄️ Plutone</button>
-            <button class="nav-item" onclick="flyToTarget('Comet')">☄️ Cometa Halley</button>
-
-            <h4>Cosmo Profondo</h4>
-            <button class="nav-item" onclick="flyToTarget('Andromeda')">🌀 Galassia Andromeda</button>
-            <button class="nav-item" onclick="flyToTarget('Pillars')">✨ Pilastri della Creazione</button>
-            <button class="nav-item" onclick="flyToTarget('Orion')">🌌 Nebulosa Orione</button>
-            <button class="nav-item" onclick="flyToTarget('SagittariusA')">🕳️ Sagittarius A*</button>
-            <button class="nav-item" onclick="flyToTarget('Supernova')">💥 Supernova</button>
-            <button class="nav-item" onclick="flyToTarget('StarFormation')">✨ Creazione Stella</button>
+    <div class="nav-panel">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <span style="font-size: 11px; font-weight: 800; color: #00f0ff; letter-spacing: 1px; text-transform: uppercase;">🪐 Rotte & Corpi Celesti</span>
+            <button onclick="toggleNavMenu()" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(0,240,255,0.3); color: #00f0ff; width: 28px; height: 28px; border-radius: 50%; font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center;" title="Chiudi menu">✕</button>
         </div>
 
-        <div class="info-panel" id="info-panel">
-            <button onclick="closeInfoPanel()" style="position: absolute; top: 12px; right: 14px; background: rgba(255,255,255,0.08); border: 1px solid rgba(0,240,255,0.3); color: #00f0ff; width: 28px; height: 28px; border-radius: 50%; font-size: 13px; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 30; transition: all 0.2s;" onmouseover="this.style.background='rgba(255,0,85,0.4)'; this.style.borderColor='#ff0055'; this.style.color='#fff';" onmouseout="this.style.background='rgba(255,255,255,0.08)'; this.style.borderColor='rgba(0,240,255,0.3)'; this.style.color='#00f0ff';" title="Chiudi scheda informativa">✕</button>
-            <h2 id="card-title" style="padding-right: 32px;">Sistema Solare</h2>
-            <div class="badge" id="card-badge">Panoramica Globale</div>
-            <img id="card-img" src="https://images-assets.nasa.gov/image/PIA03153/PIA03153~large.jpg" alt="Foto Reale NASA">
-            <p id="card-desc">Seleziona un oggetto dal pannello per avvicinarti con la navicella e visualizzare le schede e foto della NASA.</p>
-            <div class="specs-grid" id="card-specs">
-                <div><span class="label">Pianeti:</span> <span class="value">8 Ufficiali</span></div>
-                <div><span class="label">Pianeti Nani:</span> <span class="value">5 Riconosciuti</span></div>
-                <div><span class="label">Stelle:</span> <span class="value">1 (Sole)</span></div>
+        <!-- CONTROLLI NAVE INTEGRATI (VELOCITÀ, SOLE & GIROSCOPIO) -->
+        <div style="margin-bottom: 12px; padding: 10px; background: rgba(0, 240, 255, 0.08); border: 1px solid rgba(0, 240, 255, 0.25); border-radius: 8px;">
+            <div style="font-size: 10px; color: #94a3b8; margin-bottom: 6px; text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px;">⚡ Velocità Navigazione:</div>
+            <div style="display: flex; gap: 4px; margin-bottom: 8px;">
+                <button class="nav-item" style="margin: 0; justify-content: center; text-align: center; padding: 5px;" onclick="setNavSpeed(0.25)">🐌 Lenta</button>
+                <button class="nav-item active" style="margin: 0; justify-content: center; text-align: center; padding: 5px;" onclick="setNavSpeed(1.0)">🚀 Normale</button>
+                <button class="nav-item" style="margin: 0; justify-content: center; text-align: center; padding: 5px;" onclick="setNavSpeed(2.5)">⚡ Veloce</button>
             </div>
+            <div style="font-size: 10px; color: #94a3b8; margin-bottom: 6px; text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px;">🧭 Orientamento Prua:</div>
+            <button class="nav-item" onclick="alignBowToSun()" style="margin: 0 0 8px 0; justify-content: center; text-align: center; width: 100%; border-color: #f59e0b; color: #fcd34d; background: rgba(245, 158, 11, 0.15); font-weight: bold;">☀️ Punta Prua Verso il Sole</button>
+            <div style="font-size: 10px; color: #94a3b8; margin-bottom: 6px; text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px;">📱 Sensore Giroscopio:</div>
+            <button id="nav-btn-gyro" class="nav-item" onclick="toggleGyro()" style="margin: 0 0 6px 0; justify-content: center; text-align: center; width: 100%;">🧭 Attiva Giroscopio</button>
+            <div style="font-size: 10px; color: #94a3b8; margin-bottom: 4px; text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px;">🕊️ Regolazione Dolcezza / Reattività:</div>
+            <div style="display: flex; gap: 4px;">
+                <button id="nav-sens-dolce" class="nav-item active" style="margin: 0; justify-content: center; text-align: center; padding: 4px; font-size: 11px;" onclick="setGyroSensitivity('dolce')">🕊️ Dolce</button>
+                <button id="nav-sens-normale" class="nav-item" style="margin: 0; justify-content: center; text-align: center; padding: 4px; font-size: 11px;" onclick="setGyroSensitivity('normale')">🚀 Normale</button>
+                <button id="nav-sens-reattivo" class="nav-item" style="margin: 0; justify-content: center; text-align: center; padding: 4px; font-size: 11px;" onclick="setGyroSensitivity('reattivo')">⚡ Reattivo</button>
+            </div>
+        </div>
+        <h4>Sistema Solare</h4>
+        <button class="nav-item active" onclick="flyToTarget('system')">🌌 Vista Globale</button>
+        <button class="nav-item" onclick="flyToTarget('Sun')">☀️ Sole</button>
+        <button class="nav-item" onclick="flyToTarget('Mercury')">☿ Mercurio</button>
+        <button class="nav-item" onclick="flyToTarget('Venus')">♀ Venere</button>
+        <button class="nav-item" onclick="flyToTarget('Earth')">🌍 Terra</button>
+        <button class="nav-item" onclick="flyToTarget('Mars')">♂ Marte</button>
+        <button class="nav-item" onclick="flyToTarget('Jupiter')">♃ Giove</button>
+        <button class="nav-item" onclick="flyToTarget('Saturn')">♄ Saturno</button>
+        <button class="nav-item" onclick="flyToTarget('Uranus')">♅ Urano</button>
+        <button class="nav-item" onclick="flyToTarget('Neptune')">♆ Nettuno</button>
+
+        <h4>Lune & Satelliti</h4>
+        <button class="nav-item" onclick="flyToTarget('Moon_Luna')">🌕 Luna (Terra)</button>
+        <button class="nav-item" onclick="flyToTarget('Moon_Phobos')">🥔 Phobos (Marte)</button>
+        <button class="nav-item" onclick="flyToTarget('Moon_Deimos')">🪨 Deimos (Marte)</button>
+        <button class="nav-item" onclick="flyToTarget('Moon_Io')">🌋 Io (Giove)</button>
+        <button class="nav-item" onclick="flyToTarget('Moon_Europa')">🧊 Europa (Giove)</button>
+        <button class="nav-item" onclick="flyToTarget('Moon_Ganimede')">🪐 Ganimede (Giove)</button>
+        <button class="nav-item" onclick="flyToTarget('Moon_Callisto')">🪨 Callisto (Giove)</button>
+        <button class="nav-item" onclick="flyToTarget('Moon_Titano')">🌫️ Titano (Saturno)</button>
+        <button class="nav-item" onclick="flyToTarget('Moon_Encelado')">❄️ Encelado (Saturno)</button>
+        <button class="nav-item" onclick="flyToTarget('Moon_Tritone')">🌀 Tritone (Nettuno)</button>
+        <button class="nav-item" onclick="flyToTarget('Moon_Caronte')">❄️ Caronte (Plutone)</button>
+
+        <h4>Pianeti Nani & Fasce</h4>
+        <button class="nav-item" onclick="flyToTarget('AsteroidBelt')">☄️ Cintura Asteroidi</button>
+        <button class="nav-item" onclick="flyToTarget('Ceres')">🪨 Cerere</button>
+        <button class="nav-item" onclick="flyToTarget('Pluto')">❄️ Plutone</button>
+        <button class="nav-item" onclick="flyToTarget('Comet')">☄️ Cometa Halley</button>
+
+        <h4>Cosmo Profondo</h4>
+        <button class="nav-item" onclick="flyToTarget('Andromeda')">🌀 Galassia Andromeda</button>
+        <button class="nav-item" onclick="flyToTarget('Pillars')">✨ Pilastri della Creazione</button>
+        <button class="nav-item" onclick="flyToTarget('Orion')">🌌 Nebulosa Orione</button>
+        <button class="nav-item" onclick="flyToTarget('SagittariusA')">🕳️ Sagittarius A*</button>
+        <button class="nav-item" onclick="flyToTarget('Supernova')">💥 Supernova</button>
+        <button class="nav-item" onclick="flyToTarget('StarFormation')">✨ Creazione Stella</button>
+    </div>
+
+    <div class="info-panel" id="info-panel">
+        <button onclick="closeInfoPanel()" style="position: absolute; top: 12px; right: 14px; background: rgba(255,255,255,0.08); border: 1px solid rgba(0,240,255,0.3); color: #00f0ff; width: 28px; height: 28px; border-radius: 50%; font-size: 13px; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 30; transition: all 0.2s;" onmouseover="this.style.background='rgba(255,0,85,0.4)'; this.style.borderColor='#ff0055'; this.style.color='#fff';" onmouseout="this.style.background='rgba(255,255,255,0.08)'; this.style.borderColor='rgba(0,240,255,0.3)'; this.style.color='#00f0ff';" title="Chiudi scheda informativa">✕</button>
+        <h2 id="card-title" style="padding-right: 32px;">Sistema Solare</h2>
+        <div class="badge" id="card-badge">Panoramica Globale</div>
+        <img id="card-img" src="https://images-assets.nasa.gov/image/PIA03153/PIA03153~large.jpg" alt="Foto Reale NASA">
+        <p id="card-desc">Seleziona un oggetto dal pannello per avvicinarti con la navicella e visualizzare le schede e foto della NASA.</p>
+        <div class="specs-grid" id="card-specs">
+            <div><span class="label">Pianeti:</span> <span class="value">8 Ufficiali</span></div>
+            <div><span class="label">Pianeti Nani:</span> <span class="value">5 Riconosciuti</span></div>
+            <div><span class="label">Stelle:</span> <span class="value">1 (Sole)</span></div>
         </div>
     </div>
 
@@ -1593,8 +1653,7 @@
 
         function alignBowToSun() {
             initAudio();
-            const nav = document.querySelector('.nav-panel');
-            if (nav && window.innerWidth <= 768) nav.classList.remove('open');
+            closeNavMenu();
             closeInfoPanel();
 
             isFlightActive = false;
@@ -1646,7 +1705,24 @@
 
         function toggleNavMenu() {
             const nav = document.querySelector('.nav-panel');
-            if (nav) nav.classList.toggle('open');
+            const backdrop = document.getElementById('nav-backdrop');
+            if (!nav) return;
+            const willOpen = !nav.classList.contains('open');
+            if (willOpen) {
+                nav.classList.add('open');
+                document.body.classList.add('nav-open');
+                if (backdrop) backdrop.classList.add('active');
+            } else {
+                closeNavMenu();
+            }
+        }
+
+        function closeNavMenu() {
+            const nav = document.querySelector('.nav-panel');
+            const backdrop = document.getElementById('nav-backdrop');
+            if (nav) nav.classList.remove('open');
+            document.body.classList.remove('nav-open');
+            if (backdrop) backdrop.classList.remove('active');
         }
 
         function recalibrateGyro() {
@@ -1675,20 +1751,41 @@
             }
         }
 
+        function updateGyroButtonsUI() {
+            const btn = document.getElementById('btn-gyro');
+            const navBtn = document.getElementById('nav-btn-gyro');
+            const recalBtn = document.getElementById('btn-recal');
+            if (gyroEnabled) {
+                if (btn) {
+                    btn.classList.add('active');
+                    btn.innerText = '🟢 Giro: ON';
+                }
+                if (navBtn) {
+                    navBtn.classList.add('active');
+                    navBtn.innerText = '🟢 Giroscopio: ATTIVO';
+                }
+                if (recalBtn) recalBtn.style.display = 'inline-flex';
+            } else {
+                if (btn) {
+                    btn.classList.remove('active');
+                    btn.innerText = '🧭 Giro: OFF';
+                }
+                if (navBtn) {
+                    navBtn.classList.remove('active');
+                    navBtn.innerText = '🧭 Attiva Giroscopio';
+                }
+                if (recalBtn) recalBtn.style.display = 'none';
+            }
+        }
+
         function toggleGyro() {
             initAudio();
-            const btn = document.getElementById('btn-gyro');
-            const recalBtn = document.getElementById('btn-recal');
 
             if (gyroEnabled) {
                 // Spegni giroscopio
                 gyroEnabled = false;
                 window.removeEventListener('deviceorientation', handleOrientation);
-                if (btn) {
-                    btn.classList.remove('active');
-                    btn.innerText = '🧭 Giroscopio: OFF';
-                }
-                if (recalBtn) recalBtn.style.display = 'none';
+                updateGyroButtonsUI();
                 const horizon = document.getElementById('gyro-horizon');
                 if (horizon) horizon.style.transform = 'translate(-50%, -50%)';
                 return;
@@ -1701,7 +1798,7 @@
                         if (permissionState === 'granted') {
                             activateGyroListeners();
                         } else {
-                            alert("Permesso giroscopio negato. Puoi comunque accelerare toccando lo schermo!");
+                            alert("Permesso giroscopio non concesso o bloccato nelle impostazioni di Safari.");
                         }
                     })
                     .catch(err => {
@@ -1717,13 +1814,16 @@
             gyroEnabled = true;
             gyroCalibrated = false;
             window.addEventListener('deviceorientation', handleOrientation, true);
-            const btn = document.getElementById('btn-gyro');
-            const recalBtn = document.getElementById('btn-recal');
-            if (btn) {
-                btn.classList.add('active');
-                btn.innerText = '🟢 Giroscopio: ATTIVO';
+
+            // Sgancia il tracking rigido per consentire al pilota di orientare la nave
+            if (currentTargetKey && currentTargetKey !== 'system') {
+                currentTargetKey = null;
+                isFlightActive = false;
+                const tl = document.getElementById('target-label');
+                if (tl) tl.innerText = 'VOLO LIBERO (GIROSCOPIO)';
             }
-            if (recalBtn) recalBtn.style.display = 'inline-flex';
+
+            updateGyroButtonsUI();
         }
 
         function isInteractiveUI(el) {
@@ -3515,8 +3615,7 @@ function buildSolarSystem() {
             const infoPanel = document.getElementById('info-panel');
             
             // Chiudi il menu su mobile dopo la selezione
-            const nav = document.querySelector('.nav-panel');
-            if (nav && (window.innerWidth <= 768 || window.innerHeight <= 550)) nav.classList.remove('open');
+            closeNavMenu();
 
             Object.values(planetMeshes).forEach(item => {
                 if (item.data.isDeepSpace && item.mesh) {
@@ -3790,11 +3889,26 @@ function animate() {
             let rawDBeta = currentBeta - baseBeta;
             let rawDGamma = currentGamma - baseGamma;
 
-            // Supporto orientamento orizzontale (landscape)
-            if (window.orientation === 90) {
-                let tmp = rawDBeta; rawDBeta = -rawDGamma; rawDGamma = tmp;
-            } else if (window.orientation === -90) {
-                let tmp = rawDBeta; rawDBeta = rawDGamma; rawDGamma = -tmp;
+            // Rilevamento orientamento compatibile con tutti i browser e dispositivi moderni (iOS/Android)
+            const isLandscape = (window.screen && window.screen.orientation && window.screen.orientation.type && window.screen.orientation.type.includes('landscape'))
+                || (typeof window.orientation === 'number' && Math.abs(window.orientation) === 90)
+                || (window.innerWidth > window.innerHeight);
+
+            let orientAngle = 0;
+            if (window.screen && window.screen.orientation && typeof window.screen.orientation.angle === 'number') {
+                orientAngle = window.screen.orientation.angle;
+            } else if (typeof window.orientation === 'number') {
+                orientAngle = window.orientation;
+            } else if (isLandscape) {
+                orientAngle = 90;
+            }
+
+            if (isLandscape) {
+                if (orientAngle === -90 || orientAngle === 270) {
+                    let tmp = rawDBeta; rawDBeta = rawDGamma; rawDGamma = -tmp;
+                } else {
+                    let tmp = rawDBeta; rawDBeta = -rawDGamma; rawDGamma = tmp;
+                }
             }
 
             // Filtro passa-basso progressivo per eliminare tremolii ed eccessiva aggressività
@@ -3807,8 +3921,13 @@ function animate() {
                 horizon.style.transform = `translate(-50%, -50%) rotate(${Math.max(-45, Math.min(45, smoothedDGamma))}deg) translateY(${Math.max(-20, Math.min(20, smoothedDBeta))}px)`;
             }
 
-            const deadZone = 3.5;
+            const deadZone = 2.5;
             if (Math.abs(smoothedDGamma) > deadZone || Math.abs(smoothedDBeta) > deadZone) {
+                // Sgancia tracking rigido del bersaglio se l'utente manovra col giroscopio
+                if (currentTargetKey && currentTargetKey !== 'system') {
+                    currentTargetKey = null;
+                }
+
                 const dir = new THREE.Vector3().subVectors(controls.target, camera.position);
                 const dist = Math.max(10, dir.length());
                 dir.normalize();
