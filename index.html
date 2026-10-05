@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Plancia Navicella Spaziale 3D - NASA Explorer</title>
     <style>
         * {
@@ -162,11 +162,14 @@
             right: 20px;
             top: 50%;
             transform: translateY(-50%);
-            z-index: 20;
+            z-index: 2400;
             width: 350px;
             max-height: 84vh;
             overflow-y: auto;
-            pointer-events: auto;
+            pointer-events: none;
+            display: none;
+            visibility: hidden;
+            opacity: 0;
             background: rgba(15, 23, 42, 0.92);
             border: 1px solid #00f0ff;
             border-radius: 14px;
@@ -174,6 +177,21 @@
             backdrop-filter: blur(15px);
             box-shadow: 0 0 30px rgba(0, 240, 255, 0.25);
             transition: opacity 0.3s ease;
+        }
+
+        .info-panel:not(.visible) {
+            display: none !important;
+            visibility: hidden !important;
+            pointer-events: none !important;
+            opacity: 0 !important;
+        }
+
+        .info-panel.visible {
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            pointer-events: auto !important;
+            z-index: 2600 !important;
         }
 
         .info-panel h2 {
@@ -469,19 +487,20 @@
             transition: transform 0.08s ease-out;
         }
 
-        /* PULSANTE QUIZ & GIOCHI IN ALTO A SINISTRA (NON COPRE LE SCHEDE INFORMATIVE) */
+        /* PULSANTE QUIZ & GIOCHI IN ALTO (NON COPRE LE SCHEDE INFORMATIVE) */
         #btn-quiz-cta {
             position: fixed;
             top: 18px;
-            left: 20px;
-            z-index: 2000;
+            right: 20px;
+            left: auto;
+            z-index: 2300;
             text-decoration: none;
             color: #020617;
             font-size: 13px;
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 1px;
-            padding: 10px 22px;
+            padding: 9px 18px;
             border-radius: 24px;
             background: linear-gradient(90deg, #ffaa00, #ffdd00);
             box-shadow: 0 0 18px rgba(255, 170, 0, 0.7);
@@ -491,6 +510,7 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
+            white-space: nowrap;
         }
         #btn-quiz-cta:hover {
             transform: scale(1.05);
@@ -527,7 +547,7 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            z-index: 100;
+            z-index: 2200;
             pointer-events: auto;
         }
 
@@ -779,55 +799,64 @@
         }
 
         /* --- OTTIMIZZAZIONE PER SMARTPHONE & DISPLAY TOUCH (PORTRAIT / VERTICALE) --- */
-        @media (max-width: 768px) {
+        @media (max-width: 900px) and (orientation: portrait), (max-width: 768px) {
             #nav-menu-toggle {
                 display: flex !important;
                 align-items: center;
                 gap: 5px;
-                position: fixed;
-                top: 8px;
-                left: 8px;
-                padding: 7px 12px;
-                font-size: 11px;
+                position: fixed !important;
+                top: max(8px, env(safe-area-inset-top)) !important;
+                left: max(8px, env(safe-area-inset-left)) !important;
+                height: 34px !important;
+                padding: 0 12px !important;
+                font-size: 11px !important;
                 font-weight: bold;
-                border-radius: 14px;
-                background: rgba(15, 23, 42, 0.92);
-                border: 1px solid #00f0ff;
-                box-shadow: 0 0 15px rgba(0, 240, 255, 0.35);
-                z-index: 2200;
-                pointer-events: auto;
-                cursor: pointer;
+                border-radius: 14px !important;
+                background: rgba(15, 23, 42, 0.94) !important;
+                border: 1px solid #00f0ff !important;
+                box-shadow: 0 0 15px rgba(0, 240, 255, 0.35) !important;
+                z-index: 2300 !important;
+                pointer-events: auto !important;
+                cursor: pointer !important;
+                white-space: nowrap !important;
             }
             #btn-quiz-cta {
                 display: inline-flex !important;
-                position: fixed;
-                top: 8px;
-                right: 8px;
-                left: auto;
-                padding: 7px 12px;
-                font-size: 11px;
-                border-radius: 14px;
-                z-index: 2200;
-                pointer-events: auto;
+                align-items: center !important;
+                gap: 6px !important;
+                position: fixed !important;
+                top: max(8px, env(safe-area-inset-top)) !important;
+                right: max(8px, env(safe-area-inset-right)) !important;
+                left: auto !important;
+                height: 34px !important;
+                padding: 0 12px !important;
+                font-size: 11px !important;
+                border-radius: 14px !important;
+                z-index: 2300 !important;
+                pointer-events: auto !important;
+                cursor: pointer !important;
+                white-space: nowrap !important;
             }
             .hud-header {
-                position: fixed;
-                top: 48px;
-                left: 50%;
-                transform: translateX(-50%);
-                width: calc(100vw - 16px);
-                max-width: 440px;
-                font-size: 10px;
-                padding: 6px 10px;
-                gap: 6px;
-                border-radius: 12px;
-                flex-direction: column;
-                align-items: center;
-                background: rgba(15, 23, 42, 0.92);
-                backdrop-filter: blur(10px);
-                z-index: 1500;
-                box-shadow: 0 4px 20px rgba(0,0,0,0.65);
-                pointer-events: auto;
+                position: fixed !important;
+                top: calc(max(8px, env(safe-area-inset-top)) + 42px) !important;
+                left: max(8px, env(safe-area-inset-left)) !important;
+                right: max(8px, env(safe-area-inset-right)) !important;
+                transform: none !important;
+                width: auto !important;
+                max-width: calc(100vw - 16px) !important;
+                margin: 0 auto !important;
+                font-size: 10px !important;
+                padding: 5px 8px !important;
+                gap: 5px !important;
+                border-radius: 12px !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                background: rgba(15, 23, 42, 0.94) !important;
+                backdrop-filter: blur(10px) !important;
+                z-index: 2100 !important;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.65) !important;
+                pointer-events: auto !important;
             }
             .hud-header .hud-target-row {
                 font-size: 10px;
@@ -848,158 +877,158 @@
                 display: none !important;
             }
             .hud-header .hud-actions-scroll {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: 5px;
-                width: 100%;
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
-                scrollbar-width: none;
-                padding: 2px 0;
-                pointer-events: auto;
-                touch-action: pan-x;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                gap: 5px !important;
+                width: 100% !important;
+                overflow-x: auto !important;
+                -webkit-overflow-scrolling: touch !important;
+                scrollbar-width: none !important;
+                padding: 2px 0 !important;
+                pointer-events: auto !important;
+                touch-action: pan-x !important;
             }
             .hud-header .hud-actions-scroll::-webkit-scrollbar {
                 display: none;
             }
             .hud-header .hud-btn {
-                flex-shrink: 0;
-                padding: 4px 8px;
-                font-size: 9.5px;
-                border-radius: 8px;
-                white-space: nowrap;
-                pointer-events: auto;
-                touch-action: manipulation;
-                cursor: pointer;
+                flex-shrink: 0 !important;
+                padding: 4px 8px !important;
+                font-size: 9.5px !important;
+                border-radius: 8px !important;
+                white-space: nowrap !important;
+                pointer-events: auto !important;
+                touch-action: manipulation !important;
+                cursor: pointer !important;
             }
             .nav-hint-bar {
                 display: none !important;
             }
             .nav-panel {
-                position: fixed;
-                top: 0;
-                bottom: 0;
-                left: 0;
-                transform: translateX(-100%);
-                width: 290px;
-                max-width: 86vw;
-                max-height: 100vh;
-                height: 100vh;
-                border-radius: 0 16px 16px 0;
-                padding: 50px 14px 24px 14px;
-                z-index: 2500;
-                background: rgba(10, 15, 30, 0.98);
-                box-shadow: 10px 0 40px rgba(0,0,0,0.95);
-                transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+                position: fixed !important;
+                top: 0 !important;
+                bottom: 0 !important;
+                left: 0 !important;
+                transform: translateX(-100%) !important;
+                width: 290px !important;
+                max-width: 86vw !important;
+                max-height: 100vh !important;
+                height: 100vh !important;
+                border-radius: 0 16px 16px 0 !important;
+                padding: 50px 14px 24px 14px !important;
+                z-index: 2500 !important;
+                background: rgba(10, 15, 30, 0.98) !important;
+                box-shadow: 10px 0 40px rgba(0,0,0,0.95) !important;
+                transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1) !important;
             }
             .nav-panel.open {
-                transform: translateX(0);
+                transform: translateX(0) !important;
             }
             .nav-panel .nav-item {
-                padding: 10px 12px;
-                font-size: 12px;
-                margin-bottom: 5px;
-                border-radius: 8px;
-                pointer-events: auto;
-                touch-action: manipulation;
-                cursor: pointer;
+                padding: 10px 12px !important;
+                font-size: 12px !important;
+                margin-bottom: 5px !important;
+                border-radius: 8px !important;
+                pointer-events: auto !important;
+                touch-action: manipulation !important;
+                cursor: pointer !important;
             }
             .info-panel {
-                position: fixed;
-                top: auto;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                transform: translateY(0);
-                width: 100vw;
-                max-width: 100vw;
-                max-height: 58vh;
-                border-radius: 20px 20px 0 0;
-                border-left: none;
-                border-right: none;
-                border-bottom: none;
-                padding: 14px 14px 24px 14px;
-                box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.95);
-                z-index: 2300;
-                -webkit-overflow-scrolling: touch;
+                position: fixed !important;
+                top: auto !important;
+                bottom: 0 !important;
+                left: 0 !important;
+                right: 0 !important;
+                transform: translateY(0) !important;
+                width: 100vw !important;
+                max-width: 100vw !important;
+                max-height: 58vh !important;
+                border-radius: 20px 20px 0 0 !important;
+                border-left: none !important;
+                border-right: none !important;
+                border-bottom: none !important;
+                padding: 14px 14px 24px 14px !important;
+                box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.95) !important;
+                z-index: 2600 !important;
+                -webkit-overflow-scrolling: touch !important;
             }
             .info-panel img {
-                max-height: 120px;
-                object-fit: cover;
+                max-height: 120px !important;
+                object-fit: cover !important;
             }
             .flight-btn-group {
-                position: fixed;
-                bottom: 54px;
-                left: 50%;
-                transform: translateX(-50%);
-                right: auto;
-                display: flex;
-                align-items: center;
-                gap: 10px;
-                z-index: 130;
-                pointer-events: auto;
+                position: fixed !important;
+                bottom: calc(max(8px, env(safe-area-inset-bottom)) + 46px) !important;
+                left: 50% !important;
+                transform: translateX(-50%) !important;
+                right: auto !important;
+                display: flex !important;
+                align-items: center !important;
+                gap: 12px !important;
+                z-index: 2250 !important;
+                pointer-events: auto !important;
             }
             #btn-touch-sun {
-                padding: 9px 15px;
-                font-size: 11px;
-                border-radius: 22px;
-                white-space: nowrap;
-                pointer-events: auto;
-                touch-action: manipulation;
+                padding: 9px 16px !important;
+                font-size: 11px !important;
+                border-radius: 22px !important;
+                white-space: nowrap !important;
+                pointer-events: auto !important;
+                touch-action: manipulation !important;
             }
             #btn-touch-thrust {
-                padding: 9px 18px;
-                font-size: 11px;
-                border-radius: 22px;
-                white-space: nowrap;
-                pointer-events: auto;
-                touch-action: none;
+                padding: 9px 20px !important;
+                font-size: 11px !important;
+                border-radius: 22px !important;
+                white-space: nowrap !important;
+                pointer-events: auto !important;
+                touch-action: none !important;
             }
             #time-controls {
-                position: fixed;
-                bottom: 8px;
-                left: 50%;
-                transform: translateX(-50%);
-                width: calc(100vw - 16px);
-                max-width: 380px;
-                height: 38px;
-                padding: 3px 8px;
-                gap: 6px;
-                border-radius: 10px;
-                justify-content: space-between;
-                display: flex;
-                align-items: center;
-                z-index: 120;
-                pointer-events: auto;
+                position: fixed !important;
+                bottom: max(8px, env(safe-area-inset-bottom)) !important;
+                left: 50% !important;
+                transform: translateX(-50%) !important;
+                width: calc(100vw - 16px) !important;
+                max-width: 380px !important;
+                height: 38px !important;
+                padding: 3px 8px !important;
+                gap: 6px !important;
+                border-radius: 10px !important;
+                justify-content: space-between !important;
+                display: flex !important;
+                align-items: center !important;
+                z-index: 2200 !important;
+                pointer-events: auto !important;
             }
             #btn-play-pause {
-                padding: 5px 8px;
-                font-size: 9.5px;
+                padding: 5px 8px !important;
+                font-size: 9.5px !important;
             }
             .time-speed-wrap {
-                width: 85px;
+                width: 85px !important;
             }
             #time-controls label {
-                font-size: 8.5px;
-                margin-bottom: 2px;
+                font-size: 8.5px !important;
+                margin-bottom: 2px !important;
             }
             #time-controls input[type="date"] {
-                font-size: 9.5px;
-                padding: 2px 4px;
-                max-width: 95px;
+                font-size: 9.5px !important;
+                padding: 2px 4px !important;
+                max-width: 95px !important;
             }
             #time-controls .btn-today {
-                padding: 4px 6px;
-                font-size: 9.5px;
+                padding: 4px 6px !important;
+                font-size: 9.5px !important;
             }
             .cockpit-frame {
-                border-width: 6px;
+                border-width: 6px !important;
             }
         }
 
-        /* --- OTTIMIZZAZIONE SPECIFICA PER SMARTPHONE IN LANDSCAPE (ORIZZONTALE) --- */
-        @media (orientation: landscape) and (max-height: 550px), (max-height: 480px) {
+        /* --- OTTIMIZZAZIONE SPECIFICA PER LANDSCAPE (ORIZZONTALE) --- */
+        @media (orientation: landscape) and (max-height: 600px) {
             .cockpit-frame {
                 border-width: 0 !important;
             }
@@ -1009,50 +1038,63 @@
             #nav-menu-toggle {
                 display: flex !important;
                 position: fixed !important;
-                top: 6px !important;
-                left: 8px !important;
-                padding: 6px 12px !important;
-                font-size: 10.5px !important;
-                border-radius: 14px !important;
-                z-index: 2200 !important;
+                top: max(6px, env(safe-area-inset-top)) !important;
+                left: max(8px, env(safe-area-inset-left)) !important;
+                height: 32px !important;
+                padding: 0 10px !important;
+                font-size: 11px !important;
+                border-radius: 12px !important;
+                z-index: 2300 !important;
                 pointer-events: auto !important;
                 cursor: pointer !important;
+                white-space: nowrap !important;
             }
             #btn-quiz-cta {
                 display: inline-flex !important;
+                align-items: center !important;
+                gap: 6px !important;
                 position: fixed !important;
-                top: 6px !important;
-                right: 8px !important;
+                top: max(6px, env(safe-area-inset-top)) !important;
+                right: max(8px, env(safe-area-inset-right)) !important;
                 left: auto !important;
-                padding: 6px 12px !important;
-                font-size: 10.5px !important;
-                border-radius: 14px !important;
-                z-index: 2200 !important;
+                height: 32px !important;
+                padding: 0 10px !important;
+                font-size: 11px !important;
+                border-radius: 12px !important;
+                z-index: 2300 !important;
                 pointer-events: auto !important;
+                cursor: pointer !important;
+                white-space: nowrap !important;
             }
             .hud-header {
                 position: fixed !important;
-                top: 6px !important;
-                left: 50% !important;
-                transform: translateX(-50%) !important;
+                top: max(6px, env(safe-area-inset-top)) !important;
+                left: calc(max(8px, env(safe-area-inset-left)) + 135px) !important;
+                right: calc(max(8px, env(safe-area-inset-right)) + 135px) !important;
+                transform: none !important;
                 width: auto !important;
-                max-width: calc(100vw - 280px) !important;
-                font-size: 9.5px !important;
-                padding: 3px 10px !important;
+                max-width: 600px !important;
+                margin: 0 auto !important;
+                height: 32px !important;
+                padding: 0 8px !important;
                 gap: 5px !important;
-                border-radius: 14px !important;
+                border-radius: 12px !important;
                 flex-direction: row !important;
                 align-items: center !important;
-                justify-content: center !important;
-                background: rgba(15, 23, 42, 0.92) !important;
-                z-index: 2050 !important;
+                justify-content: flex-start !important;
+                background: rgba(15, 23, 42, 0.94) !important;
+                z-index: 2100 !important;
                 pointer-events: auto !important;
+                overflow-x: auto !important;
+                -webkit-overflow-scrolling: touch !important;
+                scrollbar-width: none !important;
                 box-shadow: 0 3px 16px rgba(0,0,0,0.7) !important;
             }
             .hud-header .hud-target-row {
                 font-size: 9px !important;
                 white-space: nowrap !important;
                 margin-right: 4px !important;
+                flex-shrink: 0 !important;
             }
             .hud-header .speed-control-group,
             .hud-header .hud-sep,
@@ -1063,11 +1105,7 @@
                 display: flex !important;
                 align-items: center !important;
                 gap: 4px !important;
-                overflow-x: auto !important;
-                -webkit-overflow-scrolling: touch !important;
-                scrollbar-width: none !important;
-                max-width: 100% !important;
-                white-space: nowrap !important;
+                flex-shrink: 0 !important;
                 pointer-events: auto !important;
                 touch-action: pan-x !important;
             }
@@ -1076,8 +1114,8 @@
             }
             .hud-header .hud-btn {
                 flex-shrink: 0 !important;
-                padding: 3px 7px !important;
-                font-size: 9px !important;
+                padding: 3px 8px !important;
+                font-size: 9.5px !important;
                 border-radius: 6px !important;
                 white-space: nowrap !important;
                 pointer-events: auto !important;
@@ -1086,18 +1124,18 @@
             }
             .flight-btn-group {
                 position: fixed !important;
-                bottom: 8px !important;
-                right: 8px !important;
+                bottom: max(8px, env(safe-area-inset-bottom)) !important;
+                right: max(10px, env(safe-area-inset-right)) !important;
                 left: auto !important;
                 transform: none !important;
-                z-index: 130 !important;
-                gap: 6px !important;
+                z-index: 2250 !important;
+                gap: 8px !important;
                 display: flex !important;
                 align-items: center !important;
                 pointer-events: auto !important;
             }
             #btn-touch-sun {
-                padding: 7px 13px !important;
+                padding: 7px 14px !important;
                 font-size: 10px !important;
                 border-radius: 18px !important;
                 white-space: nowrap !important;
@@ -1107,7 +1145,7 @@
             #btn-touch-thrust {
                 position: static !important;
                 transform: none !important;
-                padding: 7px 15px !important;
+                padding: 7px 16px !important;
                 font-size: 10px !important;
                 font-weight: 800 !important;
                 border-radius: 18px !important;
@@ -1118,18 +1156,18 @@
             }
             #time-controls {
                 position: fixed !important;
-                bottom: 8px !important;
-                left: 8px !important;
+                bottom: max(8px, env(safe-area-inset-bottom)) !important;
+                left: max(10px, env(safe-area-inset-left)) !important;
                 right: auto !important;
                 transform: none !important;
                 width: auto !important;
-                max-width: 260px !important;
+                max-width: 270px !important;
                 height: 34px !important;
                 padding: 3px 8px !important;
                 gap: 5px !important;
                 border-radius: 10px !important;
                 background: rgba(15, 23, 42, 0.92) !important;
-                z-index: 120 !important;
+                z-index: 2200 !important;
                 display: flex !important;
                 align-items: center !important;
                 pointer-events: auto !important;
@@ -1157,7 +1195,7 @@
                 position: fixed !important;
                 top: 6px !important;
                 bottom: 6px !important;
-                right: 8px !important;
+                right: max(8px, env(safe-area-inset-right)) !important;
                 left: auto !important;
                 transform: none !important;
                 width: 320px !important;
@@ -1169,7 +1207,7 @@
                 background: rgba(10, 15, 30, 0.97) !important;
                 border: 1px solid rgba(0, 240, 255, 0.45) !important;
                 box-shadow: -5px 0 30px rgba(0, 0, 0, 0.95) !important;
-                z-index: 2300 !important;
+                z-index: 2600 !important;
             }
             .info-panel img {
                 max-height: 95px !important;
@@ -1203,7 +1241,7 @@
                 max-height: 100vh !important;
                 border-radius: 0 16px 16px 0 !important;
                 padding: 48px 12px 16px 12px !important;
-                z-index: 2500 !important;
+                z-index: 2700 !important;
                 background: rgba(10, 15, 30, 0.98) !important;
                 box-shadow: 10px 0 40px rgba(0, 0, 0, 0.95) !important;
             }
@@ -1345,7 +1383,7 @@
         <button class="nav-item" onclick="flyToTarget('StarFormation')">✨ Creazione Stella</button>
     </div>
 
-    <div class="info-panel" id="info-panel">
+    <div class="info-panel" id="info-panel" style="display: none;">
         <button onclick="closeInfoPanel()" style="position: absolute; top: 12px; right: 14px; background: rgba(255,255,255,0.08); border: 1px solid rgba(0,240,255,0.3); color: #00f0ff; width: 28px; height: 28px; border-radius: 50%; font-size: 13px; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 30; transition: all 0.2s;" onmouseover="this.style.background='rgba(255,0,85,0.4)'; this.style.borderColor='#ff0055'; this.style.color='#fff';" onmouseout="this.style.background='rgba(255,255,255,0.08)'; this.style.borderColor='rgba(0,240,255,0.3)'; this.style.color='#00f0ff';" title="Chiudi scheda informativa">✕</button>
         <h2 id="card-title" style="padding-right: 32px;">Sistema Solare</h2>
         <div class="badge" id="card-badge">Panoramica Globale</div>
@@ -1662,15 +1700,10 @@
             const tl = document.getElementById('target-label');
             if (tl) tl.innerText = 'ORIENTAMENTO: SOLE (0, 0, 0)';
 
-            const camPos = camera.position.clone();
-            const toSun = new THREE.Vector3(0, 0, 0).sub(camPos);
-            if (toSun.lengthSq() < 4) {
-                toSun.set(0, 0, 100);
+            if (camera.position.lengthSq() < 9) {
+                camera.position.set(0, 20, 80);
             }
-            toSun.normalize();
-
-            const lookDist = Math.max(30, Math.min(300, camPos.length() * 0.5));
-            alignSunTarget.copy(camPos).addScaledVector(toSun, lookDist);
+            alignSunTarget.set(0, 0, 0);
             isAligningToSun = true;
 
             baseBeta = currentBeta;
@@ -1816,12 +1849,10 @@
             window.addEventListener('deviceorientation', handleOrientation, true);
 
             // Sgancia il tracking rigido per consentire al pilota di orientare la nave
-            if (currentTargetKey && currentTargetKey !== 'system') {
-                currentTargetKey = null;
-                isFlightActive = false;
-                const tl = document.getElementById('target-label');
-                if (tl) tl.innerText = 'VOLO LIBERO (GIROSCOPIO)';
-            }
+            currentTargetKey = null;
+            isFlightActive = false;
+            const tl = document.getElementById('target-label');
+            if (tl) tl.innerText = 'VOLO LIBERO (GIROSCOPIO)';
 
             updateGyroButtonsUI();
         }
@@ -1869,45 +1900,87 @@
         // Pulsante touch/click dedicato "Accelera"
         function setupThrustButton() {
             const thrustBtn = document.getElementById('btn-touch-thrust');
+            const sunBtn = document.getElementById('btn-touch-sun');
+            const gyroBtn = document.getElementById('btn-gyro');
+
+            if (sunBtn) {
+                const handleSun = (e) => {
+                    if (e) {
+                        e.stopPropagation();
+                    }
+                    alignBowToSun();
+                };
+                sunBtn.addEventListener('pointerdown', (e) => e.stopPropagation(), { passive: true });
+                sunBtn.addEventListener('touchstart', (e) => e.stopPropagation(), { passive: true });
+                sunBtn.addEventListener('click', handleSun);
+            }
+
+            if (gyroBtn) {
+                gyroBtn.addEventListener('pointerdown', (e) => e.stopPropagation(), { passive: true });
+                gyroBtn.addEventListener('touchstart', (e) => e.stopPropagation(), { passive: true });
+            }
+
             if (!thrustBtn) return;
+
             const startThrust = (e) => {
-                e.preventDefault();
+                if (e) {
+                    if (e.cancelable) e.preventDefault();
+                    e.stopPropagation();
+                }
                 initAudio();
                 isThrusting = true;
                 thrustBtn.classList.add('pressed');
                 startThrusterSound();
                 isAligningToSun = false;
-                if (currentTargetKey && currentTargetKey !== 'system') {
-                    isFlightActive = false;
-                    currentTargetKey = null;
-                    const tl = document.getElementById('target-label');
-                    if (tl) tl.innerText = 'NAVIGAZIONE MANUALE';
-                }
+                isFlightActive = false;
+                currentTargetKey = null;
+                const tl = document.getElementById('target-label');
+                if (tl) tl.innerText = 'NAVIGAZIONE LIBERA';
                 
                 // Durante l'accelerazione attiva la modalità di volo pulito: nasconde le finestre d'ingombro
                 document.body.classList.add('is-flying');
-                const panel = document.getElementById('info-panel');
-                if (panel && panel.style.opacity === '1') {
-                    closeInfoPanel();
-                }
+                closeInfoPanel();
                 const nav = document.querySelector('.nav-panel');
                 if (nav) nav.classList.remove('open');
             };
+
             const stopThrust = (e) => {
-                e.preventDefault();
+                if (e) {
+                    if (e.cancelable) e.preventDefault();
+                    e.stopPropagation();
+                }
                 isThrusting = false;
                 thrustBtn.classList.remove('pressed');
                 stopThrusterSound();
                 document.body.classList.remove('is-flying');
             };
 
+            thrustBtn.addEventListener('pointerdown', (e) => {
+                try { thrustBtn.setPointerCapture(e.pointerId); } catch(err) {}
+                startThrust(e);
+            }, { passive: false });
+
+            thrustBtn.addEventListener('pointerup', (e) => {
+                try { thrustBtn.releasePointerCapture(e.pointerId); } catch(err) {}
+                stopThrust(e);
+            }, { passive: false });
+
+            thrustBtn.addEventListener('pointercancel', (e) => {
+                try { thrustBtn.releasePointerCapture(e.pointerId); } catch(err) {}
+                stopThrust(e);
+            }, { passive: false });
+
             thrustBtn.addEventListener('mousedown', startThrust);
-            window.addEventListener('mouseup', () => {
-                if (thrustBtn.classList.contains('pressed')) stopThrust(event);
-            });
             thrustBtn.addEventListener('touchstart', startThrust, { passive: false });
             thrustBtn.addEventListener('touchend', stopThrust, { passive: false });
             thrustBtn.addEventListener('touchcancel', stopThrust, { passive: false });
+
+            window.addEventListener('mouseup', () => {
+                if (thrustBtn.classList.contains('pressed')) stopThrust();
+            });
+            window.addEventListener('touchend', () => {
+                if (isThrusting) stopThrust();
+            });
         }
 
         function toggleCleanFlightMode() {
@@ -3788,6 +3861,9 @@ function buildSolarSystem() {
             // Attiva anti-sovrapposizione
             document.body.classList.add('info-panel-open');
             panel.classList.remove('minimized');
+            panel.classList.add('visible');
+            panel.style.display = 'block';
+            panel.style.pointerEvents = 'auto';
             panel.style.opacity = '1';
 
             // Auto-play audio se non silenziato
@@ -3800,6 +3876,9 @@ function buildSolarSystem() {
             const panel = document.getElementById('info-panel');
             if (panel) {
                 panel.style.opacity = '0';
+                panel.style.display = 'none';
+                panel.style.pointerEvents = 'none';
+                panel.classList.remove('visible');
                 panel.classList.remove('minimized');
             }
             document.body.classList.remove('info-panel-open');
@@ -3876,9 +3955,9 @@ function animate() {
 
         // --- ALLINEAMENTO AUTOMATICO PRUA VERSO IL SOLE ---
         if (isAligningToSun) {
-            controls.target.lerp(alignSunTarget, 0.08);
+            controls.target.lerp(alignSunTarget, 0.12);
             camera.lookAt(controls.target);
-            if (controls.target.distanceTo(alignSunTarget) < 0.6) {
+            if (controls.target.distanceTo(alignSunTarget) < 0.2) {
                 controls.target.copy(alignSunTarget);
                 isAligningToSun = false;
             }
@@ -3924,9 +4003,8 @@ function animate() {
             const deadZone = 2.5;
             if (Math.abs(smoothedDGamma) > deadZone || Math.abs(smoothedDBeta) > deadZone) {
                 // Sgancia tracking rigido del bersaglio se l'utente manovra col giroscopio
-                if (currentTargetKey && currentTargetKey !== 'system') {
-                    currentTargetKey = null;
-                }
+                currentTargetKey = null;
+                isFlightActive = false;
 
                 const dir = new THREE.Vector3().subVectors(controls.target, camera.position);
                 const dist = Math.max(10, dir.length());
