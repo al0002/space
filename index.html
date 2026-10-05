@@ -51,7 +51,7 @@
             z-index: 20;
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 16px;
             background: rgba(15, 23, 42, 0.85);
             border: 1px solid rgba(0, 240, 255, 0.4);
             padding: 8px 24px;
@@ -62,10 +62,22 @@
             text-transform: uppercase;
         }
 
+        .hud-header .hud-target-row {
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+        }
+
         .hud-header .target-value {
             color: #ffffff;
             font-weight: 700;
             text-shadow: 0 0 8px #00f0ff;
+        }
+
+        .hud-actions-scroll {
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         /* RETICOLO MIRINO */
@@ -745,19 +757,19 @@
             display: none !important;
         }
 
-        /* --- OTTIMIZZAZIONE PER SMARTPHONE & DISPLAY TOUCH --- */
+        /* --- OTTIMIZZAZIONE PER SMARTPHONE & DISPLAY TOUCH (PORTRAIT / VERTICALE) --- */
         @media (max-width: 768px) {
             #nav-menu-toggle {
                 display: flex;
                 align-items: center;
                 gap: 5px;
                 position: fixed;
-                top: 10px;
-                left: 10px;
-                padding: 7px 13px;
-                font-size: 11.5px;
+                top: 8px;
+                left: 8px;
+                padding: 6px 11px;
+                font-size: 11px;
                 font-weight: bold;
-                border-radius: 16px;
+                border-radius: 14px;
                 background: rgba(15, 23, 42, 0.9);
                 border: 1px solid #00f0ff;
                 box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
@@ -765,38 +777,69 @@
             }
             #btn-quiz-cta {
                 position: fixed;
-                top: 10px;
-                right: 10px;
+                top: 8px;
+                right: 8px;
                 left: auto;
-                padding: 7px 13px;
-                font-size: 11.5px;
-                border-radius: 16px;
+                padding: 6px 11px;
+                font-size: 11px;
+                border-radius: 14px;
                 z-index: 2100;
             }
             .hud-header {
                 position: fixed;
-                top: 48px;
+                top: 44px;
                 left: 50%;
                 transform: translateX(-50%);
-                width: calc(100vw - 20px);
-                max-width: 410px;
+                width: calc(100vw - 16px);
+                max-width: 440px;
                 font-size: 10px;
-                padding: 4px 10px;
-                gap: 6px;
-                border-radius: 14px;
-                flex-wrap: nowrap;
-                justify-content: space-between;
+                padding: 5px 8px;
+                gap: 4px;
+                border-radius: 12px;
+                flex-direction: column;
+                align-items: center;
+                background: rgba(15, 23, 42, 0.88);
+                backdrop-filter: blur(10px);
                 z-index: 100;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.6);
             }
-            /* Su mobile nascondiamo i bottoni ridondanti di velocità dalla top bar (sono comodi nel menu Rotte) */
+            .hud-header .hud-target-row {
+                font-size: 10px;
+                letter-spacing: 0.8px;
+                color: #94a3b8;
+                text-align: center;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                max-width: 100%;
+            }
+            .hud-header .hud-target-row .target-value {
+                color: #00f0ff;
+            }
             .hud-header .speed-control-group,
-            .hud-header .hud-sep:nth-of-type(1) {
+            .hud-header .hud-sep {
                 display: none !important;
             }
+            .hud-header .hud-actions-scroll {
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                gap: 5px;
+                width: 100%;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                padding: 2px 0;
+            }
+            .hud-header .hud-actions-scroll::-webkit-scrollbar {
+                display: none;
+            }
             .hud-header .hud-btn {
-                padding: 3px 6px;
-                font-size: 9px;
+                flex-shrink: 0;
+                padding: 4px 8px;
+                font-size: 9.5px;
                 border-radius: 8px;
+                white-space: nowrap;
             }
             .nav-hint-bar {
                 display: none;
@@ -807,12 +850,12 @@
                 bottom: 0;
                 left: 0;
                 transform: translateX(-100%);
-                width: 275px;
-                max-width: 84vw;
+                width: 285px;
+                max-width: 86vw;
                 max-height: 100vh;
                 height: 100vh;
                 border-radius: 0 16px 16px 0;
-                padding: 55px 14px 20px 14px;
+                padding: 50px 14px 20px 14px;
                 z-index: 2500;
                 box-shadow: 10px 0 40px rgba(0,0,0,0.95);
                 transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
@@ -849,23 +892,29 @@
                 max-height: 120px;
                 object-fit: cover;
             }
+            /* Controlli volo verticali centrati e distanziati chiaramente da time-controls */
             .flight-btn-group {
-                bottom: 74px;
-                right: 12px;
-                left: auto;
-                transform: none;
-                gap: 8px;
-                z-index: 150;
+                position: fixed;
+                bottom: 54px;
+                left: 50%;
+                transform: translateX(-50%);
+                right: auto;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                z-index: 130;
             }
             #btn-touch-sun {
-                padding: 10px 14px;
+                padding: 8px 14px;
                 font-size: 11px;
-                border-radius: 24px;
+                border-radius: 22px;
+                white-space: nowrap;
             }
             #btn-touch-thrust {
-                padding: 10px 16px;
+                padding: 8px 18px;
                 font-size: 11px;
-                border-radius: 24px;
+                border-radius: 22px;
+                white-space: nowrap;
             }
             #time-controls {
                 position: fixed;
@@ -873,19 +922,22 @@
                 left: 50%;
                 transform: translateX(-50%);
                 width: calc(100vw - 16px);
-                max-width: 385px;
-                padding: 6px 8px;
+                max-width: 380px;
+                height: 38px;
+                padding: 3px 8px;
                 gap: 6px;
                 border-radius: 10px;
                 justify-content: space-between;
-                z-index: 100;
+                display: flex;
+                align-items: center;
+                z-index: 120;
             }
             #btn-play-pause {
                 padding: 5px 8px;
                 font-size: 9.5px;
             }
             .time-speed-wrap {
-                width: 90px;
+                width: 85px;
             }
             #time-controls label {
                 font-size: 8.5px;
@@ -925,102 +977,146 @@
             #nav-menu-toggle {
                 display: flex !important;
                 position: fixed !important;
-                top: 8px !important;
+                top: 6px !important;
                 left: 8px !important;
-                padding: 5px 11px !important;
-                font-size: 11px !important;
-                border-radius: 14px !important;
+                padding: 5px 10px !important;
+                font-size: 10.5px !important;
+                border-radius: 12px !important;
                 z-index: 2100 !important;
             }
             #btn-quiz-cta {
                 display: flex !important;
                 position: fixed !important;
-                top: 8px !important;
+                top: 6px !important;
                 right: 8px !important;
                 left: auto !important;
-                padding: 5px 11px !important;
-                font-size: 11px !important;
-                border-radius: 14px !important;
+                padding: 5px 10px !important;
+                font-size: 10.5px !important;
+                border-radius: 12px !important;
                 z-index: 2100 !important;
             }
             .hud-header {
                 position: fixed !important;
-                top: 8px !important;
+                top: 6px !important;
                 left: 50% !important;
                 transform: translateX(-50%) !important;
                 width: auto !important;
-                max-width: calc(100vw - 220px) !important;
-                font-size: 9.5px !important;
-                padding: 3px 10px !important;
+                max-width: calc(100vw - 230px) !important;
+                font-size: 9px !important;
+                padding: 2px 8px !important;
                 gap: 6px !important;
-                border-radius: 14px !important;
-                flex-wrap: nowrap !important;
+                border-radius: 12px !important;
+                flex-direction: row !important;
+                align-items: center !important;
                 justify-content: center !important;
-                background: rgba(15, 23, 42, 0.75) !important;
+                background: rgba(15, 23, 42, 0.85) !important;
                 z-index: 100 !important;
+                box-shadow: 0 2px 14px rgba(0,0,0,0.6) !important;
+            }
+            .hud-header .hud-target-row {
+                font-size: 9px !important;
+                white-space: nowrap !important;
+                margin-right: 2px !important;
             }
             .hud-header .speed-control-group,
-            .hud-header .hud-sep:nth-of-type(1) {
+            .hud-header .hud-sep {
+                display: none !important;
+            }
+            .hud-header .hud-actions-scroll {
+                display: flex !important;
+                align-items: center !important;
+                gap: 4px !important;
+                overflow-x: auto !important;
+                -webkit-overflow-scrolling: touch !important;
+                scrollbar-width: none !important;
+                max-width: 100% !important;
+                white-space: nowrap !important;
+            }
+            .hud-header .hud-actions-scroll::-webkit-scrollbar {
                 display: none !important;
             }
             .hud-header .hud-btn {
+                flex-shrink: 0 !important;
                 padding: 2px 6px !important;
-                font-size: 9px !important;
+                font-size: 8.5px !important;
+                border-radius: 6px !important;
+                white-space: nowrap !important;
             }
             .flight-btn-group {
                 position: fixed !important;
-                bottom: 12px !important;
-                right: 12px !important;
+                bottom: 6px !important;
+                right: 8px !important;
                 left: auto !important;
                 transform: none !important;
-                z-index: 2200 !important;
-                gap: 8px !important;
+                z-index: 130 !important;
+                gap: 6px !important;
+                display: flex !important;
+                align-items: center !important;
             }
             #btn-touch-sun {
-                padding: 10px 16px !important;
-                font-size: 11px !important;
+                padding: 6px 12px !important;
+                font-size: 10px !important;
+                border-radius: 18px !important;
+                white-space: nowrap !important;
             }
             #btn-touch-thrust {
                 position: static !important;
                 transform: none !important;
-                padding: 10px 18px !important;
-                font-size: 11px !important;
+                padding: 6px 14px !important;
+                font-size: 10px !important;
                 font-weight: 800 !important;
-                border-radius: 30px !important;
-                box-shadow: 0 0 20px rgba(255, 69, 0, 0.7) !important;
+                border-radius: 18px !important;
+                box-shadow: 0 0 16px rgba(255, 69, 0, 0.7) !important;
+                white-space: nowrap !important;
             }
             #time-controls {
                 position: fixed !important;
-                bottom: 8px !important;
+                bottom: 6px !important;
                 left: 8px !important;
+                right: auto !important;
                 transform: none !important;
                 width: auto !important;
-                max-width: 320px !important;
-                padding: 4px 8px !important;
-                gap: 5px !important;
-                border-radius: 10px !important;
-                background: rgba(15, 23, 42, 0.7) !important;
-                z-index: 100 !important;
+                max-width: 250px !important;
+                height: 32px !important;
+                padding: 2px 6px !important;
+                gap: 4px !important;
+                border-radius: 8px !important;
+                background: rgba(15, 23, 42, 0.85) !important;
+                z-index: 120 !important;
+                display: flex !important;
+                align-items: center !important;
+            }
+            #time-controls label {
+                display: none !important;
             }
             #time-controls .time-speed-wrap {
-                width: 70px !important;
+                width: 60px !important;
             }
             #time-controls input[type="date"] {
-                font-size: 9px !important;
+                font-size: 8.5px !important;
                 padding: 2px 3px !important;
-                max-width: 90px !important;
+                max-width: 85px !important;
+            }
+            #time-controls .btn-today {
+                padding: 2px 5px !important;
+                font-size: 8.5px !important;
+            }
+            #btn-play-pause {
+                padding: 2px 5px !important;
+                font-size: 8.5px !important;
             }
             /* Info panel laterale a destra per liberare la navigazione 3D */
             .info-panel {
                 position: fixed !important;
-                top: 8px !important;
-                bottom: 8px !important;
+                top: 6px !important;
+                bottom: 6px !important;
                 right: 8px !important;
                 left: auto !important;
                 transform: none !important;
                 width: 310px !important;
                 max-width: 42vw !important;
-                max-height: calc(100vh - 16px) !important;
+                max-height: calc(100vh - 12px) !important;
+                height: calc(100vh - 12px) !important;
                 border-radius: 14px !important;
                 padding: 12px 14px !important;
                 background: rgba(15, 23, 42, 0.94) !important;
@@ -1101,7 +1197,7 @@
         </div>
 
         <div class="hud-header">
-            <div>DESTINAZIONE: <span id="target-label" class="target-value">SISTEMA SOLARE</span></div>
+            <div class="hud-target-row">DESTINAZIONE: <span id="target-label" class="target-value">SISTEMA SOLARE</span></div>
             <div class="hud-sep">|</div>
             <div class="speed-control-group" style="display:flex; align-items:center; gap:6px;">
                 <span style="font-size:10px; color:#94a3b8; letter-spacing:0.5px;">VELOCITÀ:</span>
@@ -1110,12 +1206,14 @@
                 <button id="btn-spd-fast" class="hud-btn" onclick="setNavSpeed(2.5)" title="Velocità sostenuta (2.5x)">⚡ Veloce</button>
             </div>
             <div class="hud-sep">|</div>
-            <button id="btn-sun-align" class="hud-btn" onclick="alignBowToSun()" title="Punta direttamente la prua verso il Sole (riallinea orientamento)">☀️ Prua al Sole</button>
-            <button id="btn-audio-mute" class="hud-btn active" onclick="toggleAudioGuideMute()" title="Attiva/Disattiva voce guida automatica">🔊 Audio: ON</button>
-            <button id="btn-cockpit-clean" class="hud-btn" onclick="toggleCleanFlightMode()" title="Libera la visuale per navigare e volare senza finestre">👁️ Vista Volo</button>
-            <button id="btn-gyro" class="hud-btn" onclick="toggleGyro()" title="Attiva navigazione con giroscopio dello smartphone">🧭 Giroscopio: OFF</button>
-            <button id="btn-gyro-sens" class="hud-btn" onclick="cycleGyroSensitivity()" title="Regola dolcezza del giroscopio (Dolce / Normale / Reattivo)">🕊️ Dolce</button>
-            <button id="btn-recal" class="hud-btn" onclick="recalibrateGyro()" style="display:none;" title="Azzera la posizione neutra">🎯 Centra</button>
+            <div class="hud-actions-scroll">
+                <button id="btn-sun-align" class="hud-btn" onclick="alignBowToSun()" title="Punta direttamente la prua verso il Sole (riallinea orientamento)">☀️ Prua al Sole</button>
+                <button id="btn-audio-mute" class="hud-btn active" onclick="toggleAudioGuideMute()" title="Attiva/Disattiva voce guida automatica">🔊 Audio: ON</button>
+                <button id="btn-cockpit-clean" class="hud-btn" onclick="toggleCleanFlightMode()" title="Libera la visuale per navigare e volare senza finestre">👁️ Vista Volo</button>
+                <button id="btn-gyro" class="hud-btn" onclick="toggleGyro()" title="Attiva navigazione con giroscopio dello smartphone">🧭 Giroscopio: OFF</button>
+                <button id="btn-gyro-sens" class="hud-btn" onclick="cycleGyroSensitivity()" title="Regola dolcezza del giroscopio (Dolce / Normale / Reattivo)">🕊️ Dolce</button>
+                <button id="btn-recal" class="hud-btn" onclick="recalibrateGyro()" style="display:none;" title="Azzera la posizione neutra">🎯 Centra</button>
+            </div>
         </div>
         <div class="nav-hint-bar">
             <span>⌨️ <strong>Tasti PC:</strong> W/S Avanti/Indietro &bull; A/D Laterale &bull; Q/E Quota &bull; Spazio Frena &bull; Shift Boost | 🖱️ <strong>Mouse:</strong> Trascina ruota, Rotellina zoom, <strong>Click su Pianeti e Lune</strong> per esplorarli!</span>
@@ -1632,7 +1730,8 @@
             if (!el) return false;
             return !!(el.closest('#info-panel') || el.closest('.nav-panel') || 
                       el.closest('#time-controls') || el.closest('button') || 
-                      el.closest('input') || el.closest('a') || el.closest('.hud-header'));
+                      el.closest('input') || el.closest('a') || el.closest('.hud-header') ||
+                      el.closest('.flight-btn-group'));
         }
 
         // Tracciamento Tap su schermo touch per selezione immediata corpi celesti
@@ -2004,15 +2103,31 @@
             }, 7200));
         }
 
+        function getDeepSpaceCameraOffset() {
+            const aspect = (typeof camera !== 'undefined' && camera.aspect) ? camera.aspect : (window.innerWidth / window.innerHeight);
+            if (aspect < 0.6) {
+                // Smartphone portrait (verticale stretto)
+                return 920;
+            } else if (aspect < 1.0) {
+                // Tablet portrait o finestra ridotta
+                return 750;
+            } else {
+                // Desktop o Smartphone landscape (orizzontale)
+                return 540;
+            }
+        }
+
         function executeWarpArrival(key, data) {
             const item = planetMeshes[key];
             if (item && item.mesh) item.mesh.visible = true;
 
             let zOffset = 150;
             if (data.size) zOffset = Math.max(80, data.size * 5);
+            if (data.isDeepSpace) zOffset = getDeepSpaceCameraOffset();
             const destPos = (data.position) ? data.position.clone() : new THREE.Vector3(data.distance || 0, 0, 0);
+            const yOffset = data.isDeepSpace ? 0 : (data.size || 5);
 
-            camera.position.set(destPos.x, destPos.y + (data.size || 5), destPos.z + zOffset);
+            camera.position.set(destPos.x, destPos.y + yOffset, destPos.z + zOffset);
             controls.target.copy(destPos);
             camera.lookAt(destPos);
 
@@ -2471,7 +2586,7 @@ let currentTargetKey = null;
             controls.rotateSpeed = 0.55;
             controls.zoomSpeed = 0.65;
             controls.panSpeed = 0.55;
-            controls.maxDistance = 1600;
+            controls.maxDistance = 2500;
             controls.minDistance = 0.4;
             controls.touches = {
                 ONE: THREE.TOUCH.ROTATE,
@@ -2587,10 +2702,18 @@ let currentTargetKey = null;
         });
 
         window.addEventListener('resize', function() {
-                camera.aspect = window.innerWidth / window.innerHeight;
-                camera.updateProjectionMatrix();
-                renderer.setSize(window.innerWidth, window.innerHeight);
-            });
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            if (typeof currentTargetKey !== 'undefined' && currentTargetKey && typeof celestialData !== 'undefined' && celestialData[currentTargetKey] && celestialData[currentTargetKey].isDeepSpace) {
+                const destPos = celestialData[currentTargetKey].position;
+                if (destPos) {
+                    const zDist = getDeepSpaceCameraOffset();
+                    camera.position.set(destPos.x, destPos.y, destPos.z + zDist);
+                    controls.target.copy(destPos);
+                }
+            }
+        });
         }
 
         
@@ -2654,7 +2777,7 @@ function buildSolarSystem() {
                         color: 0xffffff, transparent: true, opacity: 1.0, depthWrite: false, blending: THREE.AdditiveBlending 
                     });
                     const dsSprite = new THREE.Sprite(spriteMat);
-                    dsSprite.scale.set(700, 700, 1);
+                    dsSprite.scale.set(380, 380, 1);
                     dsSprite.position.copy(data.position || new THREE.Vector3(data.distance, 0, 0));
                     dsSprite.visible = false; // INVISIBILE GLOBALE, APPARE SOLO QUANDO CI NAVIGHI
                     scene.add(dsSprite);
@@ -3393,7 +3516,7 @@ function buildSolarSystem() {
             
             // Chiudi il menu su mobile dopo la selezione
             const nav = document.querySelector('.nav-panel');
-            if (nav && window.innerWidth <= 768) nav.classList.remove('open');
+            if (nav && (window.innerWidth <= 768 || window.innerHeight <= 550)) nav.classList.remove('open');
 
             Object.values(planetMeshes).forEach(item => {
                 if (item.data.isDeepSpace && item.mesh) {
@@ -3637,9 +3760,10 @@ function animate() {
                     if (isFlightActive) {
                         let zOffset = (item.data.size || 5) * 2.5 + 5;
                         if (item.data.isBelt) zOffset = 10;
-                        if (item.data.isDeepSpace) zOffset = 150;
+                        if (item.data.isDeepSpace) zOffset = getDeepSpaceCameraOffset();
                         if (item.data.isComet) zOffset = 15;
-                        flightTargetCam.set(targetPos.x, targetPos.y + (item.data.size || 5), targetPos.z + zOffset);
+                        const yOffset = item.data.isDeepSpace ? 0 : (item.data.size || 5);
+                        flightTargetCam.set(targetPos.x, targetPos.y + yOffset, targetPos.z + zOffset);
                         camera.position.lerp(flightTargetCam, 0.05);
                         if (camera.position.distanceTo(flightTargetCam) < 2) isFlightActive = false;
                     }
