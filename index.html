@@ -483,13 +483,68 @@
             box-shadow: 0 0 25px #ffd000;
         }
 
-        /* PULSANTE ACCELERATORE CENTRATO IN BASSO (SOPRA LA BARRA TEMPORALE, LIBERO DA INTRALCI) */
-        #btn-touch-thrust {
+        #btn-sun-align {
+            border-color: #f59e0b;
+            color: #fcd34d;
+            background: rgba(245, 158, 11, 0.2);
+        }
+        #btn-sun-align:hover {
+            background: #f59e0b;
+            color: #020617;
+            box-shadow: 0 0 12px #f59e0b;
+        }
+        #btn-gyro-sens {
+            border-color: #a78bfa;
+            color: #c4b5fd;
+            background: rgba(167, 139, 250, 0.2);
+        }
+        #btn-gyro-sens:hover {
+            background: #8b5cf6;
+            color: #ffffff;
+            box-shadow: 0 0 12px #8b5cf6;
+        }
+
+        /* PULSANTI CONTROLLO VOLO E ORIENTAMENTO (SOPRA LA BARRA TEMPORALE) */
+        .flight-btn-group {
             position: fixed;
             bottom: 92px;
             left: 50%;
             transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 12px;
             z-index: 100;
+            pointer-events: auto;
+        }
+
+        #btn-touch-sun {
+            background: linear-gradient(135deg, rgba(217, 119, 6, 0.95), rgba(245, 158, 11, 0.95));
+            border: 2px solid #fbbf24;
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 0.8px;
+            padding: 11px 20px;
+            border-radius: 30px;
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.6);
+            cursor: pointer;
+            text-transform: uppercase;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+            pointer-events: auto;
+            transition: transform 0.1s, box-shadow 0.1s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+        }
+        #btn-touch-sun:active {
+            transform: scale(0.92);
+            box-shadow: 0 0 32px rgba(251, 191, 36, 0.95);
+        }
+
+        #btn-touch-thrust {
             background: linear-gradient(135deg, rgba(255, 100, 0, 0.9), rgba(255, 0, 80, 0.9));
             border: 2px solid #ffaa00;
             color: #ffffff;
@@ -509,9 +564,10 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            white-space: nowrap;
         }
         #btn-touch-thrust:active, #btn-touch-thrust.pressed {
-            transform: translateX(-50%) scale(0.92);
+            transform: scale(0.92);
             background: linear-gradient(135deg, #ff0055, #ff3300);
             box-shadow: 0 0 35px rgba(255, 50, 0, 0.9);
         }
@@ -672,7 +728,9 @@
         }
 
         /* ANTI-SOVRAPPOSIZIONE: quando la scheda è aperta, nascondi i comandi di navigazione */
+        body.info-panel-open .flight-btn-group,
         body.info-panel-open #btn-touch-thrust,
+        body.info-panel-open #btn-touch-sun,
         body.info-panel-open #time-controls {
             display: none !important;
         }
@@ -791,19 +849,23 @@
                 max-height: 120px;
                 object-fit: cover;
             }
-            #btn-touch-thrust {
-                position: fixed;
+            .flight-btn-group {
                 bottom: 74px;
-                right: 14px;
+                right: 12px;
                 left: auto;
                 transform: none;
-                padding: 10px 18px;
-                font-size: 11.5px;
-                border-radius: 24px;
+                gap: 8px;
                 z-index: 150;
             }
-            #btn-touch-thrust:active, #btn-touch-thrust.pressed {
-                transform: scale(0.92);
+            #btn-touch-sun {
+                padding: 10px 14px;
+                font-size: 11px;
+                border-radius: 24px;
+            }
+            #btn-touch-thrust {
+                padding: 10px 16px;
+                font-size: 11px;
+                border-radius: 24px;
             }
             #time-controls {
                 position: fixed;
@@ -905,18 +967,27 @@
                 padding: 2px 6px !important;
                 font-size: 9px !important;
             }
-            #btn-touch-thrust {
+            .flight-btn-group {
                 position: fixed !important;
                 bottom: 12px !important;
                 right: 12px !important;
                 left: auto !important;
                 transform: none !important;
-                padding: 12px 22px !important;
-                font-size: 12px !important;
+                z-index: 2200 !important;
+                gap: 8px !important;
+            }
+            #btn-touch-sun {
+                padding: 10px 16px !important;
+                font-size: 11px !important;
+            }
+            #btn-touch-thrust {
+                position: static !important;
+                transform: none !important;
+                padding: 10px 18px !important;
+                font-size: 11px !important;
                 font-weight: 800 !important;
                 border-radius: 30px !important;
                 box-shadow: 0 0 20px rgba(255, 69, 0, 0.7) !important;
-                z-index: 2200 !important;
             }
             #time-controls {
                 position: fixed !important;
@@ -1014,7 +1085,10 @@
         </div>
     </div>
     <button id="nav-menu-toggle" onclick="toggleNavMenu()">🪐 Esplora Corpi</button>
-    <button id="btn-touch-thrust" title="Tieni premuto per accelerare nello spazio">🚀 Accelera</button>
+    <div class="flight-btn-group">
+        <button id="btn-touch-sun" onclick="alignBowToSun()" title="Punta direttamente la prua verso il Sole (riallinea orientamento)">☀️ Prua al Sole</button>
+        <button id="btn-touch-thrust" title="Tieni premuto per accelerare nello spazio">🚀 Accelera</button>
+    </div>
 
     <a href="quiz.html" id="btn-quiz-cta">🏆 Quiz & Giochi</a>
 
@@ -1036,9 +1110,11 @@
                 <button id="btn-spd-fast" class="hud-btn" onclick="setNavSpeed(2.5)" title="Velocità sostenuta (2.5x)">⚡ Veloce</button>
             </div>
             <div class="hud-sep">|</div>
+            <button id="btn-sun-align" class="hud-btn" onclick="alignBowToSun()" title="Punta direttamente la prua verso il Sole (riallinea orientamento)">☀️ Prua al Sole</button>
             <button id="btn-audio-mute" class="hud-btn active" onclick="toggleAudioGuideMute()" title="Attiva/Disattiva voce guida automatica">🔊 Audio: ON</button>
             <button id="btn-cockpit-clean" class="hud-btn" onclick="toggleCleanFlightMode()" title="Libera la visuale per navigare e volare senza finestre">👁️ Vista Volo</button>
             <button id="btn-gyro" class="hud-btn" onclick="toggleGyro()" title="Attiva navigazione con giroscopio dello smartphone">🧭 Giroscopio: OFF</button>
+            <button id="btn-gyro-sens" class="hud-btn" onclick="cycleGyroSensitivity()" title="Regola dolcezza del giroscopio (Dolce / Normale / Reattivo)">🕊️ Dolce</button>
             <button id="btn-recal" class="hud-btn" onclick="recalibrateGyro()" style="display:none;" title="Azzera la posizione neutra">🎯 Centra</button>
         </div>
         <div class="nav-hint-bar">
@@ -1051,7 +1127,7 @@
                 <button onclick="toggleNavMenu()" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(0,240,255,0.3); color: #00f0ff; width: 28px; height: 28px; border-radius: 50%; font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center;" title="Chiudi menu">✕</button>
             </div>
 
-            <!-- CONTROLLI NAVE INTEGRATI (VELOCITÀ & GIROSCOPIO) -->
+            <!-- CONTROLLI NAVE INTEGRATI (VELOCITÀ, SOLE & GIROSCOPIO) -->
             <div style="margin-bottom: 12px; padding: 10px; background: rgba(0, 240, 255, 0.08); border: 1px solid rgba(0, 240, 255, 0.25); border-radius: 8px;">
                 <div style="font-size: 10px; color: #94a3b8; margin-bottom: 6px; text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px;">⚡ Velocità Navigazione:</div>
                 <div style="display: flex; gap: 4px; margin-bottom: 8px;">
@@ -1059,8 +1135,16 @@
                     <button class="nav-item active" style="margin: 0; justify-content: center; text-align: center; padding: 5px;" onclick="setNavSpeed(1.0)">🚀 Normale</button>
                     <button class="nav-item" style="margin: 0; justify-content: center; text-align: center; padding: 5px;" onclick="setNavSpeed(2.5)">⚡ Veloce</button>
                 </div>
-                <div style="font-size: 10px; color: #94a3b8; margin-bottom: 6px; text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px;">🧭 Sensore Inclinazione Telefono:</div>
-                <button class="nav-item" onclick="toggleGyro()" style="margin: 0; justify-content: center; text-align: center; width: 100%;">🧭 Attiva/Disattiva Giroscopio</button>
+                <div style="font-size: 10px; color: #94a3b8; margin-bottom: 6px; text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px;">🧭 Orientamento Prua:</div>
+                <button class="nav-item" onclick="alignBowToSun()" style="margin: 0 0 8px 0; justify-content: center; text-align: center; width: 100%; border-color: #f59e0b; color: #fcd34d; background: rgba(245, 158, 11, 0.15); font-weight: bold;">☀️ Punta Prua Verso il Sole</button>
+                <div style="font-size: 10px; color: #94a3b8; margin-bottom: 6px; text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px;">📱 Sensore Giroscopio:</div>
+                <button class="nav-item" onclick="toggleGyro()" style="margin: 0 0 6px 0; justify-content: center; text-align: center; width: 100%;">🧭 Attiva/Disattiva Giroscopio</button>
+                <div style="font-size: 10px; color: #94a3b8; margin-bottom: 4px; text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px;">🕊️ Regolazione Dolcezza / Reattività:</div>
+                <div style="display: flex; gap: 4px;">
+                    <button id="nav-sens-dolce" class="nav-item active" style="margin: 0; justify-content: center; text-align: center; padding: 4px; font-size: 11px;" onclick="setGyroSensitivity('dolce')">🕊️ Dolce</button>
+                    <button id="nav-sens-normale" class="nav-item" style="margin: 0; justify-content: center; text-align: center; padding: 4px; font-size: 11px;" onclick="setGyroSensitivity('normale')">🚀 Normale</button>
+                    <button id="nav-sens-reattivo" class="nav-item" style="margin: 0; justify-content: center; text-align: center; padding: 4px; font-size: 11px;" onclick="setGyroSensitivity('reattivo')">⚡ Reattivo</button>
+                </div>
             </div>
             <h4>Sistema Solare</h4>
             <button class="nav-item active" onclick="flyToTarget('system')">🌌 Vista Globale</button>
@@ -1099,7 +1183,7 @@
             <button class="nav-item" onclick="flyToTarget('Orion')">🌌 Nebulosa Orione</button>
             <button class="nav-item" onclick="flyToTarget('SagittariusA')">🕳️ Sagittarius A*</button>
             <button class="nav-item" onclick="flyToTarget('Supernova')">💥 Supernova</button>
-            <button class="nav-item" onclick="flyToTarget('StarFormation')">✨ Formazione Stellare</button>
+            <button class="nav-item" onclick="flyToTarget('StarFormation')">✨ Creazione Stella</button>
         </div>
 
         <div class="info-panel" id="info-panel">
@@ -1375,6 +1459,90 @@
         let currentBeta = 0;
         let currentGamma = 0;
 
+        // Parametri per rendere il giroscopio dolce, progressivo e configurabile
+        let gyroSensitivityLevel = 'dolce'; // 'dolce' (predefinito), 'normale', 'reattivo'
+        const gyroSettings = {
+            dolce: { smooth: 0.07, speed: 0.009, name: 'Dolce 🕊️', label: '🕊️ Dolce' },
+            normale: { smooth: 0.14, speed: 0.016, name: 'Normale 🚀', label: '🚀 Normale' },
+            reattivo: { smooth: 0.25, speed: 0.024, name: 'Reattivo ⚡', label: '⚡ Reattivo' }
+        };
+        let smoothedDBeta = 0;
+        let smoothedDGamma = 0;
+
+        let isAligningToSun = false;
+        let alignSunTarget = new THREE.Vector3();
+
+        function setGyroSensitivity(level) {
+            if (!gyroSettings[level]) return;
+            gyroSensitivityLevel = level;
+            const btnHud = document.getElementById('btn-gyro-sens');
+            if (btnHud) btnHud.innerText = gyroSettings[level].label;
+
+            ['dolce', 'normale', 'reattivo'].forEach(l => {
+                const b = document.getElementById('nav-sens-' + l);
+                if (b) {
+                    if (l === level) b.classList.add('active');
+                    else b.classList.remove('active');
+                }
+            });
+        }
+
+        function cycleGyroSensitivity() {
+            const levels = ['dolce', 'normale', 'reattivo'];
+            const nextIdx = (levels.indexOf(gyroSensitivityLevel) + 1) % levels.length;
+            setGyroSensitivity(levels[nextIdx]);
+        }
+
+        function alignBowToSun() {
+            initAudio();
+            const nav = document.querySelector('.nav-panel');
+            if (nav && window.innerWidth <= 768) nav.classList.remove('open');
+            closeInfoPanel();
+
+            isFlightActive = false;
+            currentTargetKey = null;
+
+            const tl = document.getElementById('target-label');
+            if (tl) tl.innerText = 'ORIENTAMENTO: SOLE (0, 0, 0)';
+
+            const camPos = camera.position.clone();
+            const toSun = new THREE.Vector3(0, 0, 0).sub(camPos);
+            if (toSun.lengthSq() < 4) {
+                toSun.set(0, 0, 100);
+            }
+            toSun.normalize();
+
+            const lookDist = Math.max(30, Math.min(300, camPos.length() * 0.5));
+            alignSunTarget.copy(camPos).addScaledVector(toSun, lookDist);
+            isAligningToSun = true;
+
+            baseBeta = currentBeta;
+            baseGamma = currentGamma;
+            gyroCalibrated = true;
+            smoothedDBeta = 0;
+            smoothedDGamma = 0;
+
+            if ('speechSynthesis' in window && !isAudioGuideMuted) {
+                try {
+                    const u = new SpeechSynthesisUtterance('Prua allineata verso il Sole');
+                    u.lang = 'it-IT';
+                    u.rate = 1.1;
+                    window.speechSynthesis.speak(u);
+                } catch(e) {}
+            }
+
+            const badge = document.getElementById('thrust-badge');
+            if (badge) {
+                const oldText = badge.innerHTML;
+                badge.innerHTML = '☀️ PRUA ALLINEATA AL SOLE ☀️';
+                badge.classList.add('active');
+                setTimeout(() => {
+                    badge.innerHTML = oldText;
+                    if (!isThrusting && manualVelocity.lengthSq() <= 0.0001) badge.classList.remove('active');
+                }, 1800);
+            }
+        }
+
         let isThrusting = false;
         let thrustSpeed = 0;
 
@@ -1386,6 +1554,8 @@
         function recalibrateGyro() {
             baseBeta = currentBeta;
             baseGamma = currentGamma;
+            smoothedDBeta = 0;
+            smoothedDGamma = 0;
             gyroCalibrated = true;
             const recalBtn = document.getElementById('btn-recal');
             if (recalBtn) {
@@ -1401,6 +1571,8 @@
             if (!gyroCalibrated) {
                 baseBeta = currentBeta;
                 baseGamma = currentGamma;
+                smoothedDBeta = 0;
+                smoothedDGamma = 0;
                 gyroCalibrated = true;
             }
         }
@@ -1505,6 +1677,13 @@
                 isThrusting = true;
                 thrustBtn.classList.add('pressed');
                 startThrusterSound();
+                isAligningToSun = false;
+                if (currentTargetKey && currentTargetKey !== 'system') {
+                    isFlightActive = false;
+                    currentTargetKey = null;
+                    const tl = document.getElementById('target-label');
+                    if (tl) tl.innerText = 'NAVIGAZIONE MANUALE';
+                }
                 
                 // Durante l'accelerazione attiva la modalità di volo pulito: nasconde le finestre d'ingombro
                 document.body.classList.add('is-flying');
@@ -2009,28 +2188,27 @@
             },
             SagittariusA: {
                 name: "Sagittarius A*", type: "Buco Nero Supermassiccio",
-                realPhoto: "temp_dl/blackhole.jpg",
-                localVideo: "textures/blackhole.gif",
-                desc: "Il mostruoso buco nero supermassiccio situato al centro della nostra galassia, la Via Lattea, a 26.000 anni luce dalla Terra. Ha una massa pari a 4.3 milioni di Soli. Il confine di non ritorno è l'ORIZZONTE DEGLI EVENTI: la velocità di fuga all'interno di questo raggio supera la velocità della luce (c = 300.000 km/s), rendendo impossibile a qualsiasi cosa, persino ai fotoni di luce, di fuggire!",
-                specs: { "Posizione": "Centro della Via Lattea (26.000 Anni Luce)", "Massa": "4.3 Milioni di masse solari", "Orizzonte degli Eventi": "Confine di non ritorno (Velocità di fuga > c)", "Velocità della Luce (c)": "300.000 km/s (Nulla può fuggire)" },
-                audioGuide: "State osservando il cuore gravitazionale della nostra galassia: Sagittarius A*, un buco nero supermassiccio con una massa pari a oltre quattro milioni di Soli! È una concentrazione di massa così spaventosa da deformare lo spazio e il tempo. Il suo confine invisibile è chiamato Orizzonte degli Eventi: al suo interno la forza di gravità è così estrema che la velocità di fuga supera persino i 300 mila chilometri al secondo della velocità della luce! Per questo motivo nulla nell'universo, nemmeno la luce, può fuggire una volta oltrepassato questo orizzonte.",
-                isDeepSpace: true, position: new THREE.Vector3(0, -300, 600), size: 15
+                realPhoto: "textures/sagittarius_a.jpg",
+                desc: "Il mostruoso buco nero supermassiccio situato al centro della nostra galassia, la Via Lattea, a 26.000 anni luce dalla Terra. Ha una massa pari a 4.3 milioni di Soli. Nel maggio 2022 la collaborazione internazionale Event Horizon Telescope (EHT) ha pubblicato questa prima, storica immagine reale dell'anello luminoso di gas incandescente che orbita attorno all'Orizzonte degli Eventi!",
+                specs: { "Posizione": "Centro della Via Lattea (26.000 Anni Luce)", "Massa": "4.3 Milioni di masse solari", "Foto Storica Reale": "Event Horizon Telescope (EHT 2022)", "Orizzonte degli Eventi": "Confine di non ritorno (Velocità di fuga > c)", "Velocità della Luce (c)": "300.000 km/s (Nulla può fuggire)" },
+                audioGuide: "State osservando la prima, autentica immagine reale di Sagittarius A*, immortalata dalla collaborazione internazionale Event Horizon Telescope nel maggio 2022! È il cuore gravitazionale della nostra galassia, con una massa pari a oltre quattro milioni di Soli. Al centro si scorge l'ombra oscura dell'Orizzonte degli Eventi, circondata dal disco dorato di plasma caldissimo che viaggia a frazioni della velocità della luce. Ricorda: una volta oltrepassato questo orizzonte, nulla nell'universo, nemmeno la luce, può fuggire!",
+                isDeepSpace: true, position: new THREE.Vector3(0, -300, 600), size: 25
             },
             Supernova: {
                 name: "Supernova", type: "Evoluzione e Morte Stellare (Stelle Massicce)",
-                localVideo: "textures/supernova.gif",
-                desc: "L'esplosione catastrofica che chiude la vita di una stella massiccia (con massa > 8 volte il Sole). L'energia rilasciata in pochi secondi supera quella emessa dal Sole in miliardi di anni. Sintetizza tutti gli elementi pesanti dell'universo come ferro, oro, platino e calcio (noi siamo polvere di stelle!). Lascia come residuo una stella di neutroni o un buco nero. Il Sole non esploderà in supernova ma diventerà una Nana Bianca.",
-                specs: { "Innesco": "Collasso nucleare in stelle con massa > 8 Soli", "Sintesi Elementi": "Forgia oro, ferro, platino e calcio", "Residuo": "Stella di Neutroni o Buco Nero stellare", "Destino del Sole": "Non esploderà in supernova! (Diventerà Nana Bianca)" },
-                audioGuide: "Preparatevi all'evento più potente e generativo del cosmo: l'esplosione di una Supernova! Quando una stella gigante con una massa oltre 8 volte quella del Sole esaurisce il carburante, collassa sotto il proprio peso per poi esplodere con una violenza inaudita, brillando più di un'intera galassia. È solo nella fornace nucleare di una supernova che vengono forgiati gli elementi pesanti come l'oro, il platino, il ferro e il calcio che compongono il nostro sangue e le nostre ossa: noi siamo letteralmente polvere di stelle! Il residuo compatto sarà una stella di neutroni o un buco nero. Ricorda bene: il nostro Sole non esploderà mai in supernova perché è una stella media!",
-                isDeepSpace: true, isSupernova: true, position: new THREE.Vector3(-500, 350, 450)
+                realPhoto: "textures/supernova.jpg",
+                desc: "L'esplosione catastrofica che chiude la vita di una stella massiccia (con massa > 8 volte il Sole). Nella foto reale: il celebre residuo della Supernova del Granchio (Messier 1), osservata sulla Terra nel 1054 d.C. L'energia sprigionata in pochi istanti supera quella emessa dal Sole in miliardi di anni. È solo in questa fornace cosmica che vengono sintetizzati e diffusi tutti gli elementi pesanti dell'universo come oro, platino, ferro e calcio.",
+                specs: { "Foto Reale": "Nebulosa del Granchio (M1, Hubble Space Telescope)", "Innesco": "Collasso nucleare in stelle con massa > 8 Soli", "Sintesi Elementi": "Forgia oro, platino, ferro e calcio", "Residuo": "Stella di Neutroni / Pulsar o Buco Nero", "Destino del Sole": "Non esploderà in supernova! (Diventerà Nana Bianca)" },
+                audioGuide: "Preparatevi all'evento più potente e generativo del cosmo: l'esplosione di una Supernova! Questa iconica foto reale del telescopio Hubble mostra la Nebulosa del Granchio, ciò che resta di una stella gigante collassata ed esplosa nel 1054. È solo nel fuoco nucleare di queste esplosioni estreme che vengono forgiati gli elementi pesanti come il ferro del nostro sangue e il calcio delle nostre ossa: noi siamo letteralmente polvere di stelle! Il nostro Sole non esploderà mai in supernova perché non possiede una massa sufficiente.",
+                isDeepSpace: true, position: new THREE.Vector3(-500, 350, 450), size: 25
             },
             StarFormation: {
-                name: "Formazione Stellare", type: "Nascita di una Stella (Protostella)",
-                localVideo: "textures/star_formation.gif",
-                desc: "Il lento processo gravitazionale attraverso il quale le nubi molecolari giganti di idrogeno e polvere si condensano. Quando il nucleo raggiunge la temperatura di innesco di circa 15 milioni di gradi, si accende la fusione nucleare e nasce una stella.",
-                specs: { "Innesco Fusione": "15 Milioni °C (Idrogeno in Elio)", "Materiale Primario": "Nubi molecolari di Idrogeno freddo e Polveri", "Durata": "Diversi milioni di anni" },
-                audioGuide: "Come nasce una stella? Immagina una culla oscura e freddissima fatta di immensi banchi di gas idrogeno e polvere cosmica. Lentamente, la gravità inizia a radunare questo materiale, compattandolo sempre di più al centro. La pressione fa salire vertiginosamente la temperatura fino al momento cruciale: a 15 milioni di gradi si innesca la fusione nucleare, e nel buio pesto si accende la luce accecante di una nuova giovane stella!",
-                isDeepSpace: true, isStarFormation: true, position: new THREE.Vector3(300, -450, 500)
+                name: "Creazione Stella", type: "Nascita di una Stella (Protostella)",
+                realPhoto: "textures/star_formation.jpg",
+                desc: "La spettacolare foto reale all'infrarosso del telescopio spaziale James Webb (JWST) che ritrae la protostella L1527. Al centro della 'clessidra cosmica', un denso disco protoplanetario alimenta una giovane stella bambina di appena 100.000 anni. I giganteschi lobi di polvere arancioni e blu sono cavità scavate dai getti della stella nascente che si accenderà a 15 milioni di gradi.",
+                specs: { "Foto Reale": "Protostella L1527 (James Webb Space Telescope, JWST)", "Età Protostella": "~100.000 anni (In gestazione)", "Struttura a Clessidra": "Disco di accrescimento & Lobi bipolari", "Innesco Fusione Nucleare": "15 Milioni °C (Idrogeno in Elio)", "Materiale Primario": "Nubi molecolari dense di Idrogeno e Polveri" },
+                audioGuide: "Come nasce una stella? Sei davanti a una delle più straordinarie immagini reali dell'astronomia moderna: la foto scattata dal telescopio James Webb della protostella L1527! Al centro di questa luminosa clessidra cosmica c'è una giovane stella neonata di soli 100 mila anni, circondata da un denso disco di gas e polvere da cui continua ad attirare materia. I due lobi infuocati arancioni e blu sono cavità illuminate dalla protostella. Quando la pressione al centro porterà la temperatura a 15 milioni di gradi si innescherà la fusione nucleare, dando vita a una nuova stella!",
+                isDeepSpace: true, position: new THREE.Vector3(300, -450, 500), size: 25
             },
             Andromeda: {
                 name: "Galassia di Andromeda", type: "Galassia a Spirale Gigante (M31)",
@@ -2464,33 +2642,6 @@ function buildSolarSystem() {
                 if (key === 'system') return;
                 const data = celestialData[key];
 
-                if (data.isSupernova) {
-                    const snGroup = new THREE.Group();
-                    const snCore = new THREE.Mesh(new THREE.SphereGeometry(4, 16, 16), new THREE.MeshBasicMaterial({color: 0xffffff}));
-                    snGroup.add(snCore);
-                    const snRing = new THREE.Mesh(new THREE.TorusGeometry(15, 2, 16, 100), new THREE.MeshBasicMaterial({color: 0x00aaff, transparent:true, opacity:0.6, blending: THREE.AdditiveBlending}));
-                    snGroup.add(snRing);
-                    const snRing2 = new THREE.Mesh(new THREE.TorusGeometry(20, 1, 16, 100), new THREE.MeshBasicMaterial({color: 0xff00aa, transparent:true, opacity:0.4, blending: THREE.AdditiveBlending}));
-                    snRing2.rotation.x = Math.PI/2;
-                    snGroup.add(snRing2);
-                    snGroup.position.copy(data.position);
-                    snGroup.visible = false;
-                    scene.add(snGroup);
-                    planetMeshes[key] = { mesh: snGroup, data: data };
-                    return; // Skip the rest of the loop for this item
-                }
-                if (data.isStarFormation) {
-                    const sfGroup = new THREE.Group();
-                    const sfCloud = new THREE.Mesh(new THREE.IcosahedronGeometry(25, 2), new THREE.MeshBasicMaterial({color: 0x221144, transparent:true, opacity:0.7}));
-                    sfGroup.add(sfCloud);
-                    const sfCore = new THREE.Mesh(new THREE.SphereGeometry(6, 16, 16), new THREE.MeshBasicMaterial({color: 0xffff88, blending: THREE.AdditiveBlending}));
-                    sfGroup.add(sfCore);
-                    sfGroup.position.copy(data.position);
-                    sfGroup.visible = false;
-                    scene.add(sfGroup);
-                    planetMeshes[key] = { mesh: sfGroup, data: data };
-                    return; // Skip the rest of the loop for this item
-                }
                 if (data.isDeepSpace && !data.isBlackHole) {
                     let photoUrl = data.realPhoto;
                     const photoFilename = photoUrl.split('/').pop().replace('~large', '~orig');
@@ -3500,40 +3651,58 @@ function animate() {
             if (camera.position.distanceTo(flightTargetCam) < 2) isFlightActive = false;
         }
 
-        // --- NAVIGAZIONE SENSORI SMARTPHONE (GIROSCOPIO) ---
-        if (gyroEnabled && gyroCalibrated && !isFlightActive && !isWarping) {
-            let dBeta = currentBeta - baseBeta;
-            let dGamma = currentGamma - baseGamma;
+        // --- ALLINEAMENTO AUTOMATICO PRUA VERSO IL SOLE ---
+        if (isAligningToSun) {
+            controls.target.lerp(alignSunTarget, 0.08);
+            camera.lookAt(controls.target);
+            if (controls.target.distanceTo(alignSunTarget) < 0.6) {
+                controls.target.copy(alignSunTarget);
+                isAligningToSun = false;
+            }
+        }
+
+        // --- NAVIGAZIONE SENSORI SMARTPHONE (GIROSCOPIO CON FILTRO DOLCE) ---
+        if (gyroEnabled && gyroCalibrated && !isFlightActive && !isWarping && !isAligningToSun) {
+            let rawDBeta = currentBeta - baseBeta;
+            let rawDGamma = currentGamma - baseGamma;
 
             // Supporto orientamento orizzontale (landscape)
             if (window.orientation === 90) {
-                let tmp = dBeta; dBeta = -dGamma; dGamma = tmp;
+                let tmp = rawDBeta; rawDBeta = -rawDGamma; rawDGamma = tmp;
             } else if (window.orientation === -90) {
-                let tmp = dBeta; dBeta = dGamma; dGamma = -tmp;
+                let tmp = rawDBeta; rawDBeta = rawDGamma; rawDGamma = -tmp;
             }
+
+            // Filtro passa-basso progressivo per eliminare tremolii ed eccessiva aggressività
+            const curCfg = gyroSettings[gyroSensitivityLevel] || gyroSettings.dolce;
+            smoothedDBeta += (rawDBeta - smoothedDBeta) * curCfg.smooth;
+            smoothedDGamma += (rawDGamma - smoothedDGamma) * curCfg.smooth;
 
             const horizon = document.getElementById('gyro-horizon');
             if (horizon) {
-                horizon.style.transform = `translate(-50%, -50%) rotate(${Math.max(-45, Math.min(45, dGamma))}deg) translateY(${Math.max(-20, Math.min(20, dBeta))}px)`;
+                horizon.style.transform = `translate(-50%, -50%) rotate(${Math.max(-45, Math.min(45, smoothedDGamma))}deg) translateY(${Math.max(-20, Math.min(20, smoothedDBeta))}px)`;
             }
 
             const deadZone = 3.5;
-            if (Math.abs(dGamma) > deadZone || Math.abs(dBeta) > deadZone) {
+            if (Math.abs(smoothedDGamma) > deadZone || Math.abs(smoothedDBeta) > deadZone) {
                 const dir = new THREE.Vector3().subVectors(controls.target, camera.position);
                 const dist = Math.max(10, dir.length());
                 dir.normalize();
                 const up = new THREE.Vector3(0, 1, 0);
 
-                if (Math.abs(dGamma) > deadZone) {
-                    const effGamma = dGamma - Math.sign(dGamma) * deadZone;
-                    const yawRate = - (effGamma / 32.0) * 0.024;
+                if (Math.abs(smoothedDGamma) > deadZone) {
+                    const effGamma = smoothedDGamma - Math.sign(smoothedDGamma) * deadZone;
+                    // Curva morbida ed equilibrata (non aggressiva)
+                    const normGamma = Math.sign(effGamma) * Math.pow(Math.min(1.0, Math.abs(effGamma) / 38.0), 1.25);
+                    const yawRate = - normGamma * curCfg.speed;
                     dir.applyAxisAngle(up, yawRate);
                 }
 
-                if (Math.abs(dBeta) > deadZone) {
-                    const effBeta = dBeta - Math.sign(dBeta) * deadZone;
+                if (Math.abs(smoothedDBeta) > deadZone) {
+                    const effBeta = smoothedDBeta - Math.sign(smoothedDBeta) * deadZone;
+                    const normBeta = Math.sign(effBeta) * Math.pow(Math.min(1.0, Math.abs(effBeta) / 38.0), 1.25);
                     const right = new THREE.Vector3().crossVectors(dir, up).normalize();
-                    const pitchRate = - (effBeta / 32.0) * 0.024;
+                    const pitchRate = - normBeta * curCfg.speed;
                     dir.applyAxisAngle(right, pitchRate);
                 }
 
@@ -3561,6 +3730,7 @@ function animate() {
         if (activeNavKeys.down) { moveVector.sub(upVec); hasKeyboardInput = true; }
 
         if (hasKeyboardInput) {
+            isAligningToSun = false;
             moveVector.normalize().multiplyScalar(baseSpeed);
             manualVelocity.lerp(moveVector, 0.18);
             camera.position.add(manualVelocity);
