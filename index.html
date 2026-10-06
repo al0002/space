@@ -3822,35 +3822,35 @@ let currentTargetKey = null;
             const sphereGeo = new THREE.SphereGeometry(1, 64, 64);
             const moonsData = {
                 'Earth': [
-                    {name: 'Stazione Spaziale ISS', key: 'ISS', dist: 4.2, size: 0.22, color: 0xcccccc, speed: 0.0035},
-                    {name: 'Telescopio Hubble', key: 'Hubble', dist: 6.2, size: 0.18, color: 0xaaccff, speed: 0.0028},
-                    {name: 'Luna', key: 'Moon_Luna', dist: 12.5, size: 0.35, color: 0xdddddd, speed: 0.0010}
+                    {name: 'Stazione Spaziale ISS', key: 'ISS', dist: 4.2, size: 0.22, color: 0xcccccc, speed: 0.0006},
+                    {name: 'Telescopio Hubble', key: 'Hubble', dist: 6.2, size: 0.18, color: 0xaaccff, speed: 0.00045},
+                    {name: 'Luna', key: 'Moon_Luna', dist: 12.5, size: 0.35, color: 0xdddddd, speed: 0.00018}
                 ],
                 'Mars': [
-                    {name: 'Phobos', key: 'Moon_Phobos', dist: 4.2, size: 0.13, color: 0xbbbbbb, speed: 0.0030},
-                    {name: 'Deimos', key: 'Moon_Deimos', dist: 7.0, size: 0.10, color: 0x999999, speed: 0.0020}
+                    {name: 'Phobos', key: 'Moon_Phobos', dist: 4.2, size: 0.13, color: 0xbbbbbb, speed: 0.0005},
+                    {name: 'Deimos', key: 'Moon_Deimos', dist: 7.0, size: 0.10, color: 0x999999, speed: 0.0003}
                 ],
                 'Jupiter': [
-                    {name: 'Io', key: 'Moon_Io', dist: 11.0, size: 0.24, color: 0xffffaa, speed: 0.0026},
-                    {name: 'Europa', key: 'Moon_Europa', dist: 16.0, size: 0.22, color: 0xddddff, speed: 0.0020},
-                    {name: 'Ganimede', key: 'Moon_Ganimede', dist: 22.0, size: 0.30, color: 0xcccccc, speed: 0.0015},
-                    {name: 'Callisto', key: 'Moon_Callisto', dist: 29.0, size: 0.27, color: 0x888888, speed: 0.0011}
+                    {name: 'Io', key: 'Moon_Io', dist: 11.0, size: 0.24, color: 0xffffaa, speed: 0.0004},
+                    {name: 'Europa', key: 'Moon_Europa', dist: 16.0, size: 0.22, color: 0xddddff, speed: 0.0003},
+                    {name: 'Ganimede', key: 'Moon_Ganimede', dist: 22.0, size: 0.30, color: 0xcccccc, speed: 0.00022},
+                    {name: 'Callisto', key: 'Moon_Callisto', dist: 29.0, size: 0.27, color: 0x888888, speed: 0.00016}
                 ],
                 'Saturn': [
-                    {name: 'Titano', key: 'Moon_Titano', dist: 18.0, size: 0.30, color: 0xffcc88, speed: 0.0016},
-                    {name: 'Encelado', key: 'Moon_Encelado', dist: 10.5, size: 0.14, color: 0xffffff, speed: 0.0028},
-                    {name: 'Rea', key: 'Moon_Rea', dist: 24.5, size: 0.16, color: 0xeeeeee, speed: 0.0014},
-                    {name: 'Giapeto', key: 'Moon_Giapeto', dist: 33.0, size: 0.15, color: 0x777777, speed: 0.0010}
+                    {name: 'Titano', key: 'Moon_Titano', dist: 18.0, size: 0.30, color: 0xffcc88, speed: 0.00025},
+                    {name: 'Encelado', key: 'Moon_Encelado', dist: 10.5, size: 0.14, color: 0xffffff, speed: 0.0004},
+                    {name: 'Rea', key: 'Moon_Rea', dist: 24.5, size: 0.16, color: 0xeeeeee, speed: 0.0002},
+                    {name: 'Giapeto', key: 'Moon_Giapeto', dist: 33.0, size: 0.15, color: 0x777777, speed: 0.00015}
                 ],
                 'Uranus': [
-                    {name: 'Titania', key: 'Moon_Titania', dist: 9.0, size: 0.19, color: 0xcccccc, speed: 0.0018},
-                    {name: 'Oberon', key: 'Moon_Oberon', dist: 13.5, size: 0.17, color: 0xaaaaaa, speed: 0.0014}
+                    {name: 'Titania', key: 'Moon_Titania', dist: 9.0, size: 0.19, color: 0xcccccc, speed: 0.00025},
+                    {name: 'Oberon', key: 'Moon_Oberon', dist: 13.5, size: 0.17, color: 0xaaaaaa, speed: 0.0002}
                 ],
                 'Neptune': [
-                    {name: 'Tritone', key: 'Moon_Tritone', dist: 10.0, size: 0.24, color: 0xddddff, speed: -0.0020}
+                    {name: 'Tritone', key: 'Moon_Tritone', dist: 10.0, size: 0.24, color: 0xddddff, speed: -0.0003}
                 ],
                 'Pluto': [
-                    {name: 'Caronte', key: 'Moon_Caronte', dist: 4.5, size: 0.18, color: 0xcccccc, speed: 0.0022}
+                    {name: 'Caronte', key: 'Moon_Caronte', dist: 4.5, size: 0.18, color: 0xcccccc, speed: 0.00035}
                 ]
             };
 
@@ -5053,7 +5053,7 @@ function animate() {
                 document.getElementById('speed-val').innerText = currentSpeed.toFixed(1) + 'x';
                 
                 if (!isPaused) {
-                    simDate = new Date(simDate.getTime() + (currentSpeed * 86400000 / 300)); // Rallentamento di base 5x per orbite fluide e navigabili 
+                    simDate = new Date(simDate.getTime() + (currentSpeed * 86400000 / 1200)); // Movimento orbitale calmo e stabile
                     document.getElementById('sim-date').valueAsDate = simDate;
                 }
             }
@@ -5067,7 +5067,7 @@ function animate() {
                 const orbFactor = Math.min(Math.max(currentSpeed, -8), 8);
                 Object.values(moonMeshes).forEach(mItem => {
                     if (mItem.orbitGroup) {
-                        mItem.orbitGroup.rotation.y += (mItem.speed || 0.015) * orbFactor;
+                        mItem.orbitGroup.rotation.y += (mItem.speed || 0.0005) * orbFactor;
                     }
                 });
             }
@@ -5098,7 +5098,7 @@ function animate() {
                             // Al perielio (vicino al Sole) accelera vertiginosamente; all'afelio rallenta
                             const simSpeedMult = (typeof currentSpeed !== 'undefined') ? Math.max(Math.min(currentSpeed, 8), -8) : 1;
                             const keplerFactor = Math.pow(90 / rSun, 1.35);
-                            const dAngle = 0.00065 * keplerFactor * simSpeedMult; // Calibrata velocità cometa
+                            const dAngle = 0.00025 * keplerFactor * simSpeedMult; // Orbita cometa calibrata
                             item.cometAngle += dAngle;
                         }
                         
