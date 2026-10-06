@@ -1502,6 +1502,261 @@
             background: #a855f7; color: #020617; box-shadow: 0 0 15px rgba(168, 85, 247, 0.6);
         }
 
+    
+        /* =========================================================================
+           STILI MODALI PER GIOCHI ISS E GALLERIA HUBBLE (HIGH Z-INDEX)
+        ========================================================================== */
+        .iss-modal, .hubble-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(2, 6, 23, 0.94);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            z-index: 99999 !important;
+            overflow-y: auto;
+            color: #f1f5f9;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            padding: 16px;
+            box-sizing: border-box;
+            pointer-events: auto !important;
+        }
+        .iss-modal.active, .hubble-modal.active {
+            display: flex !important;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-card {
+            background: rgba(15, 23, 42, 0.98);
+            border: 2px solid #00f0ff;
+            box-shadow: 0 0 45px rgba(0, 240, 255, 0.5);
+            border-radius: 20px;
+            max-width: 920px;
+            width: 100%;
+            position: relative;
+            padding: 24px;
+            box-sizing: border-box;
+            max-height: 94vh;
+            display: flex;
+            flex-direction: column;
+            pointer-events: auto !important;
+            z-index: 100000;
+        }
+        .modal-close-btn {
+            position: absolute;
+            top: 16px; right: 18px;
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(0, 240, 255, 0.5);
+            color: #00f0ff;
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.2s;
+            z-index: 100;
+        }
+        .modal-close-btn:hover {
+            background: #ef4444; border-color: #ef4444; color: #fff;
+        }
+        .modal-header-title {
+            font-size: 1.5em;
+            font-weight: 800;
+            color: #00f0ff;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .modal-sub {
+            font-size: 0.9em;
+            color: #94a3b8;
+            margin-bottom: 16px;
+        }
+
+        /* Tasti selezione missioni */
+        .missions-nav {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+        .mission-tab-btn {
+            background: rgba(30, 41, 59, 0.85);
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            color: #f1f5f9;
+            padding: 10px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            text-align: left;
+        }
+        .mission-tab-btn:hover {
+            border-color: #00f0ff;
+            background: rgba(0, 240, 255, 0.15);
+        }
+        .mission-tab-btn.active {
+            border-color: #00f0ff;
+            background: rgba(0, 240, 255, 0.25);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+            color: #00f0ff;
+        }
+
+        /* Area di gioco */
+        .game-screen-area {
+            flex: 1;
+            background: #030712;
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            border-radius: 14px;
+            position: relative;
+            overflow: hidden;
+            min-height: 420px;
+            display: flex;
+            flex-direction: column;
+        }
+        .game-hud-top {
+            position: absolute;
+            top: 0; left: 0; width: 100%;
+            background: rgba(15, 23, 42, 0.9);
+            border-bottom: 1px solid rgba(0, 240, 255, 0.3);
+            padding: 8px 16px;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            z-index: 20;
+        }
+        .game-controls-bar {
+            position: absolute;
+            bottom: 0; left: 0; width: 100%;
+            background: rgba(15, 23, 42, 0.9);
+            border-top: 1px solid rgba(0, 240, 255, 0.3);
+            padding: 10px 16px;
+            box-sizing: border-box;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            z-index: 20;
+        }
+        .game-action-btn {
+            background: rgba(0, 240, 255, 0.25);
+            border: 1px solid #00f0ff;
+            color: #00f0ff;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .game-action-btn:hover {
+            background: #00f0ff; color: #020617; box-shadow: 0 0 15px rgba(0, 240, 255, 0.6);
+        }
+        .game-canvas-wrap {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+        }
+
+        /* Galleria Hubble */
+        .hubble-gallery-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            overflow-y: auto;
+            max-height: 78vh;
+            padding-right: 6px;
+        }
+        .hubble-viewer-main {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: center;
+            background: rgba(2, 6, 23, 0.85);
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            border-radius: 14px;
+            padding: 16px;
+        }
+        .hubble-main-img {
+            max-width: 100%;
+            max-height: 380px;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.3);
+        }
+        .hubble-thumbs-row {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding: 10px 4px;
+            width: 100%;
+        }
+        .hubble-thumb {
+            width: 90px;
+            height: 65px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 2px solid rgba(0, 240, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+        .hubble-thumb:hover, .hubble-thumb.active {
+            border-color: #ffd000;
+            box-shadow: 0 0 15px rgba(255, 208, 0, 0.6);
+            transform: scale(1.06);
+        }
+        .hubble-desc-box {
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 10px;
+            padding: 12px 16px;
+            font-size: 13.5px;
+            line-height: 1.55;
+            color: #cbd5e1;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .btn-iss-action, .btn-hubble-action {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-weight: 800;
+            font-size: 13px;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+        .btn-iss-action {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(0, 240, 255, 0.3));
+            border: 1px solid #10b981;
+            color: #6ee7b7;
+        }
+        .btn-iss-action:hover {
+            background: #10b981; color: #020617; box-shadow: 0 0 15px rgba(16, 185, 129, 0.6);
+        }
+        .btn-hubble-action {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.3), rgba(0, 240, 255, 0.3));
+            border: 1px solid #a855f7;
+            color: #e9d5ff;
+        }
+        .btn-hubble-action:hover {
+            background: #a855f7; color: #020617; box-shadow: 0 0 15px rgba(168, 85, 247, 0.6);
+        }
+
     </style>
     <!-- Three.js + OrbitControls -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -4998,6 +5253,719 @@ function animate() {
 
             renderer.render(scene, camera);
         }
+
+
+        // =========================================================================
+        // GIOCHI MISSIONI ISS & GALLERIA TELESCOPIO HUBBLE (CORE JAVASCRIPT)
+        // =========================================================================
+
+        let currentIssMission = 1;
+        let issMissionTimerId = null;
+        let issMissionTimeLeft = 60;
+        let issMissionRunning = false;
+        let issSubAnimId = null;
+
+        // Parametri Missione 1: Docking
+        let dockDist = 65.0;
+        let dockSpeed = 0.8;
+        let dockX = 14.0;
+        let dockY = -12.0;
+        let dockKeys = { w: false, s: false, a: false, d: false, q: false, e: false };
+
+        // Parametri Missione 2: Fuga O2
+        let o2Level = 100.0;
+        let o2PlayerZ = -30.0;
+        let o2ValveSecured = 0;
+        let o2HoldingBtn = false;
+
+        // Parametri Missione 3: Pannelli Solari
+        let solarDeployed = false;
+        let solarDeployProgress = 0.0;
+        let solarAngleAlpha = 35.0;
+        let solarAngleBeta = 60.0;
+        const targetAlpha = 180.0;
+        const targetBeta = 90.0;
+
+        // Parametri Missione 4: Canadarm2
+        let armStep = 1;
+        let armReachX = 0.0;
+        let armReachY = 0.0;
+        let armReachZ = 0.0;
+
+        function openIssMissions(missionId = 1) {
+            console.log('Opening ISS Missions, ID:', missionId);
+            if (typeof stopAudioGuide === 'function') stopAudioGuide();
+            const modal = document.getElementById('iss-missions-modal');
+            if (modal) {
+                modal.classList.add('active');
+                modal.style.display = 'flex';
+                switchIssMission(missionId);
+            } else {
+                console.error('iss-missions-modal element not found in DOM!');
+            }
+        }
+
+        function closeIssMissions() {
+            const modal = document.getElementById('iss-missions-modal');
+            if (modal) {
+                modal.classList.remove('active');
+                modal.style.display = 'none';
+            }
+            stopIssMissionLoop();
+        }
+
+        function switchIssMission(id) {
+            currentIssMission = id;
+            for (let i = 1; i <= 4; i++) {
+                const tab = document.getElementById('tab-mission-' + i);
+                if (tab) tab.className = 'mission-tab-btn ' + (i === id ? 'active' : '');
+            }
+            startIssMission(id);
+        }
+
+        function stopIssMissionLoop() {
+            issMissionRunning = false;
+            if (issMissionTimerId) clearInterval(issMissionTimerId);
+            issMissionTimerId = null;
+            if (issSubAnimId) cancelAnimationFrame(issSubAnimId);
+            issSubAnimId = null;
+        }
+
+        function playMissionSound(type) {
+            try {
+                if (typeof getAudioContext === 'function') {
+                    const ctx = getAudioContext();
+                    if (!ctx) return;
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    const now = ctx.currentTime;
+
+                    if (type === 'beep') {
+                        osc.frequency.setValueAtTime(880, now);
+                        gain.gain.setValueAtTime(0.12, now);
+                        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
+                        osc.start(now); osc.stop(now + 0.1);
+                    } else if (type === 'success') {
+                        osc.type = 'triangle';
+                        osc.frequency.setValueAtTime(523.25, now);
+                        osc.frequency.setValueAtTime(659.25, now + 0.1);
+                        osc.frequency.setValueAtTime(783.99, now + 0.2);
+                        osc.frequency.setValueAtTime(1046.50, now + 0.3);
+                        gain.gain.setValueAtTime(0.2, now);
+                        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.6);
+                        osc.start(now); osc.stop(now + 0.6);
+                    } else if (type === 'alarm') {
+                        osc.type = 'sawtooth';
+                        osc.frequency.setValueAtTime(440, now);
+                        osc.frequency.linearRampToValueAtTime(880, now + 0.2);
+                        gain.gain.setValueAtTime(0.15, now);
+                        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+                        osc.start(now); osc.stop(now + 0.25);
+                    } else if (type === 'clank') {
+                        osc.type = 'square';
+                        osc.frequency.setValueAtTime(120, now);
+                        gain.gain.setValueAtTime(0.25, now);
+                        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+                        osc.start(now); osc.stop(now + 0.3);
+                    }
+                }
+            } catch(e) {}
+        }
+
+        function startIssMission(id) {
+            stopIssMissionLoop();
+            issMissionRunning = true;
+
+            const titleEl = document.getElementById('iss-hud-mission-title');
+            const timerEl = document.getElementById('iss-hud-timer');
+            const statusEl = document.getElementById('iss-hud-status');
+            const controlsBar = document.getElementById('iss-controls-bar');
+            if (statusEl) {
+                statusEl.innerText = 'IN CORSO';
+                statusEl.style.color = '#10b981';
+            }
+
+            if (id === 1) {
+                if (titleEl) titleEl.innerText = 'MISSIONE 1: ATTRACCO NAVICELLA ALLA ISS (PORT IDA)';
+                issMissionTimeLeft = 60;
+                dockDist = 65.0;
+                dockSpeed = 0.75;
+                dockX = (Math.random() - 0.5) * 20;
+                dockY = (Math.random() - 0.5) * 16;
+
+                if (controlsBar) controlsBar.innerHTML = `
+                    <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap; justify-content:center;">
+                        <button class="game-action-btn" onmousedown="dockKeys.w=true" onmouseup="dockKeys.w=false" ontouchstart="dockKeys.w=true" ontouchend="dockKeys.w=false">⬆️ Accelera (W)</button>
+                        <button class="game-action-btn" onmousedown="dockKeys.s=true" onmouseup="dockKeys.s=false" ontouchstart="dockKeys.s=true" ontouchend="dockKeys.s=false">⬇️ Frena RCS (S)</button>
+                        <button class="game-action-btn" onmousedown="dockKeys.a=true" onmouseup="dockKeys.a=false" ontouchstart="dockKeys.a=true" ontouchend="dockKeys.a=false">⬅️ Sinistra (A)</button>
+                        <button class="game-action-btn" onmousedown="dockKeys.d=true" onmouseup="dockKeys.d=false" ontouchstart="dockKeys.d=true" ontouchend="dockKeys.d=false">➡️ Destra (D)</button>
+                        <button class="game-action-btn" onmousedown="dockKeys.q=true" onmouseup="dockKeys.q=false" ontouchstart="dockKeys.q=true" ontouchend="dockKeys.q=false">🔼 Quota Su (Q)</button>
+                        <button class="game-action-btn" onmousedown="dockKeys.e=true" onmouseup="dockKeys.e=false" ontouchstart="dockKeys.e=true" ontouchend="dockKeys.e=false">🔽 Quota Giù (E)</button>
+                        <span style="font-size:11px; color:#94a3b8; margin-left:8px;">💡 Usa tasti W/S/A/D o pulsanti! Tocca a velocità <0.4 m/s</span>
+                    </div>
+                `;
+
+            } else if (id === 2) {
+                if (titleEl) titleEl.innerText = 'MISSIONE 2: EMERGENZA ZERO-G - PERDITA DI OSSIGENO!';
+                issMissionTimeLeft = 45;
+                o2Level = 100.0;
+                o2PlayerZ = -35.0;
+                o2ValveSecured = 0;
+                o2HoldingBtn = false;
+
+                if (controlsBar) controlsBar.innerHTML = `
+                    <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap; justify-content:center;">
+                        <button class="game-action-btn" onclick="moveO2Player(3.5)">🚀 Fluttua Avanti (W / Spazio)</button>
+                        <button class="game-action-btn" onclick="moveO2Player(-2.0)">⬅️ Arretra</button>
+                        <button id="btn-seal-o2" class="game-action-btn" style="background:#ef4444; border-color:#f87171; color:#fff;" 
+                                onmousedown="startSealingO2()" onmouseup="stopSealingO2()" ontouchstart="startSealingO2()" ontouchend="stopSealingO2()">
+                            🚨 PREMI E TIENI PREMUTO: SIGILLA VALVOLA O₂
+                        </button>
+                    </div>
+                `;
+
+            } else if (id === 3) {
+                if (titleEl) titleEl.innerText = 'MISSIONE 3: SALA CONTROLLO - ESTENSIONE & TRACCIAMENTO SOLARE';
+                issMissionTimeLeft = 50;
+                solarDeployed = false;
+                solarDeployProgress = 0.0;
+                solarAngleAlpha = 45.0;
+                solarAngleBeta = 30.0;
+
+                if (controlsBar) controlsBar.innerHTML = `
+                    <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap; justify-content:center;">
+                        <button id="btn-deploy-solar" class="game-action-btn" onclick="triggerSolarDeploy()">☀️ 1. Dispiega Ali Solari (SAW)</button>
+                        <div style="display:flex; gap:6px; align-items:center;">
+                            <span style="font-size:12px; color:#00f0ff; font-weight:bold;">Asse Alfa:</span>
+                            <input type="range" min="0" max="360" value="45" id="slider-alpha" oninput="solarAngleAlpha=parseFloat(this.value)" style="cursor:pointer; width:120px;">
+                        </div>
+                        <div style="display:flex; gap:6px; align-items:center;">
+                            <span style="font-size:12px; color:#00f0ff; font-weight:bold;">Asse Beta:</span>
+                            <input type="range" min="0" max="180" value="30" id="slider-beta" oninput="solarAngleBeta=parseFloat(this.value)" style="cursor:pointer; width:120px;">
+                        </div>
+                    </div>
+                `;
+
+            } else if (id === 4) {
+                if (titleEl) titleEl.innerText = 'MISSIONE 4: BRACCIO CANADARM2 - RECUPERO CARICO DALLO SHUTTLE';
+                issMissionTimeLeft = 70;
+                armStep = 1;
+                armReachX = 0; armReachY = 0; armReachZ = 0;
+
+                if (controlsBar) controlsBar.innerHTML = `
+                    <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap; justify-content:center;">
+                        <button class="game-action-btn" onclick="moveArmJoint('x', -0.15)">⬅️ Braccio Sinistra</button>
+                        <button class="game-action-btn" onclick="moveArmJoint('x', 0.15)">➡️ Braccio Destra</button>
+                        <button class="game-action-btn" onclick="moveArmJoint('y', 0.15)">🔼 Alza</button>
+                        <button class="game-action-btn" onclick="moveArmJoint('y', -0.15)">🔽 Abbassa</button>
+                        <button class="game-action-btn" onclick="moveArmJoint('z', 0.15)">⏩ Estendi</button>
+                        <button class="game-action-btn" onclick="moveArmJoint('z', -0.15)">⏪ Ritrai</button>
+                        <button id="btn-arm-action" class="game-action-btn" style="background:#10b981; border-color:#34d399; color:#fff;" onclick="triggerArmAction()">
+                            🧲 CATTURA CARICO SHUTTLE
+                        </button>
+                    </div>
+                `;
+            }
+
+            initIssCanvasLoop(id);
+
+            issMissionTimerId = setInterval(() => {
+                if (!issMissionRunning) return;
+                issMissionTimeLeft--;
+                if (timerEl) timerEl.innerText = issMissionTimeLeft + 's';
+
+                if (issMissionTimeLeft <= 10 && issMissionTimeLeft > 0) {
+                    playMissionSound('beep');
+                }
+
+                if (issMissionTimeLeft <= 0) {
+                    issMissionRunning = false;
+                    clearInterval(issMissionTimerId);
+                    if (statusEl) {
+                        statusEl.innerText = 'TEMPO SCADUTO - MISSIONE FALLITA';
+                        statusEl.style.color = '#ef4444';
+                    }
+                    playMissionSound('alarm');
+                    setTimeout(() => {
+                        alert('Tempo scaduto! Riprova la manovra della stazione spaziale.');
+                        startIssMission(id);
+                    }, 800);
+                }
+            }, 1000);
+        }
+
+        function moveO2Player(dz) {
+            if (!issMissionRunning) return;
+            o2PlayerZ += dz;
+            if (o2PlayerZ > 0) o2PlayerZ = 0;
+            playMissionSound('beep');
+        }
+
+        let sealHoldTimer = null;
+        function startSealingO2() {
+            if (!issMissionRunning || o2PlayerZ < -4) {
+                if (o2PlayerZ < -4) alert('Raggiungi prima la paratia di emergenza in fondo al modulo!');
+                return;
+            }
+            o2HoldingBtn = true;
+            sealHoldTimer = setInterval(() => {
+                if (!o2HoldingBtn) { clearInterval(sealHoldTimer); return; }
+                o2ValveSecured += 25;
+                playMissionSound('beep');
+                if (o2ValveSecured >= 100) {
+                    clearInterval(sealHoldTimer);
+                    completeIssMission(2);
+                }
+            }, 300);
+        }
+        function stopSealingO2() {
+            o2HoldingBtn = false;
+            if (sealHoldTimer) clearInterval(sealHoldTimer);
+        }
+
+        function triggerSolarDeploy() {
+            if (!issMissionRunning) return;
+            solarDeployed = true;
+            playMissionSound('clank');
+            const btn = document.getElementById('btn-deploy-solar');
+            if (btn) btn.innerText = '✅ Dispiegamento in Corso...';
+        }
+
+        function moveArmJoint(axis, delta) {
+            if (!issMissionRunning) return;
+            if (axis === 'x') armReachX = Math.max(-1.5, Math.min(1.5, armReachX + delta));
+            if (axis === 'y') armReachY = Math.max(-1.5, Math.min(1.5, armReachY + delta));
+            if (axis === 'z') armReachZ = Math.max(-1.5, Math.min(1.5, armReachZ + delta));
+            playMissionSound('beep');
+        }
+
+        function triggerArmAction() {
+            if (!issMissionRunning) return;
+            const btn = document.getElementById('btn-arm-action');
+            if (armStep === 1) {
+                const distToCargo = Math.sqrt(armReachX*armReachX + armReachY*armReachY + (armReachZ - 1.0)*(armReachZ - 1.0));
+                if (distToCargo < 0.6) {
+                    armStep = 2;
+                    playMissionSound('clank');
+                    if (btn) {
+                        btn.innerText = '🔒 TRASFERISCI E BLOCCA SU TRUSS ISS';
+                        btn.style.background = '#3b82f6';
+                    }
+                    alert('Carico agganciato con successo! Ora guida il braccio verso la staffa sulla trave (Truss).');
+                } else {
+                    alert('La pinza non è abbastanza vicina al modulo dello Shuttle! Allinea meglio il braccio.');
+                }
+            } else if (armStep === 2) {
+                const distToTruss = Math.sqrt((armReachX - 0.8)*(armReachX - 0.8) + (armReachY - 0.7)*(armReachY - 0.7) + (armReachZ + 0.5)*(armReachZ + 0.5));
+                if (distToTruss < 0.6) {
+                    playMissionSound('clank');
+                    completeIssMission(4);
+                } else {
+                    alert('Avvicina il carico alla staffa verde di montaggio sulla trave della ISS!');
+                }
+            }
+        }
+
+        function completeIssMission(id) {
+            issMissionRunning = false;
+            clearInterval(issMissionTimerId);
+            const statusEl = document.getElementById('iss-hud-status');
+            if (statusEl) {
+                statusEl.innerText = 'MISSIONE COMPIUTA CON SUCCESSO! 🏆';
+                statusEl.style.color = '#ffd000';
+            }
+            playMissionSound('success');
+            setTimeout(() => {
+                const congrats = [
+                    'ATTRACCO RIUSCITO! La navicella è agganciata saldamente alla ISS.',
+                    'PERDITA O₂ SIGILLATA! Atmosfera salvata e pressione ripristinata a 1 atm.',
+                    'PANNELLI SOLARI ESTESI E ALLINEATI! Efficienza energetica al 100%.',
+                    'MODULO TRASFERITO CON SUCCESSO! Il braccio Canadarm2 ha completato l'assemblaggio.'
+                ];
+                alert('🎉 CONGRATULAZIONI! ' + congrats[id - 1]);
+                if (id < 4) switchIssMission(id + 1);
+            }, 600);
+        }
+
+        function initIssCanvasLoop(id) {
+            const canvas = document.getElementById('iss-game-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+
+            function resize() {
+                canvas.width = canvas.clientWidth || 800;
+                canvas.height = canvas.clientHeight || 450;
+            }
+            resize();
+
+            function frame() {
+                if (!issMissionRunning || currentIssMission !== id) return;
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                const w = canvas.width;
+                const h = canvas.height;
+
+                ctx.fillStyle = '#020617';
+                ctx.fillRect(0, 0, w, h);
+
+                const gradEarth = ctx.createLinearGradient(0, h * 0.65, 0, h);
+                gradEarth.addColorStop(0, 'rgba(14, 165, 233, 0.7)');
+                gradEarth.addColorStop(0.3, 'rgba(2, 132, 199, 0.9)');
+                gradEarth.addColorStop(1, 'rgba(3, 105, 161, 1)');
+                ctx.fillStyle = gradEarth;
+                ctx.beginPath();
+                ctx.arc(w / 2, h * 1.8, h * 1.25, Math.PI * 1.2, Math.PI * 1.8);
+                ctx.fill();
+
+                if (id === 1) {
+                    if (dockKeys.w) dockSpeed = Math.min(1.8, dockSpeed + 0.04);
+                    if (dockKeys.s) dockSpeed = Math.max(-0.5, dockSpeed - 0.04);
+                    if (dockKeys.a) dockX -= 0.25;
+                    if (dockKeys.d) dockX += 0.25;
+                    if (dockKeys.q) dockY -= 0.25;
+                    if (dockKeys.e) dockY += 0.25;
+
+                    dockDist -= dockSpeed * 0.12;
+
+                    const scale = Math.max(0.2, 55.0 / Math.max(1.0, dockDist));
+                    const cx = w / 2 - dockX * scale * 5.0;
+                    const cy = h / 2 - dockY * scale * 5.0;
+
+                    ctx.save();
+                    ctx.translate(cx, cy);
+
+                    ctx.fillStyle = '#94a3b8';
+                    ctx.fillRect(-140 * scale, -8 * scale, 280 * scale, 16 * scale);
+
+                    ctx.fillStyle = '#1e3a8a';
+                    ctx.strokeStyle = '#f59e0b';
+                    ctx.lineWidth = 1.5;
+                    [-110, -80, 80, 110].forEach(sx => {
+                        ctx.fillRect(sx * scale, -55 * scale, 24 * scale, 110 * scale);
+                        ctx.strokeRect(sx * scale, -55 * scale, 24 * scale, 110 * scale);
+                    });
+
+                    ctx.fillStyle = '#e2e8f0';
+                    ctx.beginPath();
+                    ctx.arc(0, 0, 24 * scale, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    ctx.strokeStyle = '#10b981';
+                    ctx.lineWidth = 3;
+                    ctx.beginPath();
+                    ctx.arc(0, 0, 18 * scale, 0, Math.PI * 2);
+                    ctx.stroke();
+                    ctx.beginPath();
+                    ctx.moveTo(-10 * scale, 0); ctx.lineTo(10 * scale, 0);
+                    ctx.moveTo(0, -10 * scale); ctx.lineTo(0, 10 * scale);
+                    ctx.stroke();
+
+                    ctx.restore();
+
+                    ctx.strokeStyle = 'rgba(0, 240, 255, 0.6)';
+                    ctx.lineWidth = 2;
+                    ctx.strokeRect(w / 2 - 80, h / 2 - 80, 160, 160);
+                    ctx.beginPath();
+                    ctx.arc(w / 2, h / 2, 40, 0, Math.PI * 2);
+                    ctx.stroke();
+
+                    ctx.fillStyle = '#00f0ff';
+                    ctx.font = 'bold 15px Segoe UI, sans-serif';
+                    ctx.fillText(`DISTANZA: ${Math.max(0, dockDist).toFixed(1)} m`, 25, 60);
+                    ctx.fillStyle = dockSpeed > 0.4 ? '#ef4444' : '#10b981';
+                    ctx.fillText(`VELOCITÀ: ${dockSpeed.toFixed(2)} m/s (Max 0.40)`, 25, 85);
+                    ctx.fillStyle = '#f1f5f9';
+                    ctx.fillText(`ALLINEAMENTO X: ${dockX.toFixed(1)} | Y: ${dockY.toFixed(1)}`, 25, 110);
+
+                    if (dockDist <= 0.3) {
+                        if (Math.abs(dockX) < 1.8 && Math.abs(dockY) < 1.8 && dockSpeed <= 0.42) {
+                            completeIssMission(1);
+                            return;
+                        } else if (dockSpeed > 0.42) {
+                            playMissionSound('alarm');
+                            alert('IMPATTO TROPPO VIOLENTO! Velocità superiore a 0.40 m/s. Riprova rallentando.');
+                            dockDist = 20.0;
+                            dockSpeed = 0.2;
+                        } else {
+                            alert('PORT IDA MANCATO! Sei fuori allineamento. Riprova centrando il reticolo.');
+                            dockDist = 20.0;
+                        }
+                    }
+
+                } else if (id === 2) {
+                    o2Level = Math.max(0, o2Level - 0.08);
+                    const depth = -o2PlayerZ;
+
+                    ctx.strokeStyle = 'rgba(0, 240, 255, 0.4)';
+                    ctx.lineWidth = 2;
+
+                    for (let z = 0; z < 5; z++) {
+                        const s = 1.0 - (z * 0.18);
+                        ctx.strokeRect(w/2 - 180 * s, h/2 - 120 * s, 360 * s, 240 * s);
+                    }
+
+                    const vS = Math.min(1.5, Math.max(0.3, (35.0 - depth) / 10.0));
+                    ctx.fillStyle = '#ef4444';
+                    ctx.beginPath();
+                    ctx.arc(w / 2, h / 2, 28 * vS, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.fillStyle = '#fff';
+                    ctx.font = 'bold 12px sans-serif';
+                    ctx.fillText('VALVOLA O₂', w/2 - 35, h/2 + 5);
+
+                    if (Math.floor(Date.now() / 300) % 2 === 0) {
+                        ctx.fillStyle = 'rgba(239, 68, 68, 0.15)';
+                        ctx.fillRect(0, 0, w, h);
+                    }
+
+                    ctx.fillStyle = o2Level < 25 ? '#ef4444' : '#10b981';
+                    ctx.font = 'bold 18px Segoe UI, sans-serif';
+                    ctx.fillText(`🚨 LIVELLO OSSIGENO: ${o2Level.toFixed(0)}%`, 25, 60);
+                    ctx.fillStyle = '#00f0ff';
+                    ctx.fillText(`DISTANZA PARATIA: ${(depth).toFixed(1)} m`, 25, 90);
+                    if (o2ValveSecured > 0) {
+                        ctx.fillStyle = '#ffd000';
+                        ctx.fillText(`SERRAGGIO VALVOLA: ${o2ValveSecured}%`, 25, 120);
+                    }
+
+                    if (o2Level <= 0) {
+                        issMissionRunning = false;
+                        playMissionSound('alarm');
+                        alert('Ossigeno esaurito! Riprova muovendoti più velocemente lungo i corridoi.');
+                        startIssMission(2);
+                        return;
+                    }
+
+                } else if (id === 3) {
+                    if (solarDeployed) solarDeployProgress = Math.min(1.0, solarDeployProgress + 0.015);
+
+                    const diffAlpha = Math.abs(solarAngleAlpha - targetAlpha);
+                    const diffBeta = Math.abs(solarAngleBeta - targetBeta);
+                    const totalDiff = diffAlpha + diffBeta;
+                    const efficiency = solarDeployed ? Math.max(5, Math.min(100, Math.round(100 - (totalDiff / 2.5)))) : 0;
+
+                    ctx.fillStyle = '#fde047';
+                    ctx.shadowColor = '#f59e0b';
+                    ctx.shadowBlur = 35;
+                    ctx.beginPath();
+                    ctx.arc(w * 0.75, h * 0.35, 36, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.shadowBlur = 0;
+
+                    const cx = w * 0.35;
+                    const cy = h * 0.55;
+                    ctx.fillStyle = '#94a3b8';
+                    ctx.fillRect(cx - 80, cy - 8, 160, 16);
+
+                    const wingLen = 130 * solarDeployProgress;
+                    ctx.save();
+                    ctx.translate(cx, cy);
+                    ctx.rotate((solarAngleAlpha - 180) * Math.PI / 180 * 0.5);
+
+                    ctx.fillStyle = '#1d4ed8';
+                    ctx.strokeStyle = '#fbbf24';
+                    ctx.lineWidth = 2;
+                    ctx.fillRect(-wingLen, -25, wingLen, 50);
+                    ctx.strokeRect(-wingLen, -25, wingLen, 50);
+                    ctx.fillRect(0, -25, wingLen, 50);
+                    ctx.strokeRect(0, -25, wingLen, 50);
+                    ctx.restore();
+
+                    ctx.fillStyle = efficiency > 90 ? '#10b981' : (efficiency > 60 ? '#ffd000' : '#ef4444');
+                    ctx.font = 'bold 20px Segoe UI, sans-serif';
+                    ctx.fillText(`⚡ EFFICIENZA ENERGETICA: ${efficiency}%`, 25, 60);
+                    ctx.fillStyle = '#94a3b8';
+                    ctx.font = '14px sans-serif';
+                    ctx.fillText(`Dispiegamento: ${Math.round(solarDeployProgress * 100)}% | Asse Alfa: ${solarAngleAlpha}° | Asse Beta: ${solarAngleBeta}°`, 25, 90);
+
+                    if (solarDeployed && efficiency >= 95) {
+                        completeIssMission(3);
+                        return;
+                    }
+
+                } else if (id === 4) {
+                    ctx.fillStyle = '#cbd5e1';
+                    ctx.beginPath();
+                    ctx.moveTo(w * 0.15, h * 0.7);
+                    ctx.lineTo(w * 0.35, h * 0.7);
+                    ctx.lineTo(w * 0.32, h * 0.85);
+                    ctx.lineTo(w * 0.12, h * 0.85);
+                    ctx.closePath();
+                    ctx.fill();
+
+                    ctx.fillStyle = '#1e293b';
+                    ctx.fillRect(w * 0.18, h * 0.7, 80, 20);
+                    if (armStep === 1) {
+                        ctx.fillStyle = '#f59e0b';
+                        ctx.fillRect(w * 0.22, h * 0.68, 30, 22);
+                    }
+
+                    ctx.fillStyle = '#64748b';
+                    ctx.fillRect(w * 0.6, h * 0.3, 180, 24);
+                    ctx.strokeStyle = '#10b981';
+                    ctx.lineWidth = 3;
+                    ctx.strokeRect(w * 0.75, h * 0.28, 40, 28);
+
+                    const bx = w * 0.55;
+                    const by = h * 0.35;
+                    const armEx = bx + (armStep === 1 ? -120 : 90) + armReachX * 60;
+                    const armEy = by + (armStep === 1 ? 130 : 0) + armReachY * 60;
+
+                    ctx.strokeStyle = '#f8fafc';
+                    ctx.lineWidth = 7;
+                    ctx.beginPath();
+                    ctx.moveTo(bx, by);
+                    ctx.lineTo((bx + armEx) / 2 + 30, (by + armEy) / 2 - 20);
+                    ctx.lineTo(armEx, armEy);
+                    ctx.stroke();
+
+                    ctx.fillStyle = '#ffd000';
+                    ctx.beginPath();
+                    ctx.arc(armEx, armEy, 10, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    if (armStep >= 2) {
+                        ctx.fillStyle = '#f59e0b';
+                        ctx.fillRect(armEx - 15, armEy - 10, 30, 22);
+                    }
+
+                    ctx.fillStyle = '#00f0ff';
+                    ctx.font = 'bold 17px Segoe UI, sans-serif';
+                    ctx.fillText(armStep === 1 ? '🎯 FASE 1: Allinea la pinza al carico arancione dello Shuttle' : '🔒 FASE 2: Guida il carico nella staffa verde della trave ISS', 25, 60);
+                }
+
+                issSubAnimId = requestAnimationFrame(frame);
+            }
+
+            issSubAnimId = requestAnimationFrame(frame);
+        }
+
+        // =========================================================================
+        // GALLERIA FOTOGRAFICA TELESCOPIO SPAZIALE HUBBLE
+        // =========================================================================
+        const HUBBLE_PHOTOS = [
+            {
+                title: "1. I Pilastri della Creazione (Pillars of Creation - M16)",
+                img: "textures/pillars.jpg",
+                desc: "Scattata nel 1995 e ripresa in altissima risoluzione, è una delle immagini più celebri della storia umana. Mostra gigantesche colonne di idrogeno freddo e polveri cosmiche nella Nebulosa Aquila (M16), alte fino a 4-5 anni luce, all'interno delle quali nascono continuamente nuove stelle e sistemi planetari.",
+                audio: "I Pilastri della Creazione sono immense colonne di gas e polveri cosmiche alte quattro anni luce nella Nebulosa dell'Aquila. Hubble ha immortalato il luogo esatto in cui nascono le stelle!"
+            },
+            {
+                title: "2. Hubble Ultra Deep Field (HUDF)",
+                img: "textures/andromeda.gif",
+                desc: "Puntando il telescopio verso un frammento apparentemente vuoto e buio della costellazione della Fornace per oltre 11 giorni di esposizione, Hubble ha svelato quasi 10.000 galassie remote, risalenti a oltre 13 miliardi di anni fa, a breve distanza dal Big Bang.",
+                audio: "L'Hubble Ultra Deep Field ha guardato nel vuoto assoluto per undici giorni rivelando quasi diecimila galassie risalenti all'alba dell'Universo, poco dopo il Big Bang!"
+            },
+            {
+                title: "3. Nebulosa del Granchio (Crab Nebula - M1)",
+                img: "textures/supernova.jpg",
+                desc: "Il residuo fossile della supernova esplosa nel 1054 d.C. e registrata dagli astronomi cinesi e arabi. Al centro della nube incandescente pulsa una densissima stella di neutroni (pulsar) che ruota su se stessa 30 volte al secondo emettendo potenti fasci di radiazione.",
+                audio: "La Nebulosa del Granchio è il resto spettacolare di una supernova esplosa mille anni fa. Al suo centro ruota una densissima stella di neutroni trenta volte al secondo!"
+            },
+            {
+                title: "4. Montagna Mistica (Mystic Mountain - Nebulosa della Carena)",
+                img: "textures/star_formation.jpg",
+                desc: "Un vertiginoso pilastro di gas e polveri alto 3 anni luce scolpito dalla radiazione cocente di stelle giovani e massicce. Dalla sommità del pilastro eruttano getti gemelli di gas a velocità supersoniche proiettati da protostelle emergenti.",
+                audio: "La Montagna Mistica nella Nebulosa della Carena è un pilastro di tre anni luce di gas scolpito dalla radiazione di nuove stelle incandescenti!"
+            },
+            {
+                title: "5. Nebulosa Farfalla (Butterfly Nebula - NGC 6302)",
+                img: "textures/earth_atmos_2048.jpg",
+                desc: "Spettacolare nebulosa planetaria bipolare con ali luminose di gas a oltre 20.000 °C espulso a oltre 950.000 km/h da una nana bianca morente caldissima posta al centro della nube.",
+                audio: "La Nebulosa Farfalla mostra le ali di gas rovente a ventimila gradi liberate da una stella morente nello spazio profondo!"
+            },
+            {
+                title: "6. Galassia Sombrero (Messier 104)",
+                img: "textures/lavatile.jpg",
+                desc: "Una straordinaria galassia a spirale vista quasi di profilo a 28 milioni di anni luce dalla Terra. È celebre per il suo immenso bulbo centrale luminoso e un anello simmetrico di polveri scure che le dona la tipica forma di un sombrero messicano.",
+                audio: "La Galassia Sombrero è un capolavoro cosmico con un nucleo brillantissimo e un anello di polveri scure che ricorda il celebre copricapo messicano!"
+            }
+        ];
+
+        let currentHubblePhotoIndex = 0;
+
+        function openHubbleGallery() {
+            console.log('Opening Hubble Gallery...');
+            if (typeof stopAudioGuide === 'function') stopAudioGuide();
+            const modal = document.getElementById('hubble-gallery-modal');
+            if (modal) {
+                modal.classList.add('active');
+                modal.style.display = 'flex';
+                renderHubbleThumbs();
+                selectHubblePhoto(0);
+            } else {
+                console.error('hubble-gallery-modal element not found in DOM!');
+            }
+        }
+
+        function closeHubbleGallery() {
+            const modal = document.getElementById('hubble-gallery-modal');
+            if (modal) {
+                modal.classList.remove('active');
+                modal.style.display = 'none';
+            }
+            if (typeof stopAudioGuide === 'function') stopAudioGuide();
+        }
+
+        function renderHubbleThumbs() {
+            const bar = document.getElementById('hubble-thumbs-bar');
+            if (!bar) return;
+            bar.innerHTML = HUBBLE_PHOTOS.map((p, idx) => `
+                <img src="${p.img}" class="hubble-thumb ${idx === currentHubblePhotoIndex ? 'active' : ''}" 
+                     onclick="selectHubblePhoto(${idx})" title="${p.title}" alt="${p.title}">
+            `).join('');
+        }
+
+        function selectHubblePhoto(idx) {
+            currentHubblePhotoIndex = idx;
+            const p = HUBBLE_PHOTOS[idx];
+            const imgEl = document.getElementById('hubble-display-img');
+            const titleEl = document.getElementById('hubble-display-title');
+            const descEl = document.getElementById('hubble-display-desc');
+
+            if (imgEl) imgEl.src = p.img;
+            if (titleEl) titleEl.innerText = p.title;
+            if (descEl) descEl.innerHTML = `<p>${p.desc}</p>`;
+
+            renderHubbleThumbs();
+        }
+
+        function prevHubblePhoto() {
+            let next = currentHubblePhotoIndex - 1;
+            if (next < 0) next = HUBBLE_PHOTOS.length - 1;
+            selectHubblePhoto(next);
+        }
+
+        function nextHubblePhoto() {
+            let next = (currentHubblePhotoIndex + 1) % HUBBLE_PHOTOS.length;
+            selectHubblePhoto(next);
+        }
+
+        function readHubbleDesc() {
+            const p = HUBBLE_PHOTOS[currentHubblePhotoIndex];
+            if (p && p.audio && typeof playSpeechText === 'function') {
+                playSpeechText(p.audio);
+            }
+        }
+
+        // ESPOSIZIONE ESPLICITA SU WINDOW
+        window.openIssMissions = openIssMissions;
+        window.closeIssMissions = closeIssMissions;
+        window.switchIssMission = switchIssMission;
+        window.openHubbleGallery = openHubbleGallery;
+        window.closeHubbleGallery = closeHubbleGallery;
+        window.prevHubblePhoto = prevHubblePhoto;
+        window.nextHubblePhoto = nextHubblePhoto;
+        window.selectHubblePhoto = selectHubblePhoto;
+        window.readHubbleDesc = readHubbleDesc;
+        window.moveO2Player = moveO2Player;
+        window.startSealingO2 = startSealingO2;
+        window.stopSealingO2 = stopSealingO2;
+        window.triggerSolarDeploy = triggerSolarDeploy;
+        window.moveArmJoint = moveArmJoint;
+        window.triggerArmAction = triggerArmAction;
+
 
         init();
         animate();
