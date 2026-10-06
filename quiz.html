@@ -782,7 +782,7 @@
             <button class="btn-icon" id="audio-toggle" title="Attiva/Disattiva Audio" onclick="toggleAudio()">
                 🔊
             </button>
-            <a href="space_explorer.html" class="btn-back">
+            <a href="index.html" class="btn-back">
                 <span>🌌</span>
                 <span>Simulatore 3D</span>
             </a>
@@ -989,6 +989,9 @@
 
         // MISSIONS DATA (For Scuola Media)
         const SPACE_MISSIONS = [
+            { id: 'iss_mission', name: 'Stazione Spaziale ISS (1998-Oggi)', targetId: 'earth_orbit', emoji: '🛰️', desc: 'Il più grande laboratorio umano nello spazio: compie 16 orbite al giorno a 27.600 km/h!' },
+            { id: 'hubble_mission', name: 'Telescopio Spaziale Hubble (1990)', targetId: 'earth_orbit', emoji: '🔭', desc: 'Ha immortalato i Pilastri della Creazione ed espansione cosmica con il suo specchio da 2.4m!' },
+
             { id: 'voyager', name: 'Voyager 1 & 2 (1977)', targetId: 'interstellar', emoji: '🛰️', desc: 'Sonde leggendarie: hanno visitato i 4 giganti gassosi e sono entrate nello Spazio Interstellare!' },
             { id: 'cassini', name: 'Cassini-Huygens (1997)', targetId: 'saturno', emoji: '🪐', desc: 'Ha orbitato 13 anni attorno a Saturno e fatto atterrare il modulo Huygens su Titano!' },
             { id: 'jwst', name: 'James Webb Space Telescope (2021)', targetId: 'deep_space', emoji: '🔭', desc: 'Telescopio a infrarossi al punto lagrangiano L2 per scrutare l\'Universo primordiale e prime galassie.' },
@@ -998,6 +1001,7 @@
         ];
 
         const MISSION_TARGETS = [
+            { id: 'earth_orbit', name: 'Orbita Terrestre Bassa (LEO - 400-550 km)', emoji: '🌍' },
             { id: 'interstellar', name: 'Spazio Interstellare (Oltre l\'Eliopausa)', emoji: '🌌' },
             { id: 'saturno', name: 'Saturno & Luna Titano', emoji: '🪐' },
             { id: 'deep_space', name: 'Universo Primordiale (Punto Lagrangiano L2)', emoji: '✨' },
@@ -2013,6 +2017,17 @@
         ========================================================================== */
         const DETECTIVE_ROUNDS_JUNIOR = [
             {
+                q: "Quale di questi NON è un satellite artificiale costruito dall'essere umano?",
+                items: [
+                    { name: "Stazione Spaziale ISS", emoji: "🛰️", isIntruder: false, desc: "Costruita da NASA, ESA e partner internazionali!" },
+                    { name: "Telescopio Hubble", emoji: "🔭", isIntruder: false, desc: "Lanciato dallo Space Shuttle nel 1990!" },
+                    { name: "La Luna", img: "textures/2k_moon.jpg", emoji: "🌕", isIntruder: true, desc: "È un satellite NATURALE della Terra, nato oltre 4.5 miliardi di anni fa!" },
+                    { name: "Sonda Voyager 1", emoji: "🛰️", isIntruder: false, desc: "Sonda spaziale costruita dall'umanità!" }
+                ],
+                expl: "La Luna è l'intruso naturale! È un immenso satellite roccioso naturale, mentre la ISS, Hubble e la Voyager sono straordinarie macchine tecnologiche create dall'uomo!"
+            },
+
+            {
                 q: "Quale di questi 4 NON è un pianeta roccioso?",
                 items: [
                     { name: "Terra", img: "temp_dl/earth.jpg", isIntruder: false, desc: "Pianeta roccioso" },
@@ -2169,6 +2184,29 @@
         ========================================================================== */
         const QUIZ_QUESTIONS_JUNIOR = [
             {
+                q: "Cos'è la Stazione Spaziale Internazionale (ISS) e quante albe vedono gli astronauti ogni giorno?",
+                opts: [
+                    "È una casa-laboratorio a 28.000 km/h: compie un giro della Terra ogni 90 minuti e gli astronauti vedono 16 albe e tramonti al giorno!",
+                    "È una base fissa sulla superficie della Luna dove si estrae l'oro",
+                    "È un satellite spento fermo sopra l'Italia che non si muove mai",
+                    "È una mongolfiera che vola nell'alta atmosfera"
+                ],
+                ans: 0,
+                expl: "La ISS sfreccia a 27.600 km/h a circa 420 km dalla Terra: compie 16 orbite al giorno, regalando all'equipaggio 16 albe e 16 tramonti ogni 24 ore!"
+            },
+            {
+                q: "Perché il Telescopio Spaziale Hubble è stato inviato in orbita nello spazio invece di rimanere a terra?",
+                opts: [
+                    "Perché sulla Terra i telescopi non possono usare gli specchi",
+                    "Perché al di fuori dell'atmosfera terrestre le immagini non vengono sfocate da aria, nuvole o inquinamento luminoso!",
+                    "Perché doveva essere più vicino al Sole per ricaricarsi",
+                    "Perché sulla Terra faceva troppo rumore"
+                ],
+                ans: 1,
+                expl: "L'atmosfera terrestre distorce e assorbe la luce. Hubble, trovandosi a 540 km di quota nel vuoto dello spazio, cattura foto ultra-nitide di nebulose e galassie a miliardi di anni luce!"
+            },
+
+            {
                 q: "Qual è il pianeta più caldo dell'intero Sistema Solare?",
                 opts: ["Mercurio (il più vicino)", "Venere (effetto serra estremo)", "Marte (il pianeta rosso)", "Giove (il gigante)"],
                 ans: 1,
@@ -2242,6 +2280,40 @@
         ];
 
         const QUIZ_QUESTIONS_MEDIA = [
+            {
+                q: "Per quale motivo fisico fondamentale gli astronauti a bordo della ISS galleggiano in 'assenza di peso'?",
+                opts: [
+                    "Perché a 420 km di quota la gravità terrestre è del tutto azzerata (g = 0)",
+                    "Perché la ISS e l'equipaggio sono in perenne stato di «caduta libera» orbitale attorno alla Terra alla velocità tangenziale di 7.7 km/s",
+                    "Perché la stazione è dotata di generatori magnetici che respingono la massa",
+                    "Perché l'aria all'interno dei moduli è composta da elio speciale antigravitazionale"
+                ],
+                ans: 1,
+                expl: "A 420 km di quota la gravità della Terra è ancora fortissima (circa l'89% di quella al suolo, g ≈ 8.7 m/s²). Gli astronauti galleggiano perché sono in continua caduta libera verso la Terra, mancando il suolo grazie alla velocità tangenziale di 27.600 km/h (microgravità orbitale)!"
+            },
+            {
+                q: "Quale storica impresa con lo Space Shuttle permise di salvare la missione di Hubble dopo la scoperta di un difetto nello specchio primario?",
+                opts: [
+                    "La missione Shuttle STS-61 (1993), in cui gli astronauti installarono in passeggiata spaziale il sistema di lenti correttive COSTAR",
+                    "Il telescopio fu agganciato e riportato a terra per essere rilucidato e rilanciato",
+                    "Venne sparato un laser da terra che rimodellò lo specchio al nanometro",
+                    "Hubble fu fatto schiantare nell'oceano e sostituito con una copia"
+                ],
+                ans: 0,
+                expl: "A causa di un'aberrazione sferica di appena 2 micrometri sul bordo dello specchio, le immagini iniziali erano sfuocate. Nel 1993 la missione STS-61 installò gli 'occhiali' COSTAR e la camera WFPC2, regalando a Hubble la nitidezza perfetta che ha fatto la storia dell'astronomia!"
+            },
+            {
+                q: "Qual è la famosa immagine di Hubble che ha rivelato quasi 10.000 galassie remote osservando una porzione apparentemente vuota e nera di cielo?",
+                opts: [
+                    "Hubble Ultra Deep Field (HUDF)",
+                    "La Cintura di Orione",
+                    "Il Mare della Tranquillità",
+                    "La Macchia Rossa di Giove"
+                ],
+                ans: 0,
+                expl: "L'Hubble Ultra Deep Field (HUDF) ha immortalato quasi 10.000 galassie primordiali risalenti a oltre 13 miliardi di anni fa, rivelando la sconfinata grandezza del cosmo primordiale!"
+            },
+
             {
                 q: "Cosa provoca il fenomeno delle MAREE sulla Terra?",
                 opts: [

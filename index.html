@@ -1250,6 +1250,258 @@
             }
         }
 
+    
+        /* =========================================================================
+           STILI MODALI PER GIOCHI ISS E GALLERIA HUBBLE
+        ========================================================================== */
+        .iss-modal, .hubble-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(2, 6, 23, 0.92);
+            backdrop-filter: blur(12px);
+            z-index: 5000;
+            overflow-y: auto;
+            color: #f1f5f9;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .iss-modal.active, .hubble-modal.active {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-card {
+            background: rgba(15, 23, 42, 0.95);
+            border: 2px solid #00f0ff;
+            box-shadow: 0 0 35px rgba(0, 240, 255, 0.35);
+            border-radius: 20px;
+            max-width: 900px;
+            width: 100%;
+            position: relative;
+            padding: 24px;
+            box-sizing: border-box;
+            max-height: 92vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .modal-close-btn {
+            position: absolute;
+            top: 16px; right: 18px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(0, 240, 255, 0.4);
+            color: #00f0ff;
+            width: 34px; height: 34px;
+            border-radius: 50%;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.2s;
+            z-index: 10;
+        }
+        .modal-close-btn:hover {
+            background: #ef4444; border-color: #ef4444; color: #fff;
+        }
+        .modal-header-title {
+            font-size: 1.5em;
+            font-weight: 800;
+            color: #00f0ff;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .modal-sub {
+            font-size: 0.9em;
+            color: #94a3b8;
+            margin-bottom: 16px;
+        }
+
+        /* Tasti selezione missioni */
+        .missions-nav {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+        .mission-tab-btn {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            color: #f1f5f9;
+            padding: 10px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            text-align: left;
+        }
+        .mission-tab-btn:hover {
+            border-color: #00f0ff;
+            background: rgba(0, 240, 255, 0.15);
+        }
+        .mission-tab-btn.active {
+            border-color: #00f0ff;
+            background: rgba(0, 240, 255, 0.25);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+            color: #00f0ff;
+        }
+
+        /* Area di gioco */
+        .game-screen-area {
+            flex: 1;
+            background: #030712;
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            border-radius: 14px;
+            position: relative;
+            overflow: hidden;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+        }
+        .game-hud-top {
+            position: absolute;
+            top: 0; left: 0; width: 100%;
+            background: rgba(15, 23, 42, 0.85);
+            border-bottom: 1px solid rgba(0, 240, 255, 0.3);
+            padding: 8px 16px;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            z-index: 20;
+        }
+        .game-controls-bar {
+            position: absolute;
+            bottom: 0; left: 0; width: 100%;
+            background: rgba(15, 23, 42, 0.85);
+            border-top: 1px solid rgba(0, 240, 255, 0.3);
+            padding: 10px 16px;
+            box-sizing: border-box;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            z-index: 20;
+        }
+        .game-action-btn {
+            background: rgba(0, 240, 255, 0.2);
+            border: 1px solid #00f0ff;
+            color: #00f0ff;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .game-action-btn:hover {
+            background: #00f0ff; color: #020617; box-shadow: 0 0 15px rgba(0, 240, 255, 0.6);
+        }
+        .game-canvas-wrap {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+        }
+
+        /* Galleria Hubble */
+        .hubble-gallery-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            overflow-y: auto;
+            max-height: 78vh;
+            padding-right: 6px;
+        }
+        .hubble-viewer-main {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: center;
+            background: rgba(2, 6, 23, 0.8);
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            border-radius: 14px;
+            padding: 16px;
+        }
+        .hubble-main-img {
+            max-width: 100%;
+            max-height: 380px;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.2);
+        }
+        .hubble-thumbs-row {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding: 10px 4px;
+            width: 100%;
+        }
+        .hubble-thumb {
+            width: 90px;
+            height: 65px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 2px solid rgba(0, 240, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+        .hubble-thumb:hover, .hubble-thumb.active {
+            border-color: #ffd000;
+            box-shadow: 0 0 15px rgba(255, 208, 0, 0.6);
+            transform: scale(1.06);
+        }
+        .hubble-desc-box {
+            background: rgba(15, 23, 42, 0.7);
+            border-radius: 10px;
+            padding: 12px 16px;
+            font-size: 13.5px;
+            line-height: 1.55;
+            color: #cbd5e1;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* Pulsanti rapidi su info panel */
+        .btn-iss-action, .btn-hubble-action {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-weight: 800;
+            font-size: 13px;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+        .btn-iss-action {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(0, 240, 255, 0.3));
+            border: 1px solid #10b981;
+            color: #6ee7b7;
+        }
+        .btn-iss-action:hover {
+            background: #10b981; color: #020617; box-shadow: 0 0 15px rgba(16, 185, 129, 0.6);
+        }
+        .btn-hubble-action {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.3), rgba(0, 240, 255, 0.3));
+            border: 1px solid #a855f7;
+            color: #e9d5ff;
+        }
+        .btn-hubble-action:hover {
+            background: #a855f7; color: #020617; box-shadow: 0 0 15px rgba(168, 85, 247, 0.6);
+        }
+
     </style>
     <!-- Three.js + OrbitControls -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -1306,6 +1558,8 @@
         </div>
         <div class="hud-sep">|</div>
         <div class="hud-actions-scroll">
+            <button id="btn-quick-iss" class="hud-btn" onclick="openIssMissions()" style="border-color:#10b981; color:#6ee7b7;" title="Apri i simulatori di gioco della ISS">🎮 Giochi ISS</button>
+            <button id="btn-quick-hubble" class="hud-btn" onclick="openHubbleGallery()" style="border-color:#a855f7; color:#e9d5ff;" title="Apri la galleria fotografica di Hubble">🔭 Foto Hubble</button>
             <button id="btn-sun-align" class="hud-btn" onclick="alignBowToSun()" title="Punta direttamente la prua verso il Sole (riallinea orientamento)">☀️ Prua al Sole</button>
             <button id="btn-audio-mute" class="hud-btn active" onclick="toggleAudioGuideMute()" title="Attiva/Disattiva voce guida automatica">🔊 Audio: ON</button>
             <button id="btn-cockpit-clean" class="hud-btn" onclick="toggleCleanFlightMode()" title="Libera la visuale per navigare e volare senza finestre">👁️ Vista Volo</button>
@@ -1343,6 +1597,13 @@
                 <button id="nav-sens-reattivo" class="nav-item" style="margin: 0; justify-content: center; text-align: center; padding: 4px; font-size: 11px;" onclick="setGyroSensitivity('reattivo')">⚡ Reattivo</button>
             </div>
         </div>
+        
+        <h4>🛰️ Stazioni & Telescopi</h4>
+        <button class="nav-item" onclick="flyToTarget('ISS')">🛰️ Stazione Spaziale ISS</button>
+        <button class="nav-item" onclick="flyToTarget('Hubble')">🔭 Telescopio Hubble</button>
+        <button class="nav-item" onclick="openIssMissions()" style="background: rgba(16,185,129,0.15); border-color:#10b981; color:#6ee7b7; font-weight:bold;">🎮 Missioni & Giochi ISS</button>
+        <button class="nav-item" onclick="openHubbleGallery()" style="background: rgba(168,85,247,0.15); border-color:#a855f7; color:#e9d5ff; font-weight:bold;">🔭 Foto Famose Hubble</button>
+
         <h4>Sistema Solare</h4>
         <button class="nav-item active" onclick="flyToTarget('system')">🌌 Vista Globale</button>
         <button class="nav-item" onclick="flyToTarget('Sun')">☀️ Sole</button>
@@ -1356,6 +1617,8 @@
         <button class="nav-item" onclick="flyToTarget('Neptune')">♆ Nettuno</button>
 
         <h4>Lune & Satelliti</h4>
+        <button class="nav-item" onclick="flyToTarget('ISS')">🛰️ ISS (Stazione Spaziale - Terra)</button>
+        <button class="nav-item" onclick="flyToTarget('Hubble')">🔭 Hubble (Telescopio - Terra)</button>
         <button class="nav-item" onclick="flyToTarget('Moon_Luna')">🌕 Luna (Terra)</button>
         <button class="nav-item" onclick="flyToTarget('Moon_Phobos')">🥔 Phobos (Marte)</button>
         <button class="nav-item" onclick="flyToTarget('Moon_Deimos')">🪨 Deimos (Marte)</button>
@@ -1381,6 +1644,90 @@
         <button class="nav-item" onclick="flyToTarget('SagittariusA')">🕳️ Sagittarius A*</button>
         <button class="nav-item" onclick="flyToTarget('Supernova')">💥 Supernova</button>
         <button class="nav-item" onclick="flyToTarget('StarFormation')">✨ Creazione Stella</button>
+    </div>
+
+    
+    <!-- MODALE GIOCHI & MISSIONI ISS -->
+    <div id="iss-missions-modal" class="iss-modal">
+        <div class="modal-card">
+            <button class="modal-close-btn" onclick="closeIssMissions()">✕</button>
+            <div class="modal-header-title">
+                <span>🛰️</span> CENTRO MISSIONI STAZIONE SPAZIALE (ISS)
+            </div>
+            <div class="modal-sub">
+                Seleziona un'operazione orbitale e completa gli obiettivi entro il tempo stabilito!
+            </div>
+
+            <div class="missions-nav">
+                <button id="tab-mission-1" class="mission-tab-btn active" onclick="switchIssMission(1)">
+                    <span>1. Manovra di Attracco</span>
+                    <small style="opacity:0.75;">Guida la navicella al portello IDA</small>
+                </button>
+                <button id="tab-mission-2" class="mission-tab-btn" onclick="switchIssMission(2)">
+                    <span>2. Emergenza Fuga O₂</span>
+                    <small style="opacity:0.75;">Corri nei corridoi a gravità zero</small>
+                </button>
+                <button id="tab-mission-3" class="mission-tab-btn" onclick="switchIssMission(3)">
+                    <span>3. Pannelli Solari</span>
+                    <small style="opacity:0.75;">Estendi e orienta verso il Sole</small>
+                </button>
+                <button id="tab-mission-4" class="mission-tab-btn" onclick="switchIssMission(4)">
+                    <span>4. Braccio Canadarm2</span>
+                    <small style="opacity:0.75;">Preleva macchinario dallo Shuttle</small>
+                </button>
+            </div>
+
+            <div class="game-screen-area" id="iss-game-container">
+                <div class="game-hud-top" id="iss-hud-top">
+                    <div><span id="iss-hud-mission-title" style="color:#00f0ff; font-weight:bold;">MISSIONE 1: ATTRACCO NAVICELLA</span></div>
+                    <div>⏱️ TEMPO: <span id="iss-hud-timer" style="color:#ffd000; font-weight:bold; font-size:1.15em;">60s</span></div>
+                    <div>STATO: <span id="iss-hud-status" style="color:#10b981; font-weight:bold;">IN CORSO</span></div>
+                </div>
+
+                <div class="game-canvas-wrap">
+                    <canvas id="iss-game-canvas" style="width:100%; height:100%; display:block;"></canvas>
+                </div>
+
+                <div class="game-controls-bar" id="iss-controls-bar">
+                    <!-- Controlli dinamici iniettati per missione -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODALE GALLERIA SCATTI FAMOSI HUBBLE -->
+    <div id="hubble-gallery-modal" class="hubble-modal">
+        <div class="modal-card">
+            <button class="modal-close-btn" onclick="closeHubbleGallery()">✕</button>
+            <div class="modal-header-title">
+                <span>🔭</span> TELESCOPIO SPAZIALE HUBBLE: GLI SCATTI PIÙ FAMOSI
+            </div>
+            <div class="modal-sub">
+                Le immagini iconiche che hanno rivoluzionato l'astronomia moderna e svelato le profondità del cosmo.
+            </div>
+
+            <div class="hubble-gallery-container">
+                <div class="hubble-viewer-main">
+                    <img id="hubble-display-img" class="hubble-main-img" src="textures/pillars.jpg" alt="Scatto Hubble">
+                    <div style="display:flex; justify-content:space-between; width:100%; align-items:center; flex-wrap:wrap; gap:8px;">
+                        <h3 id="hubble-display-title" style="color:#00f0ff; margin:0;">1. I Pilastri della Creazione (M16)</h3>
+                        <div style="display:flex; gap:8px;">
+                            <button onclick="readHubbleDesc()" class="game-action-btn" style="padding:5px 12px; font-size:12px;">🔊 Ascolta Spiegazione</button>
+                            <button onclick="prevHubblePhoto()" class="game-action-btn" style="padding:5px 12px; font-size:12px;">◀ Precedente</button>
+                            <button onclick="nextHubblePhoto()" class="game-action-btn" style="padding:5px 12px; font-size:12px;">Successiva ▶</button>
+                        </div>
+                    </div>
+                    <div class="hubble-desc-box" id="hubble-display-desc">
+                        <!-- Descrizione scientifica -->
+                    </div>
+                </div>
+
+                <div style="font-size:11px; color:#94a3b8; font-weight:bold; text-transform:uppercase; letter-spacing:0.5px;">Tocca una miniatura per visualizzare:</div>
+                <div class="hubble-thumbs-row" id="hubble-thumbs-bar">
+                    <!-- Miniature caricate dinamicamente -->
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="info-panel" id="info-panel" style="display: none;">
@@ -2525,6 +2872,57 @@
                 audioGuide: "Questa immensa e coloratissima nuvola di gas luminiscente è la Nebulosa di Orione. Le radiazioni ultraviolette fortissime emesse dal Trapezio, un ammasso di stelle giovanissime e caldissime nate al suo interno, bombardano letteralmente i gas circostanti, facendoli brillare proprio come le luci al neon delle nostre città. È una finestra incredibile su come appariva il nostro Sistema Solare quando si stava formando!",
                 isDeepSpace: true, position: new THREE.Vector3(-300, -200, -550)
             },
+            
+            ISS: {
+                key: 'ISS',
+                name: "Stazione Spaziale Internazionale (ISS)",
+                type: "Avamposto Umano in Orbita Terrestre (LEO)",
+                realPhoto: "https://images-assets.nasa.gov/image/PIA18906/PIA18906~large.jpg",
+                localVideo: "textures/earth.gif",
+                desc: "La Stazione Spaziale Internazionale (ISS) è il più grande e complesso laboratorio orbitale mai costruito dall'umanità nello spazio. Frutto della cooperazione tra NASA, ESA, Roscosmos, JAXA e CSA, viaggia a 27.600 km/h a circa 420 km di quota, compiendo un'orbita ogni 92 minuti (16 albe e tramonti ogni giorno). Abitata ininterrottamente dal novembre 2000, permette esperimenti in microgravità nei laboratori Destiny, Columbus e Kibo.",
+                specs: {
+                    "Quota Orbitale": "408 - 420 km (Termosfera)",
+                    "Velocità Orbitale": "27.600 km/h (7.66 km/s)",
+                    "Periodo Orbitale": "Circa 92.9 minuti (15.5 orbite/giorno)",
+                    "Abitata Dal": "2 Novembre 2000 (Oltre 25 anni continui)",
+                    "Massa": "Circa 450.000 kg (450 tonnellate)",
+                    "Dimensioni": "109 m x 73 m (Come un campo da calcio)",
+                    "Pannelli Solari": "8 ali SAW (Oltre 2.500 m², fino a 120 kW)",
+                    "Equipaggio": "Tipicamente 7 astronauti / cosmonauti",
+                    "Pianeta Madre": "Terra (Quota: ~420 km)"
+                },
+                audioGuide: "Benvenuti sulla Stazione Spaziale Internazionale, l'avamposto umano nel cosmo! Orbitando a oltre ventisette mila e seicento chilometri orari a quattrocento chilometri dalla Terra, la ISS compie un giro completo del nostro pianeta ogni novanta minuti, offrendo all'equipaggio sedici spettacolari albe e tramonti al giorno. A bordo, astronauti e scienziati da tutto il mondo conducono ricerche uniche in microgravità per preparare i futuri viaggi verso la Luna e Marte!",
+                isMoon: true,
+                parentPlanet: 'Terra',
+                parentKey: 'Earth',
+                size: 0.22,
+                isISS: true
+            },
+            Hubble: {
+                key: 'Hubble',
+                name: "Telescopio Spaziale Hubble (HST)",
+                type: "Osservatorio Spaziale Ottico & UV (NASA/ESA)",
+                realPhoto: "https://images-assets.nasa.gov/image/PIA00040/PIA00040~large.jpg",
+                localVideo: "textures/star_formation.gif",
+                desc: "Lanciato il 24 aprile 1990 con lo Space Shuttle Discovery (STS-31), il Telescopio Hubble ha rivoluzionato l'astronomia moderna. Posto a circa 540 km di quota, al di sopra dell'atmosfera terrestre distorcente, il suo specchio primario di 2.4 metri fornisce una risoluzione ottica straordinaria. Ha permesso di determinare l'età dell'Universo (13.8 miliardi di anni), scoprire l'espansione accelerata cosmica e catturare capolavori immortali come i Pilastri della Creazione e l'Hubble Ultra Deep Field.",
+                specs: {
+                    "Lancio": "24 Aprile 1990 (Space Shuttle Discovery)",
+                    "Quota Orbitale": "Circa 540 km (Inclinazione 28.5°)",
+                    "Velocità Orbitale": "27.300 km/h (7.58 km/s)",
+                    "Periodo Orbitale": "Circa 95.4 minuti",
+                    "Diametro Specchio Primario": "2.4 metri (Vetro ultraleggero levigato)",
+                    "Lunghezza & Diametro": "13.2 m lunghezza, 4.2 m diametro",
+                    "Massa": "Circa 11.110 kg (11.1 tonnellate)",
+                    "Missioni di Manutenzione": "5 Servicing Missions con lo Shuttle",
+                    "Pianeta Madre": "Terra (Quota: ~540 km)"
+                },
+                audioGuide: "State ammirando il leggendario Telescopio Spaziale Hubble, l'occhio più famoso dell'umanità sul cosmo! Posto a oltre cinquecento chilometri di quota, lontano dalla distorsione dell'atmosfera terrestre, Hubble ha scattato oltre un milione e mezzo di foto astronomiche. Con il suo specchio da due virgola quattro metri ha calcolato l'età esatta dell'Universo e ci ha regalato capolavori indimenticabili come i Pilastri della Creazione e le galassie primordiali dell'Ultra Deep Field!",
+                isMoon: true,
+                parentPlanet: 'Terra',
+                parentKey: 'Earth',
+                size: 0.18,
+                isHubble: true
+            },
             Moon_Luna: {
                 name: "La Luna", parentPlanet: "Terra", parentKey: "Earth",
                 type: "Satellite Naturale della Terra",
@@ -2905,32 +3303,299 @@ let currentTargetKey = null;
             sprite.scale.set(4, 1, 1);
             return sprite;
         }
-function buildSolarSystem() {
+
+        // =========================================================================
+        // MODELLI 3D REALISTICI: ISS & TELESCOPIO SPAZIALE HUBBLE
+        // =========================================================================
+
+        function createRealisticISS() {
+            const issGroup = new THREE.Group();
+
+            // Materiali avanzati PBR metallici e riflettenti
+            const trussMat = new THREE.MeshStandardMaterial({ color: 0x94a3b8, metalness: 0.85, roughness: 0.35 });
+            const moduleMat = new THREE.MeshStandardMaterial({ color: 0xf1f5f9, metalness: 0.92, roughness: 0.22 });
+            const zaryaMat = new THREE.MeshStandardMaterial({ color: 0xa8a29e, metalness: 0.75, roughness: 0.45 });
+            const goldFoilMat = new THREE.MeshStandardMaterial({ color: 0xd97706, metalness: 0.95, roughness: 0.2 });
+            const radiatorMat = new THREE.MeshStandardMaterial({ color: 0xffffff, metalness: 0.15, roughness: 0.75 });
+            const solarMat = new THREE.MeshStandardMaterial({ 
+                color: 0x1d4ed8, 
+                emissive: 0x0f172a, 
+                metalness: 0.88, 
+                roughness: 0.18 
+            });
+            const glassMat = new THREE.MeshBasicMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.75 });
+
+            // 1. INTEGRATED TRUSS STRUCTURE (Trave orizzontale a traliccio)
+            const mainTrussGeo = new THREE.BoxGeometry(10.8, 0.34, 0.34);
+            const mainTruss = new THREE.Mesh(mainTrussGeo, trussMat);
+            issGroup.add(mainTruss);
+
+            for (let tx = -4.8; tx <= 4.8; tx += 0.96) {
+                const ringGeo = new THREE.BoxGeometry(0.12, 0.46, 0.46);
+                const ring = new THREE.Mesh(ringGeo, trussMat);
+                ring.position.x = tx;
+                issGroup.add(ring);
+            }
+
+            // 2. MODULI PRESSURIZZATI CENTRALI
+            const modulesGroup = new THREE.Group();
+
+            // Destiny US Laboratory (Centro)
+            const destinyGeo = new THREE.CylinderGeometry(0.46, 0.46, 2.2, 18);
+            const destiny = new THREE.Mesh(destinyGeo, moduleMat);
+            destiny.rotation.x = Math.PI / 2;
+            destiny.position.set(0, -0.18, 0.8);
+            modulesGroup.add(destiny);
+
+            // Node 2 (Harmony) - collegamento anteriore
+            const harmonyGeo = new THREE.CylinderGeometry(0.48, 0.48, 1.1, 18);
+            const harmony = new THREE.Mesh(harmonyGeo, moduleMat);
+            harmony.rotation.x = Math.PI / 2;
+            harmony.position.set(0, -0.18, 2.3);
+            modulesGroup.add(harmony);
+
+            // Columbus (Laboratorio ESA - tribordo/destra)
+            const columbusGeo = new THREE.CylinderGeometry(0.44, 0.44, 1.5, 18);
+            const columbus = new THREE.Mesh(columbusGeo, moduleMat);
+            columbus.rotation.z = Math.PI / 2;
+            columbus.position.set(1.3, -0.18, 2.3);
+            modulesGroup.add(columbus);
+
+            // Kibo (Laboratorio JAXA - babordo/sinistra)
+            const kiboGeo = new THREE.CylinderGeometry(0.48, 0.48, 2.3, 18);
+            const kibo = new THREE.Mesh(kiboGeo, moduleMat);
+            kibo.rotation.z = Math.PI / 2;
+            kibo.position.set(-1.7, -0.18, 2.3);
+            modulesGroup.add(kibo);
+
+            // Terrazza Kibo Exposed Facility
+            const kiboPlat = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.22, 0.9), trussMat);
+            kiboPlat.position.set(-3.1, -0.18, 2.3);
+            modulesGroup.add(kiboPlat);
+
+            // Node 1 (Unity)
+            const unityGeo = new THREE.CylinderGeometry(0.48, 0.48, 1.1, 18);
+            const unity = new THREE.Mesh(unityGeo, moduleMat);
+            unity.rotation.x = Math.PI / 2;
+            unity.position.set(0, -0.18, -0.7);
+            modulesGroup.add(unity);
+
+            // Zarya (FGB Russo)
+            const zaryaGeo = new THREE.CylinderGeometry(0.44, 0.44, 2.1, 18);
+            const zarya = new THREE.Mesh(zaryaGeo, zaryaMat);
+            zarya.rotation.x = Math.PI / 2;
+            zarya.position.set(0, -0.18, -2.2);
+            modulesGroup.add(zarya);
+
+            // Zvezda (Modulo di servizio russo)
+            const zvezdaGeo = new THREE.CylinderGeometry(0.48, 0.36, 2.2, 18);
+            const zvezda = new THREE.Mesh(zvezdaGeo, moduleMat);
+            zvezda.rotation.x = Math.PI / 2;
+            zvezda.position.set(0, -0.18, -4.1);
+            modulesGroup.add(zvezda);
+
+            // Cupola (la celebre vetrata a 7 finestre rivolta verso la Terra)
+            const cupolaBase = new THREE.Mesh(new THREE.CylinderGeometry(0.35, 0.4, 0.28, 8), moduleMat);
+            cupolaBase.position.set(0, -0.68, 0.2);
+            modulesGroup.add(cupolaBase);
+
+            const cupolaWindow = new THREE.Mesh(new THREE.SphereGeometry(0.26, 8, 8, 0, Math.PI * 2, 0, Math.PI / 2), glassMat);
+            cupolaWindow.rotation.x = Math.PI;
+            cupolaWindow.position.set(0, -0.80, 0.2);
+            modulesGroup.add(cupolaWindow);
+
+            // Portello di attracco IDA (International Docking Adapter)
+            const dockRing = new THREE.Mesh(new THREE.TorusGeometry(0.30, 0.07, 10, 20), moduleMat);
+            dockRing.position.set(0, -0.18, 3.0);
+            modulesGroup.add(dockRing);
+
+            const dockTarget = new THREE.Mesh(new THREE.CircleGeometry(0.18, 16), new THREE.MeshBasicMaterial({ color: 0x10b981, side: THREE.DoubleSide }));
+            dockTarget.position.set(0, -0.18, 3.02);
+            modulesGroup.add(dockTarget);
+
+            issGroup.add(modulesGroup);
+
+            // 3. PANNELLI SOLARI GIGANTI (SAW: 8 ali fotovoltaiche)
+            const solarWingGeo = new THREE.BoxGeometry(4.2, 0.03, 1.2);
+            const solarPositions = [
+                { x: -4.6, z: 0.85 }, { x: -4.6, z: -0.85 },
+                { x: -3.2, z: 0.85 }, { x: -3.2, z: -0.85 },
+                { x: 3.2, z: 0.85 }, { x: 3.2, z: -0.85 },
+                { x: 4.6, z: 0.85 }, { x: 4.6, z: -0.85 }
+            ];
+
+            solarPositions.forEach(sp => {
+                const wing = new THREE.Mesh(solarWingGeo, solarMat);
+                wing.position.set(sp.x, 0, sp.z);
+                const mast = new THREE.Mesh(new THREE.BoxGeometry(4.3, 0.07, 0.07), goldFoilMat);
+                wing.add(mast);
+                issGroup.add(wing);
+            });
+
+            // 4. RADIATORI TERMICI BIANCHI
+            const radGeo = new THREE.BoxGeometry(0.04, 2.0, 0.8);
+            [-1.1, 0, 1.1].forEach(rx => {
+                const rad = new THREE.Mesh(radGeo, radiatorMat);
+                rad.position.set(rx, 1.05, -0.55);
+                issGroup.add(rad);
+            });
+
+            // 5. BRACCIO ROBOTICO CANADARM2
+            const arm = new THREE.Group();
+            const armB1 = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, 1.1, 10), moduleMat);
+            armB1.position.set(0, 0.55, 0.15);
+            armB1.rotation.x = 0.35;
+            arm.add(armB1);
+            const armElb = new THREE.Mesh(new THREE.SphereGeometry(0.09, 10, 10), moduleMat);
+            armElb.position.set(0, 1.1, 0.35);
+            arm.add(armElb);
+            const armB2 = new THREE.Mesh(new THREE.CylinderGeometry(0.045, 0.045, 1.0, 10), moduleMat);
+            armB2.position.set(0, 1.55, 0.1);
+            armB2.rotation.x = -0.45;
+            arm.add(armB2);
+            const armEff = new THREE.Mesh(new THREE.CylinderGeometry(0.07, 0.07, 0.16, 10), goldFoilMat);
+            armEff.position.set(0, 2.0, -0.15);
+            arm.add(armEff);
+            arm.position.set(0.5, 0.25, 0.4);
+            arm.scale.set(0.7, 0.7, 0.7);
+            issGroup.add(arm);
+
+            // 6. LUCI DI SEGNALAZIONE SPAZIALE (Babordo/Tribordo)
+            const redLight = new THREE.Mesh(new THREE.SphereGeometry(0.07, 8, 8), new THREE.MeshBasicMaterial({ color: 0xff0044 }));
+            redLight.position.set(-5.4, 0.2, 0);
+            issGroup.add(redLight);
+
+            const greenLight = new THREE.Mesh(new THREE.SphereGeometry(0.07, 8, 8), new THREE.MeshBasicMaterial({ color: 0x00ff88 }));
+            greenLight.position.set(5.4, 0.2, 0);
+            issGroup.add(greenLight);
+
+            issGroup.scale.set(0.38, 0.38, 0.38);
+            return issGroup;
+        }
+
+        function createRealisticHubble() {
+            const hstGroup = new THREE.Group();
+
+            const aluMat = new THREE.MeshStandardMaterial({ color: 0xe2e8f0, metalness: 0.95, roughness: 0.15 });
+            const goldMat = new THREE.MeshStandardMaterial({ color: 0xd97706, metalness: 0.92, roughness: 0.25 });
+            const darkMat = new THREE.MeshBasicMaterial({ color: 0x030712 });
+            const mirrorMat = new THREE.MeshStandardMaterial({ color: 0xffffff, metalness: 1.0, roughness: 0.04 });
+            const solarMat = new THREE.MeshStandardMaterial({ color: 0x1e3a8a, metalness: 0.85, roughness: 0.2 });
+            const detailMat = new THREE.MeshStandardMaterial({ color: 0x64748b, metalness: 0.7, roughness: 0.4 });
+
+            // 1. LIGHT SHIELD ANTERIORE (Cilindro alluminio riflettente)
+            const forwardGeo = new THREE.CylinderGeometry(0.68, 0.68, 2.2, 24, 1, true);
+            const forwardShell = new THREE.Mesh(forwardGeo, aluMat);
+            forwardShell.position.y = 1.1;
+            hstGroup.add(forwardShell);
+
+            // Fondo scuro con specchio primario
+            const mirror = new THREE.Mesh(new THREE.CircleGeometry(0.6, 24), mirrorMat);
+            mirror.rotation.x = Math.PI / 2;
+            mirror.position.y = 0.1;
+            hstGroup.add(mirror);
+
+            // Spider vanes e specchio secondario
+            const spider1 = new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.02, 0.02), darkMat);
+            spider1.position.y = 1.6;
+            hstGroup.add(spider1);
+            const spider2 = new THREE.Mesh(new THREE.BoxGeometry(0.02, 0.02, 1.2), darkMat);
+            spider2.position.y = 1.6;
+            hstGroup.add(spider2);
+            const secMirror = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.18, 0.2, 16), aluMat);
+            secMirror.position.y = 1.6;
+            hstGroup.add(secMirror);
+
+            // 2. APERTURE DOOR (Sportello frontale inclinato aperto)
+            const doorGeo = new THREE.CylinderGeometry(0.69, 0.69, 0.06, 24, 1, false, 0, Math.PI);
+            const door = new THREE.Mesh(doorGeo, aluMat);
+            door.position.set(0, 2.2, 0.35);
+            door.rotation.x = -0.65;
+            hstGroup.add(door);
+
+            // 3. AFT SHROUD & EQUIPMENT SECTION (Sezione posteriore ricoperta da MLI dorata)
+            const aftGeo = new THREE.CylinderGeometry(0.82, 0.82, 2.4, 24);
+            const aftShell = new THREE.Mesh(aftGeo, goldMat);
+            aftShell.position.y = -1.2;
+            hstGroup.add(aftShell);
+
+            // Collare di transizione
+            const collarGeo = new THREE.CylinderGeometry(0.68, 0.82, 0.3, 24);
+            const collar = new THREE.Mesh(collarGeo, aluMat);
+            collar.position.y = -0.05;
+            hstGroup.add(collar);
+
+            // 4. DUE ALI DI PANNELLI SOLARI ORIENTABILI
+            [-1, 1].forEach(side => {
+                const boom = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, 0.9, 12), aluMat);
+                boom.rotation.z = Math.PI / 2;
+                boom.position.set(side * 1.1, -0.3, 0);
+                hstGroup.add(boom);
+
+                const panel = new THREE.Mesh(new THREE.BoxGeometry(0.04, 3.2, 0.95), solarMat);
+                panel.position.set(side * 1.8, -0.3, 0);
+                const border = new THREE.Mesh(new THREE.BoxGeometry(0.05, 3.25, 0.06), detailMat);
+                panel.add(border);
+                hstGroup.add(panel);
+            });
+
+            // 5. DUE ANTENNE AD ALTO GUADAGNO (HGA)
+            [-1, 1].forEach(side => {
+                const dishMast = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.04, 0.7, 8), aluMat);
+                dishMast.position.set(side * 0.9, 0.4, 0.5);
+                dishMast.rotation.x = 0.5;
+                dishMast.rotation.z = side * 0.4;
+                hstGroup.add(dishMast);
+
+                const dish = new THREE.Mesh(new THREE.SphereGeometry(0.28, 16, 8, 0, Math.PI * 2, 0, Math.PI / 3), aluMat);
+                dish.position.set(side * 1.2, 0.7, 0.8);
+                dish.rotation.x = -Math.PI / 2;
+                hstGroup.add(dish);
+            });
+
+            // 6. MANCORRENTI GIALLI EVA
+            const railMat = new THREE.MeshBasicMaterial({ color: 0xfacc15 });
+            const rail1 = new THREE.Mesh(new THREE.BoxGeometry(0.03, 1.8, 0.03), railMat);
+            rail1.position.set(0.72, 1.1, 0);
+            hstGroup.add(rail1);
+
+            hstGroup.scale.set(0.42, 0.42, 0.42);
+            return hstGroup;
+        }
+
+        function buildSolarSystem() {
             const sphereGeo = new THREE.SphereGeometry(1, 64, 64);
             const moonsData = {
-                'Earth': [{name: 'Luna', key: 'Moon_Luna', dist: 2.5, size: 0.27, color: 0xdddddd, speed: 0.015}],
-                'Mars': [{name: 'Phobos', key: 'Moon_Phobos', dist: 1.8, size: 0.12, color: 0xbbbbbb, speed: 0.03}, {name: 'Deimos', key: 'Moon_Deimos', dist: 2.6, size: 0.09, color: 0x999999, speed: 0.02}],
+                'Earth': [
+                    {name: 'Stazione Spaziale ISS', key: 'ISS', dist: 4.2, size: 0.22, color: 0xcccccc, speed: 0.045},
+                    {name: 'Telescopio Hubble', key: 'Hubble', dist: 6.2, size: 0.18, color: 0xaaccff, speed: 0.035},
+                    {name: 'Luna', key: 'Moon_Luna', dist: 12.5, size: 0.35, color: 0xdddddd, speed: 0.012}
+                ],
+                'Mars': [
+                    {name: 'Phobos', key: 'Moon_Phobos', dist: 4.2, size: 0.13, color: 0xbbbbbb, speed: 0.03},
+                    {name: 'Deimos', key: 'Moon_Deimos', dist: 7.0, size: 0.10, color: 0x999999, speed: 0.02}
+                ],
                 'Jupiter': [
-                    {name: 'Io', key: 'Moon_Io', dist: 3.8, size: 0.22, color: 0xffffaa, speed: 0.028},
-                    {name: 'Europa', key: 'Moon_Europa', dist: 5.0, size: 0.2, color: 0xddddff, speed: 0.022},
-                    {name: 'Ganimede', key: 'Moon_Ganimede', dist: 6.5, size: 0.28, color: 0xcccccc, speed: 0.016},
-                    {name: 'Callisto', key: 'Moon_Callisto', dist: 8.2, size: 0.25, color: 0x888888, speed: 0.012}
+                    {name: 'Io', key: 'Moon_Io', dist: 11.0, size: 0.24, color: 0xffffaa, speed: 0.028},
+                    {name: 'Europa', key: 'Moon_Europa', dist: 16.0, size: 0.22, color: 0xddddff, speed: 0.022},
+                    {name: 'Ganimede', key: 'Moon_Ganimede', dist: 22.0, size: 0.30, color: 0xcccccc, speed: 0.016},
+                    {name: 'Callisto', key: 'Moon_Callisto', dist: 29.0, size: 0.27, color: 0x888888, speed: 0.012}
                 ],
                 'Saturn': [
-                    {name: 'Titano', key: 'Moon_Titano', dist: 5.2, size: 0.27, color: 0xffcc88, speed: 0.018},
-                    {name: 'Encelado', key: 'Moon_Encelado', dist: 3.4, size: 0.12, color: 0xffffff, speed: 0.032},
-                    {name: 'Rea', key: 'Moon_Rea', dist: 6.6, size: 0.14, color: 0xeeeeee, speed: 0.015},
-                    {name: 'Giapeto', key: 'Moon_Giapeto', dist: 8.4, size: 0.13, color: 0x777777, speed: 0.01}
+                    {name: 'Titano', key: 'Moon_Titano', dist: 18.0, size: 0.30, color: 0xffcc88, speed: 0.018},
+                    {name: 'Encelado', key: 'Moon_Encelado', dist: 10.5, size: 0.14, color: 0xffffff, speed: 0.032},
+                    {name: 'Rea', key: 'Moon_Rea', dist: 24.5, size: 0.16, color: 0xeeeeee, speed: 0.015},
+                    {name: 'Giapeto', key: 'Moon_Giapeto', dist: 33.0, size: 0.15, color: 0x777777, speed: 0.01}
                 ],
                 'Uranus': [
-                    {name: 'Titania', key: 'Moon_Titania', dist: 3.2, size: 0.17, color: 0xcccccc, speed: 0.02},
-                    {name: 'Oberon', key: 'Moon_Oberon', dist: 4.2, size: 0.15, color: 0xaaaaaa, speed: 0.015}
+                    {name: 'Titania', key: 'Moon_Titania', dist: 9.0, size: 0.19, color: 0xcccccc, speed: 0.02},
+                    {name: 'Oberon', key: 'Moon_Oberon', dist: 13.5, size: 0.17, color: 0xaaaaaa, speed: 0.015}
                 ],
                 'Neptune': [
-                    {name: 'Tritone', key: 'Moon_Tritone', dist: 3.2, size: 0.22, color: 0xddddff, speed: -0.02}
+                    {name: 'Tritone', key: 'Moon_Tritone', dist: 10.0, size: 0.24, color: 0xddddff, speed: -0.02}
                 ],
                 'Pluto': [
-                    {name: 'Caronte', key: 'Moon_Caronte', dist: 1.5, size: 0.16, color: 0xcccccc, speed: 0.025}
+                    {name: 'Caronte', key: 'Moon_Caronte', dist: 4.5, size: 0.18, color: 0xcccccc, speed: 0.025}
                 ]
             };
 
@@ -3470,10 +4135,19 @@ function buildSolarSystem() {
                             let photoFilename = mData.realPhoto.split('/').pop().replace('~large', '~orig');
                             if (typeof localTextures !== 'undefined' && localTextures[photoFilename]) moonUrl = localTextures[photoFilename];
                         }
-                        const mMat = new THREE.MeshStandardMaterial({ map: textureLoader.load(moonUrl), color: moonInfo.color || 0xcccccc, roughness: 0.8 });
-                        const moonMesh = new THREE.Mesh(sphereGeo, mMat);
-                        moonMesh.scale.set(moonInfo.size, moonInfo.size, moonInfo.size);
-                        moonMesh.position.set(moonInfo.dist, 0, 0);
+                        let moonMesh;
+                        if (moonInfo.key === 'ISS') {
+                            moonMesh = createRealisticISS();
+                            moonMesh.position.set(moonInfo.dist, 0, 0);
+                        } else if (moonInfo.key === 'Hubble') {
+                            moonMesh = createRealisticHubble();
+                            moonMesh.position.set(moonInfo.dist, 0, 0);
+                        } else {
+                            const mMat = new THREE.MeshStandardMaterial({ map: textureLoader.load(moonUrl), color: moonInfo.color || 0xcccccc, roughness: 0.8 });
+                            moonMesh = new THREE.Mesh(sphereGeo, mMat);
+                            moonMesh.scale.set(moonInfo.size, moonInfo.size, moonInfo.size);
+                            moonMesh.position.set(moonInfo.dist, 0, 0);
+                        }
                         
                         // Hitbox invisibile con raggio maggiorato per facilitare il click del mouse
                         const hitRadius = Math.max(moonInfo.size * 2.8, 0.8);
@@ -3713,7 +4387,10 @@ function buildSolarSystem() {
                 const mItem = moonMeshes[key];
                 const data = mItem.data;
                 const tl = document.getElementById('target-label');
-                if (tl) tl.innerText = (data.name || '').toUpperCase() + ' (LUNA)';
+                let roleTag = ' (LUNA)';
+                if (data.isISS) roleTag = ' (STAZIONE SPAZIALE)';
+                else if (data.isHubble) roleTag = ' (TELESCOPIO SPAZIALE)';
+                if (tl) tl.innerText = (data.name || '').toUpperCase() + roleTag;
                 
                 const targetPos = new THREE.Vector3();
                 mItem.mesh.getWorldPosition(targetPos);
@@ -3794,6 +4471,15 @@ function buildSolarSystem() {
                 }
             }
 
+            
+            // Pulsante speciale per ISS (Simulatori Giochi) e Hubble (Galleria Scatti)
+            let specialActionBtnHtml = '';
+            if (data.key === 'ISS' || data.isISS) {
+                specialActionBtnHtml = `<button onclick="openIssMissions()" class="btn-iss-action">🎮 AVVIA MISSIONI & GIOCHI ISS</button>`;
+            } else if (data.key === 'Hubble' || data.isHubble) {
+                specialActionBtnHtml = `<button onclick="openHubbleGallery()" class="btn-hubble-action">🔭 MOSTRA GALLERIA SCATTI HUBBLE</button>`;
+            }
+
             let mediaHtml = '';
             if (photoSrc) {
                 mediaHtml += `<div class="photo-container" style="margin: 10px 0 8px 0; border: 1px solid rgba(0, 240, 255, 0.4); border-radius: 8px; overflow: hidden; background: #000;">
@@ -3849,6 +4535,7 @@ function buildSolarSystem() {
                 <div class="category-badge" style="margin-bottom: 8px; display: inline-block;">${data.type || ''}</div>
                 ${audioBtn}
                 <div class="info-panel-collapsible">
+                    ${specialActionBtnHtml}
                     ${mediaHtml}
                     ${moonsListHtml}
                     <p style="color: #b0c4de; font-size: 13.5px; line-height: 1.55; margin-bottom: 14px;">${data.desc || ''}</p>
@@ -4040,7 +4727,7 @@ function animate() {
         const rightVec = new THREE.Vector3().crossVectors(fwd, upVec).normalize();
 
         const boostMul = activeNavKeys.boost ? 2.2 : 1.0;
-        const baseSpeed = 0.45 * navSpeedFactor * boostMul;
+        const baseSpeed = 0.85 * navSpeedFactor * boostMul;
 
         let hasKeyboardInput = false;
         if (activeNavKeys.forward) { moveVector.add(fwd); hasKeyboardInput = true; }
