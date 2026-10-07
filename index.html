@@ -1504,7 +1504,7 @@
 
     
         /* =========================================================================
-           STILI MODALI PER GIOCHI ISS E GALLERIA HUBBLE (HIGH Z-INDEX)
+           STILI MODALI PER GIOCHI ISS E GALLERIA HUBBLE (RESPONSIVE & TOUCH)
         ========================================================================== */
         .iss-modal, .hubble-modal {
             display: none;
@@ -1531,10 +1531,10 @@
             border: 2px solid #00f0ff;
             box-shadow: 0 0 45px rgba(0, 240, 255, 0.5);
             border-radius: 20px;
-            max-width: 920px;
+            max-width: 960px;
             width: 100%;
             position: relative;
-            padding: 24px;
+            padding: 20px;
             box-sizing: border-box;
             max-height: 94vh;
             display: flex;
@@ -1544,7 +1544,7 @@
         }
         .modal-close-btn {
             position: absolute;
-            top: 16px; right: 18px;
+            top: 14px; right: 16px;
             background: rgba(255, 255, 255, 0.12);
             border: 1px solid rgba(0, 240, 255, 0.5);
             color: #00f0ff;
@@ -1560,41 +1560,41 @@
             background: #ef4444; border-color: #ef4444; color: #fff;
         }
         .modal-header-title {
-            font-size: 1.5em;
+            font-size: 1.4em;
             font-weight: 800;
             color: #00f0ff;
-            letter-spacing: 1px;
-            margin-bottom: 4px;
+            letter-spacing: 0.5px;
+            margin-bottom: 2px;
             display: flex;
             align-items: center;
             gap: 10px;
         }
         .modal-sub {
-            font-size: 0.9em;
+            font-size: 0.88em;
             color: #94a3b8;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
         }
 
         /* Tasti selezione missioni */
         .missions-nav {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 10px;
-            margin-bottom: 18px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin-bottom: 12px;
         }
         .mission-tab-btn {
             background: rgba(30, 41, 59, 0.85);
             border: 1px solid rgba(0, 240, 255, 0.3);
             color: #f1f5f9;
-            padding: 10px 12px;
-            border-radius: 12px;
-            font-size: 12px;
+            padding: 8px 10px;
+            border-radius: 10px;
+            font-size: 11.5px;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.2s;
             display: flex;
             flex-direction: column;
-            gap: 4px;
+            gap: 2px;
             text-align: left;
         }
         .mission-tab-btn:hover {
@@ -1608,44 +1608,98 @@
             color: #00f0ff;
         }
 
-        /* Area di gioco */
+        /* Area di gioco & Canvas */
         .game-screen-area {
             flex: 1;
             background: #030712;
-            border: 1px solid rgba(0, 240, 255, 0.3);
+            border: 1px solid rgba(0, 240, 255, 0.35);
             border-radius: 14px;
             position: relative;
             overflow: hidden;
-            min-height: 420px;
+            min-height: 400px;
             display: flex;
             flex-direction: column;
+            user-select: none;
+            -webkit-user-select: none;
         }
         .game-hud-top {
             position: absolute;
             top: 0; left: 0; width: 100%;
-            background: rgba(15, 23, 42, 0.9);
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(8px);
             border-bottom: 1px solid rgba(0, 240, 255, 0.3);
-            padding: 8px 16px;
+            padding: 6px 14px;
             box-sizing: border-box;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 13px;
+            font-size: 12.5px;
             z-index: 20;
         }
-        .game-controls-bar {
+        .game-canvas-wrap {
             position: absolute;
-            bottom: 0; left: 0; width: 100%;
-            background: rgba(15, 23, 42, 0.9);
-            border-top: 1px solid rgba(0, 240, 255, 0.3);
-            padding: 10px 16px;
-            box-sizing: border-box;
+            top: 0; left: 0; width: 100%; height: 100%;
+        }
+
+        /* Doppi Joystick Virtuali Touch/Mouse */
+        .iss-joy-zone {
+            position: absolute;
+            bottom: 14px;
+            width: 114px;
+            height: 114px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(15, 23, 42, 0.75) 0%, rgba(2, 6, 23, 0.92) 100%);
+            border: 2px solid rgba(0, 240, 255, 0.6);
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.35), inset 0 0 15px rgba(0, 240, 255, 0.2);
+            touch-action: none;
+            user-select: none;
+            -webkit-user-select: none;
+            pointer-events: auto;
+            z-index: 25;
             display: flex;
-            gap: 10px;
-            justify-content: center;
             align-items: center;
-            flex-wrap: wrap;
-            z-index: 20;
+            justify-content: center;
+        }
+        .iss-joy-left { left: 14px; }
+        .iss-joy-right { right: 14px; }
+        .iss-joy-knob {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 35%, #38bdf8 0%, #0284c7 60%, #0369a1 100%);
+            border: 2px solid #ffffff;
+            box-shadow: 0 0 16px rgba(0, 240, 255, 0.85);
+            position: absolute;
+            pointer-events: none;
+            transform: translate(0px, 0px);
+            transition: transform 0.04s ease-out;
+        }
+        .iss-joy-label {
+            position: absolute;
+            font-size: 8px;
+            font-weight: 800;
+            color: rgba(0, 240, 255, 0.95);
+            letter-spacing: 0.5px;
+            pointer-events: none;
+            text-shadow: 0 0 4px #000;
+        }
+        .iss-joy-top { top: 3px; }
+        .iss-joy-bottom { bottom: 3px; }
+        .iss-joy-left-lbl { left: 3px; }
+        .iss-joy-right-lbl { right: 3px; }
+
+        .iss-center-action-wrap {
+            position: absolute;
+            bottom: 14px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 26;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            pointer-events: auto;
+            max-width: 250px;
         }
         .game-action-btn {
             background: rgba(0, 240, 255, 0.25);
@@ -1654,16 +1708,109 @@
             padding: 8px 16px;
             border-radius: 8px;
             font-weight: 700;
-            font-size: 13px;
+            font-size: 12.5px;
             cursor: pointer;
             transition: all 0.2s;
+            touch-action: none;
         }
         .game-action-btn:hover {
             background: #00f0ff; color: #020617; box-shadow: 0 0 15px rgba(0, 240, 255, 0.6);
         }
-        .game-canvas-wrap {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
+
+        /* Ottimizzazione Mobile Portrait e Landscape */
+        @media (max-width: 768px), (max-height: 580px) {
+            .iss-modal {
+                padding: 0 !important;
+            }
+            .modal-card {
+                width: 100vw !important;
+                max-width: 100vw !important;
+                height: 100vh !important;
+                max-height: 100vh !important;
+                border-radius: 0 !important;
+                border: none !important;
+                padding: 4px 6px !important;
+            }
+            .modal-header-title {
+                font-size: 1.05em !important;
+                margin-bottom: 2px !important;
+            }
+            .modal-sub {
+                display: none !important;
+            }
+            .missions-nav {
+                display: flex !important;
+                overflow-x: auto !important;
+                gap: 5px !important;
+                margin-bottom: 4px !important;
+                padding-bottom: 2px !important;
+                scrollbar-width: none !important;
+            }
+            .mission-tab-btn {
+                flex: 0 0 auto !important;
+                padding: 5px 8px !important;
+                font-size: 10.5px !important;
+                border-radius: 6px !important;
+            }
+            .mission-tab-btn small {
+                display: none !important;
+            }
+            .game-screen-area {
+                flex: 1 !important;
+                min-height: 0 !important;
+                border-radius: 8px !important;
+            }
+            .game-hud-top {
+                padding: 4px 8px !important;
+                font-size: 11px !important;
+            }
+            .iss-joy-zone {
+                width: 92px !important;
+                height: 92px !important;
+                bottom: 8px !important;
+            }
+            .iss-joy-left { left: 8px !important; }
+            .iss-joy-right { right: 8px !important; }
+            .iss-joy-knob {
+                width: 38px !important;
+                height: 38px !important;
+            }
+            .iss-joy-label {
+                font-size: 7.5px !important;
+            }
+            .iss-center-action-wrap {
+                bottom: 8px !important;
+                max-width: 170px !important;
+            }
+            .game-action-btn {
+                padding: 6px 10px !important;
+                font-size: 11px !important;
+            }
+        }
+
+        @media (max-height: 480px) and (orientation: landscape) {
+            .modal-card {
+                padding: 2px 4px !important;
+            }
+            .modal-header-title {
+                font-size: 0.9em !important;
+            }
+            .missions-nav {
+                margin-bottom: 2px !important;
+            }
+            .mission-tab-btn {
+                padding: 3px 6px !important;
+                font-size: 9.5px !important;
+            }
+            .iss-joy-zone {
+                width: 82px !important;
+                height: 82px !important;
+                bottom: 4px !important;
+            }
+            .iss-joy-knob {
+                width: 34px !important;
+                height: 34px !important;
+            }
         }
 
         /* Galleria Hubble */
@@ -1910,41 +2057,64 @@
                 <span>🛰️</span> CENTRO MISSIONI STAZIONE SPAZIALE (ISS)
             </div>
             <div class="modal-sub">
-                Seleziona un'operazione orbitale e completa gli obiettivi entro il tempo stabilito!
+                Seleziona un'operazione orbitale e pilota con i doppi joystick virtuali (o tasti WASD + Q/E/Z/C)!
             </div>
 
             <div class="missions-nav">
                 <button id="tab-mission-1" class="mission-tab-btn active" onclick="switchIssMission(1)">
                     <span>1. Manovra di Attracco</span>
-                    <small style="opacity:0.75;">Guida la navicella al portello IDA</small>
+                    <small style="opacity:0.75;">Allinea rotazione & guida a Port IDA</small>
                 </button>
                 <button id="tab-mission-2" class="mission-tab-btn" onclick="switchIssMission(2)">
                     <span>2. Emergenza Fuga O₂</span>
-                    <small style="opacity:0.75;">Corri nei corridoi a gravità zero</small>
+                    <small style="opacity:0.75;">Svolta gli angoli & sigilla la valvola</small>
                 </button>
                 <button id="tab-mission-3" class="mission-tab-btn" onclick="switchIssMission(3)">
                     <span>3. Pannelli Solari</span>
-                    <small style="opacity:0.75;">Estendi e orienta verso il Sole</small>
+                    <small style="opacity:0.75;">Estendi le ali & traccia il Sole</small>
                 </button>
                 <button id="tab-mission-4" class="mission-tab-btn" onclick="switchIssMission(4)">
                     <span>4. Braccio Canadarm2</span>
-                    <small style="opacity:0.75;">Preleva macchinario dallo Shuttle</small>
+                    <small style="opacity:0.75;">Preleva carico dallo Shuttle & monta</small>
                 </button>
             </div>
 
             <div class="game-screen-area" id="iss-game-container">
                 <div class="game-hud-top" id="iss-hud-top">
-                    <div><span id="iss-hud-mission-title" style="color:#00f0ff; font-weight:bold;">MISSIONE 1: ATTRACCO NAVICELLA</span></div>
-                    <div>⏱️ TEMPO: <span id="iss-hud-timer" style="color:#ffd000; font-weight:bold; font-size:1.15em;">60s</span></div>
-                    <div>STATO: <span id="iss-hud-status" style="color:#10b981; font-weight:bold;">IN CORSO</span></div>
+                    <div style="display:flex; align-items:center; gap:6px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+                        <span id="iss-hud-mission-title" style="color:#00f0ff; font-weight:bold;">MISSIONE 1: ATTRACCO NAVICELLA</span>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:10px; flex-shrink:0;">
+                        <div>⏱️ <span id="iss-hud-timer" style="color:#ffd000; font-weight:bold; font-size:1.1em;">60s</span></div>
+                        <div id="iss-hud-status" style="color:#10b981; font-weight:bold;">IN CORSO</div>
+                    </div>
                 </div>
 
                 <div class="game-canvas-wrap">
-                    <canvas id="iss-game-canvas" style="width:100%; height:100%; display:block;"></canvas>
+                    <canvas id="iss-game-canvas" style="width:100%; height:100%; display:block; touch-action:none;"></canvas>
                 </div>
 
-                <div class="game-controls-bar" id="iss-controls-bar">
-                    <!-- Controlli dinamici iniettati per missione -->
+                <!-- DUAL VIRTUAL JOYSTICKS OVERLAY -->
+                <div id="iss-joy-left-zone" class="iss-joy-zone iss-joy-left" title="Joystick Sinistro: Avanti/Indietro, Sinistra/Destra">
+                    <span class="iss-joy-label iss-joy-top">▲ AVANTI</span>
+                    <span class="iss-joy-label iss-joy-bottom">▼ INDIETRO</span>
+                    <span class="iss-joy-label iss-joy-left-lbl">◀ SX</span>
+                    <span class="iss-joy-label iss-joy-right-lbl">DX ▶</span>
+                    <div id="iss-joy-left-knob" class="iss-joy-knob"></div>
+                </div>
+
+                <div id="iss-joy-right-zone" class="iss-joy-zone iss-joy-right" title="Joystick Destro: Alza/Abbassa, Rotazione SX/DX">
+                    <span class="iss-joy-label iss-joy-top">▲ ALZA</span>
+                    <span class="iss-joy-label iss-joy-bottom">▼ ABBASSA</span>
+                    <span class="iss-joy-label iss-joy-left-lbl">↺ ROT-SX</span>
+                    <span class="iss-joy-label iss-joy-right-lbl">ROT-DX ↻</span>
+                    <div id="iss-joy-right-knob" class="iss-joy-knob"></div>
+                </div>
+
+                <!-- CONTROLLO AZIONE CENTRALE & SUGGERIMENTI -->
+                <div id="iss-center-action-wrap" class="iss-center-action-wrap">
+                    <button id="iss-main-action-btn" class="game-action-btn" style="display:none;"></button>
+                    <div id="iss-hud-hint" style="font-size:10.5px; color:#cbd5e1; text-shadow:0 0 4px #000; text-align:center; pointer-events:none; max-width:240px; line-height:1.2;"></div>
                 </div>
             </div>
         </div>
@@ -5265,32 +5435,90 @@ function animate() {
         let issMissionRunning = false;
         let issSubAnimId = null;
 
-        // Parametri Missione 1: Docking
-        let dockDist = 65.0;
-        let dockSpeed = 0.8;
-        let dockX = 14.0;
-        let dockY = -12.0;
-        let dockKeys = { w: false, s: false, a: false, d: false, q: false, e: false };
+        // Immagini realistiche per i giochi della ISS
+        const issGameImgs = {
+            docking: new Image(),
+            corridor: new Image(),
+            canadarm: new Image()
+        };
+        issGameImgs.docking.src = 'textures/game_iss_docking.jpg';
+        issGameImgs.corridor.src = 'textures/game_iss_corridor.jpg';
+        issGameImgs.canadarm.src = 'textures/game_iss_canadarm.jpg';
 
-        // Parametri Missione 2: Fuga O2
+        // STATO DEI DOPPI JOYSTICK VIRTUALI
+        const joyState = {
+            left: { x: 0, y: 0, active: false, pointerId: null },
+            right: { x: 0, y: 0, active: false, pointerId: null },
+            keys: { w: false, s: false, a: false, d: false, q: false, e: false, z: false, c: false, space: false }
+        };
+
+        function getLeftJoy() {
+            let x = joyState.left.x;
+            let y = joyState.left.y;
+            if (joyState.keys.a) x -= 1;
+            if (joyState.keys.d) x += 1;
+            if (joyState.keys.w) y -= 1; // Avanti
+            if (joyState.keys.s) y += 1; // Indietro
+            return {
+                x: Math.max(-1, Math.min(1, x)),
+                y: Math.max(-1, Math.min(1, y))
+            };
+        }
+
+        function getRightJoy() {
+            let x = joyState.right.x;
+            let y = joyState.right.y;
+            if (joyState.keys.z) x -= 1; // Rot-SX
+            if (joyState.keys.c) x += 1; // Rot-DX
+            if (joyState.keys.q) y -= 1; // Alza
+            if (joyState.keys.e) y += 1; // Abbassa
+            return {
+                x: Math.max(-1, Math.min(1, x)),
+                y: Math.max(-1, Math.min(1, y))
+            };
+        }
+
+        // Parametri Missione 1: Docking con rotazione ISS
+        let dockDist = 75.0;
+        let dockSpeed = 0.50;
+        let dockX = 7.5;
+        let dockY = -5.0;
+        let dockVelX = 0.0;
+        let dockVelY = 0.0;
+        let craftRollAngle = 40.0; // Angolo rollio navicella
+        let issRollAngle = 110.0;   // Angolo rollio ISS
+        let issRollSpeed = 0.50;   // Rotazione lenta continua della stazione
+
+        // Parametri Missione 2: Corridoio Zero-G con angoli, svolte e portello
         let o2Level = 100.0;
-        let o2PlayerZ = -30.0;
-        let o2ValveSecured = 0;
-        let o2HoldingBtn = false;
+        let corridorPos = 0.0;          // Distanza percorsa (0 - 110m)
+        let corridorSpeed = 0.0;
+        let corridorPlayerX = 0.0;
+        let corridorPlayerY = 0.0;
+        let corridorPlayerAngle = 0.0;  // Angolo di visuale attuale (gradi)
+        let corridorHatchOpen = false;
+        let corridorValveSecured = 0;
+        let corridorHoldingValve = false;
+        let corridorValveTimer = null;
+        let corridorGasParticles = [];
 
-        // Parametri Missione 3: Pannelli Solari
+        // Parametri Missione 3: Pannelli Solari ISS
         let solarDeployed = false;
         let solarDeployProgress = 0.0;
-        let solarAngleAlpha = 35.0;
-        let solarAngleBeta = 60.0;
-        const targetAlpha = 180.0;
-        const targetBeta = 90.0;
+        let solarAngleAlpha = 45.0; // Asse Alfa (0 - 360°)
+        let solarAngleBeta = 20.0;  // Asse Beta (-90° - +90°)
+        const sunTargetAlpha = 180.0;
+        const sunTargetBeta = 45.0;
+        let solarLockTimer = 0.0;
 
         // Parametri Missione 4: Canadarm2
-        let armStep = 1;
-        let armReachX = 0.0;
-        let armReachY = 0.0;
-        let armReachZ = 0.0;
+        let armStep = 1; // 1 = preleva Shuttle, 2 = installa Truss ISS
+        let armEeX = 0.50; // Posizione normalizzata pinza (0..1)
+        let armEeY = 0.35;
+        let armEeZ = 0.40; // Quota / profondità
+        let armGripperAngle = 0.0;
+        let armBaseX = 0.46;
+        let armBaseY = 0.16;
 
         function openIssMissions(missionId = 1) {
             console.log('Opening ISS Missions, ID:', missionId);
@@ -5299,9 +5527,8 @@ function animate() {
             if (modal) {
                 modal.classList.add('active');
                 modal.style.display = 'flex';
+                setupDualJoysticks();
                 switchIssMission(missionId);
-            } else {
-                console.error('iss-missions-modal element not found in DOM!');
             }
         }
 
@@ -5329,6 +5556,9 @@ function animate() {
             issMissionTimerId = null;
             if (issSubAnimId) cancelAnimationFrame(issSubAnimId);
             issSubAnimId = null;
+            if (corridorValveTimer) clearInterval(corridorValveTimer);
+            corridorValveTimer = null;
+            corridorHoldingValve = false;
         }
 
         function playMissionSound(type) {
@@ -5374,101 +5604,302 @@ function animate() {
             } catch(e) {}
         }
 
+        let joysticksInitialized = false;
+        function setupDualJoysticks() {
+            if (joysticksInitialized) return;
+            const leftZone = document.getElementById('iss-joy-left-zone');
+            const leftKnob = document.getElementById('iss-joy-left-knob');
+            const rightZone = document.getElementById('iss-joy-right-zone');
+            const rightKnob = document.getElementById('iss-joy-right-knob');
+            const actionBtn = document.getElementById('iss-main-action-btn');
+
+            if (!leftZone || !rightZone) return;
+            joysticksInitialized = true;
+
+            function bindStick(zone, knob, stickKey) {
+                function updateFromPoint(clientX, clientY) {
+                    const rect = zone.getBoundingClientRect();
+                    const cx = rect.left + rect.width / 2;
+                    const cy = rect.top + rect.height / 2;
+                    const dx = clientX - cx;
+                    const dy = clientY - cy;
+                    const maxR = rect.width * 0.38;
+                    const dist = Math.hypot(dx, dy);
+                    const clampedDist = Math.min(dist, maxR);
+                    const angle = Math.atan2(dy, dx);
+                    const nx = clampedDist > 0 ? Math.cos(angle) * (clampedDist / maxR) : 0;
+                    const ny = clampedDist > 0 ? Math.sin(angle) * (clampedDist / maxR) : 0;
+                    joyState[stickKey].x = nx;
+                    joyState[stickKey].y = ny;
+                    knob.style.transform = `translate(${nx * maxR}px, ${ny * maxR}px)`;
+                }
+
+                zone.addEventListener('pointerdown', (e) => {
+                    e.preventDefault();
+                    zone.setPointerCapture(e.pointerId);
+                    joyState[stickKey].active = true;
+                    joyState[stickKey].pointerId = e.pointerId;
+                    updateFromPoint(e.clientX, e.clientY);
+                });
+
+                zone.addEventListener('pointermove', (e) => {
+                    if (joyState[stickKey].active && joyState[stickKey].pointerId === e.pointerId) {
+                        e.preventDefault();
+                        updateFromPoint(e.clientX, e.clientY);
+                    }
+                });
+
+                function release(e) {
+                    if (joyState[stickKey].pointerId === e.pointerId) {
+                        joyState[stickKey].active = false;
+                        joyState[stickKey].pointerId = null;
+                        joyState[stickKey].x = 0;
+                        joyState[stickKey].y = 0;
+                        knob.style.transform = 'translate(0px, 0px)';
+                    }
+                }
+                zone.addEventListener('pointerup', release);
+                zone.addEventListener('pointercancel', release);
+            }
+
+            bindStick(leftZone, leftKnob, 'left');
+            bindStick(rightZone, rightKnob, 'right');
+
+            if (actionBtn) {
+                actionBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    triggerIssMainAction();
+                });
+                actionBtn.addEventListener('pointerdown', (e) => {
+                    if (currentIssMission === 2 && corridorPos >= 98) {
+                        startSealingO2();
+                    }
+                });
+                actionBtn.addEventListener('pointerup', (e) => {
+                    if (currentIssMission === 2) stopSealingO2();
+                });
+                actionBtn.addEventListener('pointerleave', (e) => {
+                    if (currentIssMission === 2) stopSealingO2();
+                });
+            }
+
+            window.addEventListener('keydown', (e) => {
+                if (!issMissionRunning) return;
+                const k = e.key.toLowerCase();
+                if (k === 'w' || e.key === 'ArrowUp') joyState.keys.w = true;
+                if (k === 's' || e.key === 'ArrowDown') joyState.keys.s = true;
+                if (k === 'a') joyState.keys.a = true;
+                if (k === 'd') joyState.keys.d = true;
+                if (k === 'q') joyState.keys.q = true;
+                if (k === 'e') joyState.keys.e = true;
+                if (k === 'z' || e.key === 'ArrowLeft') joyState.keys.z = true;
+                if (k === 'c' || e.key === 'ArrowRight') joyState.keys.c = true;
+                if (e.code === 'Space') {
+                    if (currentIssMission === 2 && corridorPos >= 98) {
+                        if (!corridorHoldingValve) startSealingO2();
+                    } else {
+                        triggerIssMainAction();
+                    }
+                }
+            });
+
+            window.addEventListener('keyup', (e) => {
+                const k = e.key.toLowerCase();
+                if (k === 'w' || e.key === 'ArrowUp') joyState.keys.w = false;
+                if (k === 's' || e.key === 'ArrowDown') joyState.keys.s = false;
+                if (k === 'a') joyState.keys.a = false;
+                if (k === 'd') joyState.keys.d = false;
+                if (k === 'q') joyState.keys.q = false;
+                if (k === 'e') joyState.keys.e = false;
+                if (k === 'z' || e.key === 'ArrowLeft') joyState.keys.z = false;
+                if (k === 'c' || e.key === 'ArrowRight') joyState.keys.c = false;
+                if (e.code === 'Space' && currentIssMission === 2) {
+                    stopSealingO2();
+                }
+            });
+        }
+
+        function triggerIssMainAction() {
+            if (!issMissionRunning) return;
+            if (currentIssMission === 1) {
+                // Kill-rot & arresto derive RCS
+                dockVelX = 0;
+                dockVelY = 0;
+                dockSpeed = Math.max(0, dockSpeed * 0.5);
+                playMissionSound('clank');
+            } else if (currentIssMission === 2) {
+                if (corridorPos >= 88 && corridorPos < 98 && !corridorHatchOpen) {
+                    corridorHatchOpen = true;
+                    playMissionSound('clank');
+                    alert('Portello di sicurezza aperto! Raggiungi la valvola rossa in fondo!');
+                }
+            } else if (currentIssMission === 3) {
+                if (!solarDeployed) {
+                    solarDeployed = true;
+                    playMissionSound('clank');
+                }
+            } else if (currentIssMission === 4) {
+                triggerArmAction();
+            }
+            updateCenterActionUI();
+        }
+
+        function startSealingO2() {
+            if (!issMissionRunning || corridorPos < 98 || !corridorHatchOpen) return;
+            corridorHoldingValve = true;
+            if (corridorValveTimer) clearInterval(corridorValveTimer);
+            corridorValveTimer = setInterval(() => {
+                if (!corridorHoldingValve) {
+                    clearInterval(corridorValveTimer);
+                    return;
+                }
+                corridorValveSecured += 15;
+                playMissionSound('beep');
+                if (corridorValveSecured >= 100) {
+                    clearInterval(corridorValveTimer);
+                    completeIssMission(2);
+                }
+                updateCenterActionUI();
+            }, 300);
+            updateCenterActionUI();
+        }
+
+        function stopSealingO2() {
+            corridorHoldingValve = false;
+            if (corridorValveTimer) clearInterval(corridorValveTimer);
+            updateCenterActionUI();
+        }
+
+        function updateCenterActionUI() {
+            const btn = document.getElementById('iss-main-action-btn');
+            const hint = document.getElementById('iss-hud-hint');
+            if (!btn || !hint) return;
+
+            btn.style.display = 'inline-block';
+            if (currentIssMission === 1) {
+                btn.innerText = '🎯 STABILIZZA RCS';
+                btn.style.background = 'rgba(0, 240, 255, 0.25)';
+                btn.style.borderColor = '#00f0ff';
+                btn.style.color = '#00f0ff';
+                hint.innerText = 'Allinea la rotazione navicella alla ISS col Joy Destro (Rot-SX/DX). Entra a <0.4 m/s!';
+            } else if (currentIssMission === 2) {
+                if (corridorPos < 88) {
+                    btn.innerText = '🚀 AVANZA RAPIDO';
+                    btn.style.background = 'rgba(59, 130, 246, 0.3)';
+                    btn.style.borderColor = '#3b82f6';
+                    btn.style.color = '#93c5fd';
+                    hint.innerText = 'Svolta gli angoli a 90° col Joy Destro (Rot-SX/DX)!';
+                } else if (!corridorHatchOpen) {
+                    btn.innerText = '🔓 APRI PORTELLO STAGNO';
+                    btn.style.background = 'rgba(234, 179, 8, 0.35)';
+                    btn.style.borderColor = '#eab308';
+                    btn.style.color = '#fef08a';
+                    hint.innerText = 'Tocca per aprire il portello del modulo!';
+                } else {
+                    btn.innerText = corridorHoldingValve ? '⏳ SIGILLATURA IN CORSO...' : '🚨 TIENI PREMUTO: SIGILLA VALVOLA';
+                    btn.style.background = '#ef4444';
+                    btn.style.borderColor = '#f87171';
+                    btn.style.color = '#ffffff';
+                    hint.innerText = 'Tieni premuto sul pulsante per bloccare la fuga!';
+                }
+            } else if (currentIssMission === 3) {
+                if (!solarDeployed) {
+                    btn.innerText = '☀️ DISPIEGA ALI SOLARI (SAW)';
+                    btn.style.background = 'rgba(234, 179, 8, 0.35)';
+                    btn.style.borderColor = '#eab308';
+                    btn.style.color = '#fef08a';
+                    hint.innerText = 'Estendi i pannelli prima di allinearli al Sole!';
+                } else {
+                    btn.innerText = '⚡ ALLINEAMENTO IN CORSO';
+                    btn.style.background = 'rgba(16, 185, 129, 0.3)';
+                    btn.style.borderColor = '#10b981';
+                    btn.style.color = '#6ee7b7';
+                    hint.innerText = 'Usa il Joy Sinistro (Alfa) e Destro (Beta) per puntare il Sole!';
+                }
+            } else if (currentIssMission === 4) {
+                if (armStep === 1) {
+                    btn.innerText = '🧲 CATTURA CARICO SHUTTLE';
+                    btn.style.background = 'rgba(16, 185, 129, 0.35)';
+                    btn.style.borderColor = '#10b981';
+                    btn.style.color = '#6ee7b7';
+                    hint.innerText = 'Guida la pinza LEE sul carico arancione dello Shuttle!';
+                } else {
+                    btn.innerText = '🔒 INSTALLA SU TRUSS ISS';
+                    btn.style.background = 'rgba(59, 130, 246, 0.35)';
+                    btn.style.borderColor = '#3b82f6';
+                    btn.style.color = '#93c5fd';
+                    hint.innerText = 'Porta il modulo sulla staffa verde della trave ISS!';
+                }
+            }
+        }
+
         function startIssMission(id) {
             stopIssMissionLoop();
             issMissionRunning = true;
+            setupDualJoysticks();
 
             const titleEl = document.getElementById('iss-hud-mission-title');
             const timerEl = document.getElementById('iss-hud-timer');
             const statusEl = document.getElementById('iss-hud-status');
-            const controlsBar = document.getElementById('iss-controls-bar');
             if (statusEl) {
                 statusEl.innerText = 'IN CORSO';
                 statusEl.style.color = '#10b981';
             }
 
             if (id === 1) {
-                if (titleEl) titleEl.innerText = 'MISSIONE 1: ATTRACCO NAVICELLA ALLA ISS (PORT IDA)';
-                issMissionTimeLeft = 60;
-                dockDist = 65.0;
-                dockSpeed = 0.75;
-                dockX = (Math.random() - 0.5) * 20;
-                dockY = (Math.random() - 0.5) * 16;
-
-                if (controlsBar) controlsBar.innerHTML = `
-                    <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap; justify-content:center;">
-                        <button class="game-action-btn" onmousedown="dockKeys.w=true" onmouseup="dockKeys.w=false" ontouchstart="dockKeys.w=true" ontouchend="dockKeys.w=false">⬆️ Accelera (W)</button>
-                        <button class="game-action-btn" onmousedown="dockKeys.s=true" onmouseup="dockKeys.s=false" ontouchstart="dockKeys.s=true" ontouchend="dockKeys.s=false">⬇️ Frena RCS (S)</button>
-                        <button class="game-action-btn" onmousedown="dockKeys.a=true" onmouseup="dockKeys.a=false" ontouchstart="dockKeys.a=true" ontouchend="dockKeys.a=false">⬅️ Sinistra (A)</button>
-                        <button class="game-action-btn" onmousedown="dockKeys.d=true" onmouseup="dockKeys.d=false" ontouchstart="dockKeys.d=true" ontouchend="dockKeys.d=false">➡️ Destra (D)</button>
-                        <button class="game-action-btn" onmousedown="dockKeys.q=true" onmouseup="dockKeys.q=false" ontouchstart="dockKeys.q=true" ontouchend="dockKeys.q=false">🔼 Quota Su (Q)</button>
-                        <button class="game-action-btn" onmousedown="dockKeys.e=true" onmouseup="dockKeys.e=false" ontouchstart="dockKeys.e=true" ontouchend="dockKeys.e=false">🔽 Quota Giù (E)</button>
-                        <span style="font-size:11px; color:#94a3b8; margin-left:8px;">💡 Usa tasti W/S/A/D o pulsanti! Tocca a velocità <0.4 m/s</span>
-                    </div>
-                `;
+                if (titleEl) titleEl.innerText = 'MISSIONE 1: ATTRACCO NAVICELLA CON ROTAZIONE ISS';
+                issMissionTimeLeft = 65;
+                dockDist = 75.0;
+                dockSpeed = 0.55;
+                dockX = (Math.random() - 0.5) * 14.0;
+                dockY = (Math.random() - 0.5) * 10.0;
+                dockVelX = 0.0;
+                dockVelY = 0.0;
+                craftRollAngle = Math.random() * 360;
+                issRollAngle = Math.random() * 360;
 
             } else if (id === 2) {
-                if (titleEl) titleEl.innerText = 'MISSIONE 2: EMERGENZA ZERO-G - PERDITA DI OSSIGENO!';
-                issMissionTimeLeft = 45;
+                if (titleEl) titleEl.innerText = 'MISSIONE 2: EMERGENZA ZERO-G - CORRIDOI & FUGA O₂';
+                issMissionTimeLeft = 50;
                 o2Level = 100.0;
-                o2PlayerZ = -35.0;
-                o2ValveSecured = 0;
-                o2HoldingBtn = false;
-
-                if (controlsBar) controlsBar.innerHTML = `
-                    <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap; justify-content:center;">
-                        <button class="game-action-btn" onclick="moveO2Player(3.5)">🚀 Fluttua Avanti (W / Spazio)</button>
-                        <button class="game-action-btn" onclick="moveO2Player(-2.0)">⬅️ Arretra</button>
-                        <button id="btn-seal-o2" class="game-action-btn" style="background:#ef4444; border-color:#f87171; color:#fff;" 
-                                onmousedown="startSealingO2()" onmouseup="stopSealingO2()" ontouchstart="startSealingO2()" ontouchend="stopSealingO2()">
-                            🚨 PREMI E TIENI PREMUTO: SIGILLA VALVOLA O₂
-                        </button>
-                    </div>
-                `;
+                corridorPos = 0.0;
+                corridorPlayerX = 0.0;
+                corridorPlayerY = 0.0;
+                corridorPlayerAngle = 0.0;
+                corridorHatchOpen = false;
+                corridorValveSecured = 0;
+                corridorHoldingValve = false;
+                corridorGasParticles = [];
+                for (let i = 0; i < 40; i++) {
+                    corridorGasParticles.push({
+                        x: (Math.random() - 0.5) * 200,
+                        y: (Math.random() - 0.5) * 150,
+                        z: Math.random() * 60,
+                        speed: 0.5 + Math.random() * 1.5,
+                        size: 3 + Math.random() * 6
+                    });
+                }
 
             } else if (id === 3) {
-                if (titleEl) titleEl.innerText = 'MISSIONE 3: SALA CONTROLLO - ESTENSIONE & TRACCIAMENTO SOLARE';
-                issMissionTimeLeft = 50;
+                if (titleEl) titleEl.innerText = 'MISSIONE 3: SALA CONTROLLO - PANNELLI SOLARI & TRACCIAMENTO';
+                issMissionTimeLeft = 55;
                 solarDeployed = false;
                 solarDeployProgress = 0.0;
-                solarAngleAlpha = 45.0;
-                solarAngleBeta = 30.0;
-
-                if (controlsBar) controlsBar.innerHTML = `
-                    <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap; justify-content:center;">
-                        <button id="btn-deploy-solar" class="game-action-btn" onclick="triggerSolarDeploy()">☀️ 1. Dispiega Ali Solari (SAW)</button>
-                        <div style="display:flex; gap:6px; align-items:center;">
-                            <span style="font-size:12px; color:#00f0ff; font-weight:bold;">Asse Alfa:</span>
-                            <input type="range" min="0" max="360" value="45" id="slider-alpha" oninput="solarAngleAlpha=parseFloat(this.value)" style="cursor:pointer; width:120px;">
-                        </div>
-                        <div style="display:flex; gap:6px; align-items:center;">
-                            <span style="font-size:12px; color:#00f0ff; font-weight:bold;">Asse Beta:</span>
-                            <input type="range" min="0" max="180" value="30" id="slider-beta" oninput="solarAngleBeta=parseFloat(this.value)" style="cursor:pointer; width:120px;">
-                        </div>
-                    </div>
-                `;
+                solarAngleAlpha = 40.0;
+                solarAngleBeta = 20.0;
+                solarLockTimer = 0.0;
 
             } else if (id === 4) {
-                if (titleEl) titleEl.innerText = 'MISSIONE 4: BRACCIO CANADARM2 - RECUPERO CARICO DALLO SHUTTLE';
-                issMissionTimeLeft = 70;
+                if (titleEl) titleEl.innerText = 'MISSIONE 4: BRACCIO CANADARM2 - RECUPERO MODULO SHUTTLE';
+                issMissionTimeLeft = 75;
                 armStep = 1;
-                armReachX = 0; armReachY = 0; armReachZ = 0;
-
-                if (controlsBar) controlsBar.innerHTML = `
-                    <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap; justify-content:center;">
-                        <button class="game-action-btn" onclick="moveArmJoint('x', -0.15)">⬅️ Braccio Sinistra</button>
-                        <button class="game-action-btn" onclick="moveArmJoint('x', 0.15)">➡️ Braccio Destra</button>
-                        <button class="game-action-btn" onclick="moveArmJoint('y', 0.15)">🔼 Alza</button>
-                        <button class="game-action-btn" onclick="moveArmJoint('y', -0.15)">🔽 Abbassa</button>
-                        <button class="game-action-btn" onclick="moveArmJoint('z', 0.15)">⏩ Estendi</button>
-                        <button class="game-action-btn" onclick="moveArmJoint('z', -0.15)">⏪ Ritrai</button>
-                        <button id="btn-arm-action" class="game-action-btn" style="background:#10b981; border-color:#34d399; color:#fff;" onclick="triggerArmAction()">
-                            🧲 CATTURA CARICO SHUTTLE
-                        </button>
-                    </div>
-                `;
+                armEeX = 0.48;
+                armEeY = 0.32;
+                armEeZ = 0.45;
+                armGripperAngle = 0.0;
             }
 
+            updateCenterActionUI();
             initIssCanvasLoop(id);
 
             issMissionTimerId = setInterval(() => {
@@ -5484,88 +5915,46 @@ function animate() {
                     issMissionRunning = false;
                     clearInterval(issMissionTimerId);
                     if (statusEl) {
-                        statusEl.innerText = 'TEMPO SCADUTO - MISSIONE FALLITA';
+                        statusEl.innerText = 'TEMPO SCADUTO - FALLITA';
                         statusEl.style.color = '#ef4444';
                     }
                     playMissionSound('alarm');
                     setTimeout(() => {
-                        alert('Tempo scaduto! Riprova la manovra della stazione spaziale.');
+                        alert('Tempo scaduto! Riprova la manovra sulla stazione spaziale.');
                         startIssMission(id);
                     }, 800);
                 }
             }, 1000);
         }
 
-        function moveO2Player(dz) {
-            if (!issMissionRunning) return;
-            o2PlayerZ += dz;
-            if (o2PlayerZ > 0) o2PlayerZ = 0;
-            playMissionSound('beep');
-        }
-
-        let sealHoldTimer = null;
-        function startSealingO2() {
-            if (!issMissionRunning || o2PlayerZ < -4) {
-                if (o2PlayerZ < -4) alert('Raggiungi prima la paratia di emergenza in fondo al modulo!');
-                return;
-            }
-            o2HoldingBtn = true;
-            sealHoldTimer = setInterval(() => {
-                if (!o2HoldingBtn) { clearInterval(sealHoldTimer); return; }
-                o2ValveSecured += 25;
-                playMissionSound('beep');
-                if (o2ValveSecured >= 100) {
-                    clearInterval(sealHoldTimer);
-                    completeIssMission(2);
-                }
-            }, 300);
-        }
-        function stopSealingO2() {
-            o2HoldingBtn = false;
-            if (sealHoldTimer) clearInterval(sealHoldTimer);
-        }
-
-        function triggerSolarDeploy() {
-            if (!issMissionRunning) return;
-            solarDeployed = true;
-            playMissionSound('clank');
-            const btn = document.getElementById('btn-deploy-solar');
-            if (btn) btn.innerText = '✅ Dispiegamento in Corso...';
-        }
-
-        function moveArmJoint(axis, delta) {
-            if (!issMissionRunning) return;
-            if (axis === 'x') armReachX = Math.max(-1.5, Math.min(1.5, armReachX + delta));
-            if (axis === 'y') armReachY = Math.max(-1.5, Math.min(1.5, armReachY + delta));
-            if (axis === 'z') armReachZ = Math.max(-1.5, Math.min(1.5, armReachZ + delta));
-            playMissionSound('beep');
-        }
-
         function triggerArmAction() {
             if (!issMissionRunning) return;
-            const btn = document.getElementById('btn-arm-action');
+            const w = 800; // Normalizzato su coordinate logiche
+            const h = 500;
+            const cargoPos = { x: 0.60, y: 0.58, z: 0.50 };
+            const trussPos = { x: 0.22, y: 0.36, z: 0.20 };
+
             if (armStep === 1) {
-                const distToCargo = Math.sqrt(armReachX*armReachX + armReachY*armReachY + (armReachZ - 1.0)*(armReachZ - 1.0));
-                if (distToCargo < 0.6) {
+                const dist = Math.hypot(armEeX - cargoPos.x, armEeY - cargoPos.y, (armEeZ - cargoPos.z) * 0.5);
+                if (dist < 0.15) {
                     armStep = 2;
                     playMissionSound('clank');
-                    if (btn) {
-                        btn.innerText = '🔒 TRASFERISCI E BLOCCA SU TRUSS ISS';
-                        btn.style.background = '#3b82f6';
-                    }
-                    alert('Carico agganciato con successo! Ora guida il braccio verso la staffa sulla trave (Truss).');
+                    alert('CARICO AGGANCIATO! La pinza LEE ha bloccato il perno. Ora guida il braccio verso la staffa verde sulla trave ISS.');
                 } else {
-                    alert('La pinza non è abbastanza vicina al modulo dello Shuttle! Allinea meglio il braccio.');
+                    playMissionSound('beep');
+                    alert('Pinza troppo distante dal carico dello Shuttle! Usa il Joystick Sinistro e Destro per allineare la pinza al perno arancione.');
                 }
             } else if (armStep === 2) {
-                const distToTruss = Math.sqrt((armReachX - 0.8)*(armReachX - 0.8) + (armReachY - 0.7)*(armReachY - 0.7) + (armReachZ + 0.5)*(armReachZ + 0.5));
-                if (distToTruss < 0.6) {
+                const dist = Math.hypot(armEeX - trussPos.x, armEeY - trussPos.y, (armEeZ - trussPos.z) * 0.5);
+                if (dist < 0.15) {
                     playMissionSound('clank');
                     completeIssMission(4);
                 } else {
-                    alert('Avvicina il carico alla staffa verde di montaggio sulla trave della ISS!');
+                    playMissionSound('beep');
+                    alert('Posiziona il carico direttamente all\'interno della staffa verde di montaggio sulla trave della ISS!');
                 }
             }
+            updateCenterActionUI();
         }
 
         function completeIssMission(id) {
@@ -5573,16 +5962,16 @@ function animate() {
             clearInterval(issMissionTimerId);
             const statusEl = document.getElementById('iss-hud-status');
             if (statusEl) {
-                statusEl.innerText = 'MISSIONE COMPIUTA CON SUCCESSO! 🏆';
+                statusEl.innerText = 'MISSIONE COMPIUTA! 🏆';
                 statusEl.style.color = '#ffd000';
             }
             playMissionSound('success');
             setTimeout(() => {
                 const congrats = [
-                    'ATTRACCO RIUSCITO! La navicella è agganciata saldamente alla ISS.',
-                    'PERDITA O₂ SIGILLATA! Atmosfera salvata e pressione ripristinata a 1 atm.',
-                    'PANNELLI SOLARI ESTESI E ALLINEATI! Efficienza energetica al 100%.',
-                    'MODULO TRASFERITO CON SUCCESSO! Il braccio Canadarm2 ha completato l\'assemblaggio.'
+                    'ATTRACCO RIUSCITO! Velocità e rotazione perfettamente allineate con la porta IDA della ISS.',
+                    'PERDITA O₂ SIGILLATA! Moduli sigillati, atmosfera e pressione ripristinate.',
+                    'PANNELLI SOLARI ESTESI E ORIENTATI! Efficienza al 100% con allineamento solare perfetto.',
+                    'MODULO INSTALLATO CON SUCCESSO! Il braccio Canadarm2 ha completato l\'assemblaggio.'
                 ];
                 alert('🎉 CONGRATULAZIONI! ' + congrats[id - 1]);
                 if (id < 4) switchIssMission(id + 1);
@@ -5595,244 +5984,527 @@ function animate() {
             const ctx = canvas.getContext('2d');
 
             function resize() {
-                canvas.width = canvas.clientWidth || 800;
-                canvas.height = canvas.clientHeight || 450;
+                const dpr = window.devicePixelRatio || 1;
+                canvas.width = (canvas.clientWidth || 800) * dpr;
+                canvas.height = (canvas.clientHeight || 450) * dpr;
+                ctx.resetTransform();
+                ctx.scale(dpr, dpr);
             }
             resize();
 
-            function frame() {
+            let lastTime = performance.now();
+
+            function frame(now) {
                 if (!issMissionRunning || currentIssMission !== id) return;
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                const w = canvas.width;
-                const h = canvas.height;
+                const dt = Math.min(0.1, (now - lastTime) / 1000);
+                lastTime = now;
 
-                ctx.fillStyle = '#020617';
-                ctx.fillRect(0, 0, w, h);
+                const logicalW = canvas.clientWidth || 800;
+                const logicalH = canvas.clientHeight || 450;
+                ctx.clearRect(0, 0, logicalW, logicalH);
 
-                const gradEarth = ctx.createLinearGradient(0, h * 0.65, 0, h);
-                gradEarth.addColorStop(0, 'rgba(14, 165, 233, 0.7)');
-                gradEarth.addColorStop(0.3, 'rgba(2, 132, 199, 0.9)');
-                gradEarth.addColorStop(1, 'rgba(3, 105, 161, 1)');
-                ctx.fillStyle = gradEarth;
-                ctx.beginPath();
-                ctx.arc(w / 2, h * 1.8, h * 1.25, Math.PI * 1.2, Math.PI * 1.8);
-                ctx.fill();
+                const joyL = getLeftJoy();
+                const joyR = getRightJoy();
 
                 if (id === 1) {
-                    if (dockKeys.w) dockSpeed = Math.min(1.8, dockSpeed + 0.04);
-                    if (dockKeys.s) dockSpeed = Math.max(-0.5, dockSpeed - 0.04);
-                    if (dockKeys.a) dockX -= 0.25;
-                    if (dockKeys.d) dockX += 0.25;
-                    if (dockKeys.q) dockY -= 0.25;
-                    if (dockKeys.e) dockY += 0.25;
+                    // MISSIONE 1: ATTRACCO NAVICELLA CON ROTAZIONE ISS
+                    // Disegna sfondo realistico o procedural
+                    if (issGameImgs.docking.complete && issGameImgs.docking.naturalWidth > 0) {
+                        ctx.drawImage(issGameImgs.docking, 0, 0, logicalW, logicalH);
+                        // Overlay scuro leggero per far risaltare l'HUD
+                        ctx.fillStyle = 'rgba(2, 6, 23, 0.35)';
+                        ctx.fillRect(0, 0, logicalW, logicalH);
+                    } else {
+                        // Gradiente spaziale e Terra
+                        ctx.fillStyle = '#020617';
+                        ctx.fillRect(0, 0, logicalW, logicalH);
+                        const gradEarth = ctx.createLinearGradient(0, logicalH * 0.65, 0, logicalH);
+                        gradEarth.addColorStop(0, 'rgba(14, 165, 233, 0.7)');
+                        gradEarth.addColorStop(1, 'rgba(3, 105, 161, 1)');
+                        ctx.fillStyle = gradEarth;
+                        ctx.beginPath();
+                        ctx.arc(logicalW / 2, logicalH * 1.8, logicalH * 1.25, Math.PI * 1.2, Math.PI * 1.8);
+                        ctx.fill();
+                    }
 
-                    dockDist -= dockSpeed * 0.12;
+                    // Dinamica di volo navicella
+                    dockSpeed += (-joyL.y) * 0.35 * dt; // JoyL.y: Avanti accelera, indietro frena
+                    dockVelX += joyL.x * 0.75 * dt;     // JoyL.x: Sinistra/Destra
+                    dockVelY += (-joyR.y) * 0.75 * dt;  // JoyR.y: Alza/Abbassa
+                    craftRollAngle += joyR.x * 35.0 * dt; // JoyR.x: Rotazione rollio
 
-                    const scale = Math.max(0.2, 55.0 / Math.max(1.0, dockDist));
-                    const cx = w / 2 - dockX * scale * 5.0;
-                    const cy = h / 2 - dockY * scale * 5.0;
+                    // Smorzamento inerziale RCS
+                    dockVelX *= 0.96;
+                    dockVelY *= 0.96;
+                    dockSpeed *= 0.99;
 
+                    dockX += dockVelX * dt * 4.0;
+                    dockY += dockVelY * dt * 4.0;
+                    dockDist -= dockSpeed * dt * 3.5;
+                    issRollAngle += issRollSpeed * dt * 8.0; // ISS ruota lentamente
+
+                    // Differenza di rotazione normalizzata (-180 .. +180)
+                    let rollDiff = ((craftRollAngle - issRollAngle) % 360 + 360) % 360;
+                    if (rollDiff > 180) rollDiff -= 360;
+
+                    const scale = Math.max(0.25, 52.0 / Math.max(0.8, dockDist));
+                    const cx = logicalW / 2 - dockX * scale * 4.5;
+                    const cy = logicalH / 2 - dockY * scale * 4.5;
+
+                    // DISEGNO PORT IDA DELLA ISS CHE RUOTA
                     ctx.save();
                     ctx.translate(cx, cy);
+                    ctx.rotate((issRollAngle - craftRollAngle) * Math.PI / 180);
 
-                    ctx.fillStyle = '#94a3b8';
-                    ctx.fillRect(-140 * scale, -8 * scale, 280 * scale, 16 * scale);
-
-                    ctx.fillStyle = '#1e3a8a';
-                    ctx.strokeStyle = '#f59e0b';
-                    ctx.lineWidth = 1.5;
-                    [-110, -80, 80, 110].forEach(sx => {
-                        ctx.fillRect(sx * scale, -55 * scale, 24 * scale, 110 * scale);
-                        ctx.strokeRect(sx * scale, -55 * scale, 24 * scale, 110 * scale);
-                    });
-
-                    ctx.fillStyle = '#e2e8f0';
+                    // Anello esterno ISS
+                    ctx.strokeStyle = '#94a3b8';
+                    ctx.lineWidth = Math.max(2, 4 * scale);
                     ctx.beginPath();
-                    ctx.arc(0, 0, 24 * scale, 0, Math.PI * 2);
+                    ctx.arc(0, 0, 32 * scale, 0, Math.PI * 2);
+                    ctx.stroke();
+
+                    // 3 Petali guida di attracco a 120°
+                    ctx.fillStyle = '#64748b';
+                    for (let p = 0; p < 3; p++) {
+                        ctx.save();
+                        ctx.rotate(p * Math.PI * 2 / 3);
+                        ctx.fillRect(-6 * scale, -42 * scale, 12 * scale, 14 * scale);
+                        ctx.restore();
+                    }
+
+                    // Bersaglio centrale laser IDA
+                    const rollOk = Math.abs(rollDiff) < 5.5;
+                    ctx.strokeStyle = rollOk ? '#10b981' : '#f59e0b';
+                    ctx.lineWidth = Math.max(1.5, 3 * scale);
+                    ctx.beginPath();
+                    ctx.arc(0, 0, 20 * scale, 0, Math.PI * 2);
+                    ctx.stroke();
+
+                    ctx.beginPath();
+                    ctx.moveTo(-12 * scale, 0); ctx.lineTo(12 * scale, 0);
+                    ctx.moveTo(0, -12 * scale); ctx.lineTo(0, 12 * scale);
+                    ctx.stroke();
+
+                    // Nottolino di allineamento angolo
+                    ctx.fillStyle = rollOk ? '#10b981' : '#ef4444';
+                    ctx.beginPath();
+                    ctx.arc(0, -28 * scale, 4 * scale, 0, Math.PI * 2);
                     ctx.fill();
-
-                    ctx.strokeStyle = '#10b981';
-                    ctx.lineWidth = 3;
-                    ctx.beginPath();
-                    ctx.arc(0, 0, 18 * scale, 0, Math.PI * 2);
-                    ctx.stroke();
-                    ctx.beginPath();
-                    ctx.moveTo(-10 * scale, 0); ctx.lineTo(10 * scale, 0);
-                    ctx.moveTo(0, -10 * scale); ctx.lineTo(0, 10 * scale);
-                    ctx.stroke();
 
                     ctx.restore();
 
-                    ctx.strokeStyle = 'rgba(0, 240, 255, 0.6)';
-                    ctx.lineWidth = 2;
-                    ctx.strokeRect(w / 2 - 80, h / 2 - 80, 160, 160);
+                    // RETICOLO E HUD COCKPIT SPAZIALE
+                    ctx.strokeStyle = 'rgba(0, 240, 255, 0.45)';
+                    ctx.lineWidth = 1.5;
+                    ctx.strokeRect(logicalW / 2 - 70, logicalH / 2 - 70, 140, 140);
                     ctx.beginPath();
-                    ctx.arc(w / 2, h / 2, 40, 0, Math.PI * 2);
+                    ctx.arc(logicalW / 2, logicalH / 2, 35, 0, Math.PI * 2);
                     ctx.stroke();
 
+                    // Indicatore di Rollio Navicella
+                    ctx.save();
+                    ctx.translate(logicalW / 2, logicalH / 2);
+                    ctx.strokeStyle = rollOk ? '#10b981' : 'rgba(255, 208, 0, 0.8)';
+                    ctx.lineWidth = 2.5;
+                    ctx.beginPath();
+                    ctx.arc(0, 0, 52, 0, Math.PI * 2);
+                    ctx.stroke();
+                    // Tacca orientamento navicella
                     ctx.fillStyle = '#00f0ff';
-                    ctx.font = 'bold 15px Segoe UI, sans-serif';
-                    ctx.fillText(`DISTANZA: ${Math.max(0, dockDist).toFixed(1)} m`, 25, 60);
-                    ctx.fillStyle = dockSpeed > 0.4 ? '#ef4444' : '#10b981';
-                    ctx.fillText(`VELOCITÀ: ${dockSpeed.toFixed(2)} m/s (Max 0.40)`, 25, 85);
-                    ctx.fillStyle = '#f1f5f9';
-                    ctx.fillText(`ALLINEAMENTO X: ${dockX.toFixed(1)} | Y: ${dockY.toFixed(1)}`, 25, 110);
+                    ctx.beginPath();
+                    ctx.moveTo(0, -56); ctx.lineTo(5, -46); ctx.lineTo(-5, -46); ctx.closePath();
+                    ctx.fill();
+                    ctx.restore();
 
-                    if (dockDist <= 0.3) {
-                        if (Math.abs(dockX) < 1.8 && Math.abs(dockY) < 1.8 && dockSpeed <= 0.42) {
+                    // Scheda dati HUD
+                    ctx.fillStyle = '#00f0ff';
+                    ctx.font = 'bold 14px "Segoe UI", sans-serif';
+                    ctx.fillText(`DISTANZA: ${Math.max(0, dockDist).toFixed(1)} m`, 18, 52);
+
+                    ctx.fillStyle = dockSpeed > 0.40 ? '#ef4444' : '#10b981';
+                    ctx.fillText(`VELOCITÀ: ${dockSpeed.toFixed(2)} m/s (Max 0.40)`, 18, 72);
+
+                    const xyOffset = Math.hypot(dockX, dockY);
+                    ctx.fillStyle = xyOffset < 1.5 ? '#10b981' : '#f59e0b';
+                    ctx.fillText(`ALLINEAMENTO X,Y: ${xyOffset.toFixed(1)} m`, 18, 92);
+
+                    ctx.fillStyle = rollOk ? '#10b981' : '#ef4444';
+                    ctx.fillText(`ERRORE ROTAZIONE: ${Math.abs(rollDiff).toFixed(1)}° ${rollOk ? '✅ ALLINEATO' : '⚠️ REGOLA JOY DX'}`, 18, 112);
+
+                    // Condizione di Attracco
+                    if (dockDist <= 0.35) {
+                        if (xyOffset < 1.6 && dockSpeed <= 0.42 && rollOk) {
                             completeIssMission(1);
                             return;
+                        } else if (!rollOk) {
+                            playMissionSound('alarm');
+                            alert(`ATTRACCO FALLITO: ROTAZIONE NON SINCRONIZZATA!\nLa tua navicella è disallineata di ${Math.abs(rollDiff).toFixed(1)}° rispetto alla ISS.\nUsa il Joystick Destro (Rot-SX / Rot-DX) per pareggiare la rotazione!`);
+                            dockDist = 18.0;
+                            dockSpeed = 0.15;
                         } else if (dockSpeed > 0.42) {
                             playMissionSound('alarm');
-                            alert('IMPATTO TROPPO VIOLENTO! Velocità superiore a 0.40 m/s. Riprova rallentando.');
+                            alert('IMPATTO VIOLENTO! Velocità superiore a 0.40 m/s. Frena con il Joystick Sinistro (Indietro)!');
                             dockDist = 20.0;
-                            dockSpeed = 0.2;
+                            dockSpeed = 0.10;
                         } else {
-                            alert('PORT IDA MANCATO! Sei fuori allineamento. Riprova centrando il reticolo.');
-                            dockDist = 20.0;
+                            playMissionSound('alarm');
+                            alert('PORTA IDA MANCATA! Sei fuori centro. Centra il mirino prima del contatto.');
+                            dockDist = 18.0;
+                            dockSpeed = 0.15;
                         }
                     }
 
                 } else if (id === 2) {
-                    o2Level = Math.max(0, o2Level - 0.08);
-                    const depth = -o2PlayerZ;
+                    // MISSIONE 2: CORRIDOIO ZERO-G CON SVOLTE, ANGOLI E PORTELLO
+                    o2Level = Math.max(0, o2Level - 0.08 * dt * 25);
 
+                    // Movimento del giocatore
+                    corridorSpeed = (-joyL.y) * 9.0; // Avanti / Indietro
+                    corridorPlayerX += joyL.x * 2.5 * dt;
+                    corridorPlayerX = Math.max(-1.5, Math.min(1.5, corridorPlayerX));
+                    corridorPlayerY += (-joyR.y) * 2.0 * dt;
+                    corridorPlayerY = Math.max(-1.0, Math.min(1.0, corridorPlayerY));
+
+                    // Rotazione visuale con Joystick Destro X
+                    corridorPlayerAngle += joyR.x * 45.0 * dt;
+
+                    // Calcolo avanzamento nel modulo
+                    let targetAngle = 0;
+                    if (corridorPos >= 35 && corridorPos < 75) {
+                        targetAngle = 90; // Svolta 90° a destra verso Columbus
+                    } else if (corridorPos >= 75) {
+                        targetAngle = 0;  // Ritorno a 0° verso portello
+                    }
+
+                    // Se il giocatore non gira l'angolo al bivio, sbatte sulla paratia!
+                    const angleErr = Math.abs(corridorPlayerAngle - targetAngle);
+                    if (corridorPos >= 34 && corridorPos <= 40 && angleErr > 35) {
+                        // Muro al Nodo 2
+                        ctx.fillStyle = '#ef4444';
+                        ctx.font = 'bold 18px sans-serif';
+                        ctx.fillText('⚠️ OSTACOLO PARATIA! SVOLTA A DESTRA (JOY DX)', logicalW / 2 - 180, logicalH / 2 - 40);
+                    } else if (corridorPos >= 74 && corridorPos <= 80 && angleErr > 35) {
+                        // Muro al Nodo 3
+                        ctx.fillStyle = '#ef4444';
+                        ctx.font = 'bold 18px sans-serif';
+                        ctx.fillText('⚠️ OSTACOLO PARATIA! SVOLTA A SINISTRA (JOY DX)', logicalW / 2 - 180, logicalH / 2 - 40);
+                    } else {
+                        // Avanzamento libero
+                        corridorPos = Math.max(0, Math.min(105, corridorPos + corridorSpeed * dt));
+                    }
+
+                    // Disegno ambiente corridoio realistico
+                    if (issGameImgs.corridor.complete && issGameImgs.corridor.naturalWidth > 0) {
+                        ctx.save();
+                        // Parallasse visuale basata su angolo e offset
+                        const shiftX = (corridorPlayerAngle - targetAngle) * -4.0 + corridorPlayerX * -30;
+                        const shiftY = corridorPlayerY * -20;
+                        ctx.drawImage(issGameImgs.corridor, shiftX, shiftY, logicalW * 1.1, logicalH * 1.1);
+                        ctx.restore();
+                    } else {
+                        ctx.fillStyle = '#0f172a';
+                        ctx.fillRect(0, 0, logicalW, logicalH);
+                    }
+
+                    // Tunnel prospettico 3D
                     ctx.strokeStyle = 'rgba(0, 240, 255, 0.4)';
                     ctx.lineWidth = 2;
-
-                    for (let z = 0; z < 5; z++) {
-                        const s = 1.0 - (z * 0.18);
-                        ctx.strokeRect(w/2 - 180 * s, h/2 - 120 * s, 360 * s, 240 * s);
+                    for (let z = 0; z < 6; z++) {
+                        const s = 1.0 - z * 0.15;
+                        ctx.strokeRect(logicalW / 2 - (logicalW * 0.4) * s, logicalH / 2 - (logicalH * 0.35) * s, (logicalW * 0.8) * s, (logicalH * 0.7) * s);
                     }
 
-                    const vS = Math.min(1.5, Math.max(0.3, (35.0 - depth) / 10.0));
-                    ctx.fillStyle = '#ef4444';
-                    ctx.beginPath();
-                    ctx.arc(w / 2, h / 2, 28 * vS, 0, Math.PI * 2);
-                    ctx.fill();
-                    ctx.fillStyle = '#fff';
-                    ctx.font = 'bold 12px sans-serif';
-                    ctx.fillText('VALVOLA O₂', w/2 - 35, h/2 + 5);
-
-                    if (Math.floor(Date.now() / 300) % 2 === 0) {
-                        ctx.fillStyle = 'rgba(239, 68, 68, 0.15)';
-                        ctx.fillRect(0, 0, w, h);
+                    // Luci rosse di allarme lampeggianti
+                    if (Math.floor(Date.now() / 250) % 2 === 0) {
+                        ctx.fillStyle = 'rgba(239, 68, 68, 0.22)';
+                        ctx.fillRect(0, 0, logicalW, logicalH);
                     }
 
+                    // Particelle di fuga gas ossigeno
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
+                    corridorGasParticles.forEach(p => {
+                        p.z -= p.speed;
+                        if (p.z <= 0) p.z = 60;
+                        const pScale = 50 / (p.z + 10);
+                        const px = logicalW / 2 + p.x * pScale;
+                        const py = logicalH / 2 + p.y * pScale;
+                        ctx.beginPath();
+                        ctx.arc(px, py, p.size * pScale, 0, Math.PI * 2);
+                        ctx.fill();
+                    });
+
+                    // Portello Stagno (se tra 85m e 98m)
+                    if (corridorPos >= 82 && corridorPos <= 98) {
+                        const hatchDist = Math.max(0.1, 98 - corridorPos);
+                        const hScale = Math.min(2.5, 30 / hatchDist);
+                        ctx.save();
+                        ctx.translate(logicalW / 2, logicalH / 2);
+                        ctx.fillStyle = corridorHatchOpen ? 'rgba(16, 185, 129, 0.3)' : '#475569';
+                        ctx.strokeStyle = '#eab308';
+                        ctx.lineWidth = 4 * hScale;
+                        ctx.beginPath();
+                        ctx.arc(0, 0, 40 * hScale, 0, Math.PI * 2);
+                        ctx.fill();
+                        ctx.stroke();
+                        ctx.fillStyle = '#ffffff';
+                        ctx.font = `bold ${Math.max(10, 14 * hScale)}px sans-serif`;
+                        ctx.textAlign = 'center';
+                        ctx.fillText(corridorHatchOpen ? 'APERTO' : 'PORTELLO STAGNO', 0, 5);
+                        ctx.restore();
+                    }
+
+                    // Valvola Rossa finale (se oltre 98m)
+                    if (corridorPos >= 98) {
+                        ctx.save();
+                        ctx.translate(logicalW / 2, logicalH / 2);
+                        ctx.fillStyle = '#ef4444';
+                        ctx.beginPath();
+                        ctx.arc(0, 0, 50, 0, Math.PI * 2);
+                        ctx.fill();
+                        ctx.strokeStyle = '#ffffff';
+                        ctx.lineWidth = 5;
+                        ctx.stroke();
+                        ctx.fillStyle = '#fff';
+                        ctx.font = 'bold 15px sans-serif';
+                        ctx.textAlign = 'center';
+                        ctx.fillText('VALVOLA O₂', 0, 5);
+                        ctx.restore();
+                    }
+
+                    // HUD e Radar
+                    ctx.textAlign = 'left';
                     ctx.fillStyle = o2Level < 25 ? '#ef4444' : '#10b981';
-                    ctx.font = 'bold 18px Segoe UI, sans-serif';
-                    ctx.fillText(`🚨 LIVELLO OSSIGENO: ${o2Level.toFixed(0)}%`, 25, 60);
+                    ctx.font = 'bold 16px "Segoe UI", sans-serif';
+                    ctx.fillText(`🚨 OSSIGENO: ${o2Level.toFixed(0)}%`, 18, 52);
+
                     ctx.fillStyle = '#00f0ff';
-                    ctx.fillText(`DISTANZA PARATIA: ${(depth).toFixed(1)} m`, 25, 90);
-                    if (o2ValveSecured > 0) {
+                    ctx.font = '13px "Segoe UI", sans-serif';
+                    let currentModName = 'LAB DESTINY';
+                    if (corridorPos >= 35 && corridorPos < 75) currentModName = 'NODO 2 / COLUMBUS';
+                    else if (corridorPos >= 75 && corridorPos < 98) currentModName = 'NODO 3 / AIRLOCK';
+                    else if (corridorPos >= 98) currentModName = 'SALA VALVOLA PRIMARIA';
+
+                    ctx.fillText(`SETTORE: ${currentModName} | POSIZIONE: ${corridorPos.toFixed(1)} / 105 m`, 18, 72);
+                    if (corridorValveSecured > 0) {
                         ctx.fillStyle = '#ffd000';
-                        ctx.fillText(`SERRAGGIO VALVOLA: ${o2ValveSecured}%`, 25, 120);
+                        ctx.fillText(`SIGILLATURA VALVOLA: ${corridorValveSecured}%`, 18, 92);
                     }
 
                     if (o2Level <= 0) {
                         issMissionRunning = false;
                         playMissionSound('alarm');
-                        alert('Ossigeno esaurito! Riprova muovendoti più velocemente lungo i corridoi.');
+                        alert('Ossigeno esaurito! Riprova muovendoti più velocemente e svoltando nei nodi corretti.');
                         startIssMission(2);
                         return;
                     }
 
                 } else if (id === 3) {
+                    // MISSIONE 3: PANNELLI SOLARI ISS & TRACCIAMENTO
                     if (solarDeployed) solarDeployProgress = Math.min(1.0, solarDeployProgress + 0.015);
 
-                    const diffAlpha = Math.abs(solarAngleAlpha - targetAlpha);
-                    const diffBeta = Math.abs(solarAngleBeta - targetBeta);
-                    const totalDiff = diffAlpha + diffBeta;
-                    const efficiency = solarDeployed ? Math.max(5, Math.min(100, Math.round(100 - (totalDiff / 2.5)))) : 0;
+                    // Orientamento con Joysticks
+                    solarAngleAlpha = (solarAngleAlpha + joyL.x * 45.0 * dt + 360) % 360;
+                    solarAngleBeta = Math.max(-90, Math.min(90, solarAngleBeta + (-joyR.y) * 35.0 * dt));
 
-                    ctx.fillStyle = '#fde047';
-                    ctx.shadowColor = '#f59e0b';
-                    ctx.shadowBlur = 35;
+                    const diffA = Math.abs(solarAngleAlpha - sunTargetAlpha);
+                    const diffB = Math.abs(solarAngleBeta - sunTargetBeta);
+                    const totalDiff = diffA + diffB;
+                    const efficiency = solarDeployed ? Math.max(5, Math.min(100, Math.round(100 - totalDiff / 2.2))) : 0;
+
+                    // Sfondo spaziale e Sole
+                    ctx.fillStyle = '#020617';
+                    ctx.fillRect(0, 0, logicalW, logicalH);
+
+                    // Sole orbital
+                    const sunX = logicalW * 0.72;
+                    const sunY = logicalH * 0.32;
+                    const sunGlow = ctx.createRadialGradient(sunX, sunY, 10, sunX, sunY, 120);
+                    sunGlow.addColorStop(0, '#fff');
+                    sunGlow.addColorStop(0.3, '#fde047');
+                    sunGlow.addColorStop(1, 'rgba(234, 179, 8, 0)');
+                    ctx.fillStyle = sunGlow;
                     ctx.beginPath();
-                    ctx.arc(w * 0.75, h * 0.35, 36, 0, Math.PI * 2);
+                    ctx.arc(sunX, sunY, 120, 0, Math.PI * 2);
                     ctx.fill();
-                    ctx.shadowBlur = 0;
 
-                    const cx = w * 0.35;
-                    const cy = h * 0.55;
-                    ctx.fillStyle = '#94a3b8';
-                    ctx.fillRect(cx - 80, cy - 8, 160, 16);
+                    // Trave e Ali Solari ISS
+                    const cx = logicalW * 0.38;
+                    const cy = logicalH * 0.58;
 
-                    const wingLen = 130 * solarDeployProgress;
+                    ctx.fillStyle = '#64748b';
+                    ctx.fillRect(cx - 70, cy - 8, 140, 16);
+
+                    const wingLength = 140 * solarDeployProgress;
                     ctx.save();
                     ctx.translate(cx, cy);
                     ctx.rotate((solarAngleAlpha - 180) * Math.PI / 180 * 0.5);
 
-                    ctx.fillStyle = '#1d4ed8';
+                    // Disegno celle fotovoltaiche dorate
+                    ctx.fillStyle = efficiency > 90 ? '#f59e0b' : '#1e3a8a';
                     ctx.strokeStyle = '#fbbf24';
                     ctx.lineWidth = 2;
-                    ctx.fillRect(-wingLen, -25, wingLen, 50);
-                    ctx.strokeRect(-wingLen, -25, wingLen, 50);
-                    ctx.fillRect(0, -25, wingLen, 50);
-                    ctx.strokeRect(0, -25, wingLen, 50);
+
+                    // Ala sinistra
+                    ctx.fillRect(-wingLength, -28, wingLength, 56);
+                    ctx.strokeRect(-wingLength, -28, wingLength, 56);
+                    // Ala destra
+                    ctx.fillRect(0, -28, wingLength, 56);
+                    ctx.strokeRect(0, -28, wingLength, 56);
+
                     ctx.restore();
 
+                    // HUD Efficienza e Angoli
                     ctx.fillStyle = efficiency > 90 ? '#10b981' : (efficiency > 60 ? '#ffd000' : '#ef4444');
-                    ctx.font = 'bold 20px Segoe UI, sans-serif';
-                    ctx.fillText(`⚡ EFFICIENZA ENERGETICA: ${efficiency}%`, 25, 60);
-                    ctx.fillStyle = '#94a3b8';
-                    ctx.font = '14px sans-serif';
-                    ctx.fillText(`Dispiegamento: ${Math.round(solarDeployProgress * 100)}% | Asse Alfa: ${solarAngleAlpha}° | Asse Beta: ${solarAngleBeta}°`, 25, 90);
+                    ctx.font = 'bold 17px "Segoe UI", sans-serif';
+                    ctx.fillText(`⚡ GENERAZIONE: ${efficiency}% (120 kW)`, 18, 52);
+
+                    ctx.fillStyle = '#00f0ff';
+                    ctx.font = '13px "Segoe UI", sans-serif';
+                    ctx.fillText(`DISPIEGAMENTO: ${(solarDeployProgress * 100).toFixed(0)}% | ASSE ALFA: ${solarAngleAlpha.toFixed(1)}° | ASSE BETA: ${solarAngleBeta.toFixed(1)}°`, 18, 74);
 
                     if (solarDeployed && efficiency >= 95) {
-                        completeIssMission(3);
-                        return;
+                        solarLockTimer += dt;
+                        ctx.fillStyle = '#ffd000';
+                        ctx.fillText(`LOCK SOLARE IN CORSO: ${(solarLockTimer).toFixed(1)}s / 3.0s`, 18, 96);
+                        if (solarLockTimer >= 3.0) {
+                            completeIssMission(3);
+                            return;
+                        }
+                    } else {
+                        solarLockTimer = 0;
                     }
 
                 } else if (id === 4) {
-                    ctx.fillStyle = '#cbd5e1';
-                    ctx.beginPath();
-                    ctx.moveTo(w * 0.15, h * 0.7);
-                    ctx.lineTo(w * 0.35, h * 0.7);
-                    ctx.lineTo(w * 0.32, h * 0.85);
-                    ctx.lineTo(w * 0.12, h * 0.85);
-                    ctx.closePath();
-                    ctx.fill();
-
-                    ctx.fillStyle = '#1e293b';
-                    ctx.fillRect(w * 0.18, h * 0.7, 80, 20);
-                    if (armStep === 1) {
-                        ctx.fillStyle = '#f59e0b';
-                        ctx.fillRect(w * 0.22, h * 0.68, 30, 22);
+                    // MISSIONE 4: BRACCIO ROBOTICO CANADARM2 CON IMMAGINE REALE & REACH CORRETTO
+                    if (issGameImgs.canadarm.complete && issGameImgs.canadarm.naturalWidth > 0) {
+                        ctx.drawImage(issGameImgs.canadarm, 0, 0, logicalW, logicalH);
+                        ctx.fillStyle = 'rgba(2, 6, 23, 0.25)';
+                        ctx.fillRect(0, 0, logicalW, logicalH);
+                    } else {
+                        ctx.fillStyle = '#0f172a';
+                        ctx.fillRect(0, 0, logicalW, logicalH);
                     }
 
-                    ctx.fillStyle = '#64748b';
-                    ctx.fillRect(w * 0.6, h * 0.3, 180, 24);
+                    // Movimento End-Effector tramite Joysticks
+                    armEeX += joyL.x * 0.45 * dt;
+                    armEeX = Math.max(0.15, Math.min(0.85, armEeX));
+                    armEeY += joyL.y * 0.45 * dt;
+                    armEeY = Math.max(0.20, Math.min(0.80, armEeY));
+                    armEeZ += (-joyR.y) * 0.40 * dt;
+                    armEeZ = Math.max(0.10, Math.min(0.90, armEeZ));
+                    armGripperAngle += joyR.x * 45.0 * dt;
+
+                    // Posizioni reali sul canvas
+                    const baseX = logicalW * armBaseX;
+                    const baseY = logicalH * armBaseY;
+                    const eePixelX = logicalW * armEeX;
+                    const eePixelY = logicalH * armEeY;
+
+                    // Posizione target 1: Stiva dello Shuttle (carico arancione)
+                    const cargoPixX = logicalW * 0.60;
+                    const cargoPixY = logicalH * 0.58;
+
+                    // Posizione target 2: Staffa Truss ISS
+                    const trussPixX = logicalW * 0.22;
+                    const trussPixY = logicalH * 0.36;
+
+                    // Disegno staffa di montaggio su ISS (Verde)
                     ctx.strokeStyle = '#10b981';
                     ctx.lineWidth = 3;
-                    ctx.strokeRect(w * 0.75, h * 0.28, 40, 28);
+                    ctx.strokeRect(trussPixX - 22, trussPixY - 18, 44, 36);
+                    ctx.fillStyle = 'rgba(16, 185, 129, 0.2)';
+                    ctx.fillRect(trussPixX - 22, trussPixY - 18, 44, 36);
+                    ctx.fillStyle = '#10b981';
+                    ctx.font = 'bold 11px sans-serif';
+                    ctx.fillText('STAFFA ISS', trussPixX - 30, trussPixY - 22);
 
-                    const bx = w * 0.55;
-                    const by = h * 0.35;
-                    const armEx = bx + (armStep === 1 ? -120 : 90) + armReachX * 60;
-                    const armEy = by + (armStep === 1 ? 130 : 0) + armReachY * 60;
-
-                    ctx.strokeStyle = '#f8fafc';
-                    ctx.lineWidth = 7;
-                    ctx.beginPath();
-                    ctx.moveTo(bx, by);
-                    ctx.lineTo((bx + armEx) / 2 + 30, (by + armEy) / 2 - 20);
-                    ctx.lineTo(armEx, armEy);
-                    ctx.stroke();
-
-                    ctx.fillStyle = '#ffd000';
-                    ctx.beginPath();
-                    ctx.arc(armEx, armEy, 10, 0, Math.PI * 2);
-                    ctx.fill();
-
-                    if (armStep >= 2) {
+                    // Disegno modulo arancione dello Shuttle (se non ancora catturato)
+                    if (armStep === 1) {
                         ctx.fillStyle = '#f59e0b';
-                        ctx.fillRect(armEx - 15, armEy - 10, 30, 22);
+                        ctx.fillRect(cargoPixX - 18, cargoPixY - 14, 36, 28);
+                        ctx.strokeStyle = '#ffffff';
+                        ctx.lineWidth = 2;
+                        ctx.strokeRect(cargoPixX - 18, cargoPixY - 14, 36, 28);
+                        // Perno grapple fixture
+                        ctx.fillStyle = '#ffffff';
+                        ctx.beginPath();
+                        ctx.arc(cargoPixX, cargoPixY, 5, 0, Math.PI * 2);
+                        ctx.fill();
                     }
 
+                    // CINEMATICA INVERSA DEL BRACCIO CANADARM2 (2 Bracci Boom1 + Boom2)
+                    const dx = eePixelX - baseX;
+                    const dy = eePixelY - baseY;
+                    const distArm = Math.hypot(dx, dy);
+                    const L1 = logicalH * 0.38;
+                    const L2 = logicalH * 0.38;
+                    const clampedDist = Math.min(distArm, L1 + L2 - 2);
+
+                    // Angolo del gomito
+                    const cosElbow = (clampedDist * clampedDist - L1 * L1 - L2 * L2) / (2 * L1 * L2);
+                    const elbowAngle = Math.acos(Math.max(-1, Math.min(1, cosElbow)));
+                    const baseAngle = Math.atan2(dy, dx) - Math.atan2(L2 * Math.sin(elbowAngle), L1 + L2 * Math.cos(elbowAngle));
+
+                    const elbowPixX = baseX + Math.cos(baseAngle) * L1;
+                    const elbowPixY = baseY + Math.sin(baseAngle) * L1;
+
+                    // Rendering del braccio metallico bianco Canadarm2
+                    ctx.strokeStyle = '#f8fafc';
+                    ctx.lineWidth = 9;
+                    ctx.lineCap = 'round';
+                    ctx.beginPath();
+                    ctx.moveTo(baseX, baseY);
+                    ctx.lineTo(elbowPixX, elbowPixY);
+                    ctx.lineTo(eePixelX, eePixelY);
+                    ctx.stroke();
+
+                    // Giunti motore neri
+                    ctx.fillStyle = '#1e293b';
+                    [baseX, elbowPixX].forEach((jx, idx) => {
+                        const jy = idx === 0 ? baseY : elbowPixY;
+                        ctx.beginPath();
+                        ctx.arc(jx, jy, 8, 0, Math.PI * 2);
+                        ctx.fill();
+                    });
+
+                    // Pinza LEE (Latching End Effector)
+                    ctx.save();
+                    ctx.translate(eePixelX, eePixelY);
+                    ctx.rotate(armGripperAngle * Math.PI / 180);
+
                     ctx.fillStyle = '#00f0ff';
-                    ctx.font = 'bold 17px Segoe UI, sans-serif';
-                    ctx.fillText(armStep === 1 ? '🎯 FASE 1: Allinea la pinza al carico arancione dello Shuttle' : '🔒 FASE 2: Guida il carico nella staffa verde della trave ISS', 25, 60);
+                    ctx.beginPath();
+                    ctx.arc(0, 0, 10, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    // Carico agganciato (se armStep === 2)
+                    if (armStep === 2) {
+                        ctx.fillStyle = '#f59e0b';
+                        ctx.fillRect(-18, -14, 36, 28);
+                        ctx.strokeStyle = '#ffffff';
+                        ctx.lineWidth = 2;
+                        ctx.strokeRect(-18, -14, 36, 28);
+                    }
+                    ctx.restore();
+
+                    // Mirino di cattura ed allineamento
+                    const targetDist = armStep === 1 ? Math.hypot(eePixelX - cargoPixX, eePixelY - cargoPixY) : Math.hypot(eePixelX - trussPixX, eePixelY - trussPixY);
+                    const inRange = targetDist < 30;
+
+                    ctx.strokeStyle = inRange ? '#10b981' : '#f59e0b';
+                    ctx.lineWidth = 2;
+                    ctx.beginPath();
+                    ctx.arc(eePixelX, eePixelY, 24, 0, Math.PI * 2);
+                    ctx.stroke();
+
+                    // HUD Canadarm2
+                    ctx.fillStyle = '#00f0ff';
+                    ctx.font = 'bold 15px "Segoe UI", sans-serif';
+                    ctx.fillText(armStep === 1 ? '🎯 FASE 1: Allinea la pinza al perno dello Shuttle' : '🔒 FASE 2: Guida il modulo nella staffa verde ISS', 18, 52);
+
+                    ctx.fillStyle = inRange ? '#10b981' : '#f59e0b';
+                    ctx.font = '13px "Segoe UI", sans-serif';
+                    ctx.fillText(`DISTANZA TARGET: ${targetDist.toFixed(0)} px | ${inRange ? 'PRONTO ALL\'AGGANCIO!' : 'ALLINEA CON I JOYSTICK'}`, 18, 72);
                 }
 
                 issSubAnimId = requestAnimationFrame(frame);
@@ -5959,12 +6631,11 @@ function animate() {
         window.nextHubblePhoto = nextHubblePhoto;
         window.selectHubblePhoto = selectHubblePhoto;
         window.readHubbleDesc = readHubbleDesc;
-        window.moveO2Player = moveO2Player;
+        window.triggerIssMainAction = triggerIssMainAction;
         window.startSealingO2 = startSealingO2;
         window.stopSealingO2 = stopSealingO2;
-        window.triggerSolarDeploy = triggerSolarDeploy;
-        window.moveArmJoint = moveArmJoint;
         window.triggerArmAction = triggerArmAction;
+        window.setupDualJoysticks = setupDualJoysticks;
 
 
         init();
