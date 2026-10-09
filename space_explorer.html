@@ -1252,274 +1252,29 @@
 
     
         /* =========================================================================
-           STILI MODALI PER GIOCHI ISS E GALLERIA HUBBLE
+           STILI MODALI PER GIOCHI ISS E GALLERIA HUBBLE (OTTIMIZZATI IPHONE & TOUCH)
         ========================================================================== */
         .iss-modal, .hubble-modal {
             display: none;
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(2, 6, 23, 0.92);
-            backdrop-filter: blur(12px);
-            z-index: 5000;
-            overflow-y: auto;
-            color: #f1f5f9;
-            font-family: 'Segoe UI', system-ui, sans-serif;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-        .iss-modal.active, .hubble-modal.active {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .modal-card {
-            background: rgba(15, 23, 42, 0.95);
-            border: 2px solid #00f0ff;
-            box-shadow: 0 0 35px rgba(0, 240, 255, 0.35);
-            border-radius: 20px;
-            max-width: 900px;
+            top: 0; left: 0; right: 0; bottom: 0;
             width: 100%;
-            position: relative;
-            padding: 24px;
-            box-sizing: border-box;
-            max-height: 92vh;
-            display: flex;
-            flex-direction: column;
-        }
-        .modal-close-btn {
-            position: absolute;
-            top: 16px; right: 18px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(0, 240, 255, 0.4);
-            color: #00f0ff;
-            width: 34px; height: 34px;
-            border-radius: 50%;
-            font-size: 16px;
-            cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-            transition: all 0.2s;
-            z-index: 10;
-        }
-        .modal-close-btn:hover {
-            background: #ef4444; border-color: #ef4444; color: #fff;
-        }
-        .modal-header-title {
-            font-size: 1.5em;
-            font-weight: 800;
-            color: #00f0ff;
-            letter-spacing: 1px;
-            margin-bottom: 4px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .modal-sub {
-            font-size: 0.9em;
-            color: #94a3b8;
-            margin-bottom: 16px;
-        }
-
-        /* Tasti selezione missioni */
-        .missions-nav {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 10px;
-            margin-bottom: 18px;
-        }
-        .mission-tab-btn {
-            background: rgba(30, 41, 59, 0.8);
-            border: 1px solid rgba(0, 240, 255, 0.3);
-            color: #f1f5f9;
-            padding: 10px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            text-align: left;
-        }
-        .mission-tab-btn:hover {
-            border-color: #00f0ff;
-            background: rgba(0, 240, 255, 0.15);
-        }
-        .mission-tab-btn.active {
-            border-color: #00f0ff;
-            background: rgba(0, 240, 255, 0.25);
-            box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
-            color: #00f0ff;
-        }
-
-        /* Area di gioco */
-        .game-screen-area {
-            flex: 1;
-            background: #030712;
-            border: 1px solid rgba(0, 240, 255, 0.3);
-            border-radius: 14px;
-            position: relative;
-            overflow: hidden;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-        }
-        .game-hud-top {
-            position: absolute;
-            top: 0; left: 0; width: 100%;
-            background: rgba(15, 23, 42, 0.85);
-            border-bottom: 1px solid rgba(0, 240, 255, 0.3);
-            padding: 8px 16px;
-            box-sizing: border-box;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 13px;
-            z-index: 20;
-        }
-        .game-controls-bar {
-            position: absolute;
-            bottom: 0; left: 0; width: 100%;
-            background: rgba(15, 23, 42, 0.85);
-            border-top: 1px solid rgba(0, 240, 255, 0.3);
-            padding: 10px 16px;
-            box-sizing: border-box;
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-            z-index: 20;
-        }
-        .game-action-btn {
-            background: rgba(0, 240, 255, 0.2);
-            border: 1px solid #00f0ff;
-            color: #00f0ff;
-            padding: 8px 16px;
-            border-radius: 8px;
-            font-weight: 700;
-            font-size: 13px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .game-action-btn:hover {
-            background: #00f0ff; color: #020617; box-shadow: 0 0 15px rgba(0, 240, 255, 0.6);
-        }
-        .game-canvas-wrap {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-        }
-
-        /* Galleria Hubble */
-        .hubble-gallery-container {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            overflow-y: auto;
-            max-height: 78vh;
-            padding-right: 6px;
-        }
-        .hubble-viewer-main {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            align-items: center;
-            background: rgba(2, 6, 23, 0.8);
-            border: 1px solid rgba(0, 240, 255, 0.3);
-            border-radius: 14px;
-            padding: 16px;
-        }
-        .hubble-main-img {
-            max-width: 100%;
-            max-height: 380px;
-            object-fit: contain;
-            border-radius: 10px;
-            box-shadow: 0 0 25px rgba(0, 240, 255, 0.2);
-        }
-        .hubble-thumbs-row {
-            display: flex;
-            gap: 10px;
-            overflow-x: auto;
-            padding: 10px 4px;
-            width: 100%;
-        }
-        .hubble-thumb {
-            width: 90px;
-            height: 65px;
-            object-fit: cover;
-            border-radius: 8px;
-            border: 2px solid rgba(0, 240, 255, 0.3);
-            cursor: pointer;
-            transition: all 0.2s;
-            flex-shrink: 0;
-        }
-        .hubble-thumb:hover, .hubble-thumb.active {
-            border-color: #ffd000;
-            box-shadow: 0 0 15px rgba(255, 208, 0, 0.6);
-            transform: scale(1.06);
-        }
-        .hubble-desc-box {
-            background: rgba(15, 23, 42, 0.7);
-            border-radius: 10px;
-            padding: 12px 16px;
-            font-size: 13.5px;
-            line-height: 1.55;
-            color: #cbd5e1;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        /* Pulsanti rapidi su info panel */
-        .btn-iss-action, .btn-hubble-action {
-            width: 100%;
-            padding: 10px 14px;
-            border-radius: 10px;
-            font-weight: 800;
-            font-size: 13px;
-            letter-spacing: 0.5px;
-            cursor: pointer;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            transition: all 0.2s;
-        }
-        .btn-iss-action {
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(0, 240, 255, 0.3));
-            border: 1px solid #10b981;
-            color: #6ee7b7;
-        }
-        .btn-iss-action:hover {
-            background: #10b981; color: #020617; box-shadow: 0 0 15px rgba(16, 185, 129, 0.6);
-        }
-        .btn-hubble-action {
-            background: linear-gradient(135deg, rgba(168, 85, 247, 0.3), rgba(0, 240, 255, 0.3));
-            border: 1px solid #a855f7;
-            color: #e9d5ff;
-        }
-        .btn-hubble-action:hover {
-            background: #a855f7; color: #020617; box-shadow: 0 0 15px rgba(168, 85, 247, 0.6);
-        }
-
-    
-        /* =========================================================================
-           STILI MODALI PER GIOCHI ISS E GALLERIA HUBBLE (RESPONSIVE & TOUCH)
-        ========================================================================== */
-        .iss-modal, .hubble-modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+            height: 100%;
+            height: 100dvh;
+            max-height: 100dvh;
             background: rgba(2, 6, 23, 0.94);
             backdrop-filter: blur(14px);
             -webkit-backdrop-filter: blur(14px);
             z-index: 99999 !important;
-            overflow-y: auto;
+            overflow: hidden;
             color: #f1f5f9;
-            font-family: 'Segoe UI', system-ui, sans-serif;
-            padding: 16px;
+            font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            padding: max(10px, env(safe-area-inset-top, 10px)) max(10px, env(safe-area-inset-right, 10px)) max(10px, env(safe-area-inset-bottom, 10px)) max(10px, env(safe-area-inset-left, 10px));
             box-sizing: border-box;
             pointer-events: auto !important;
+            overscroll-behavior: none;
+            -webkit-user-select: none;
+            user-select: none;
         }
         .iss-modal.active, .hubble-modal.active {
             display: flex !important;
@@ -1527,52 +1282,67 @@
             align-items: center;
         }
         .modal-card {
-            background: rgba(15, 23, 42, 0.98);
+            background: rgba(15, 23, 42, 0.97);
             border: 2px solid #00f0ff;
-            box-shadow: 0 0 45px rgba(0, 240, 255, 0.5);
-            border-radius: 20px;
+            box-shadow: 0 0 45px rgba(0, 240, 255, 0.45);
+            border-radius: 18px;
             max-width: 960px;
             width: 100%;
-            position: relative;
-            padding: 20px;
-            box-sizing: border-box;
+            height: 100%;
             max-height: 94vh;
+            position: relative;
+            padding: 16px;
+            box-sizing: border-box;
             display: flex;
             flex-direction: column;
             pointer-events: auto !important;
             z-index: 100000;
+            overflow: hidden;
         }
         .modal-close-btn {
             position: absolute;
-            top: 14px; right: 16px;
+            top: max(8px, env(safe-area-inset-top, 8px));
+            right: max(10px, env(safe-area-inset-right, 10px));
             background: rgba(255, 255, 255, 0.12);
-            border: 1px solid rgba(0, 240, 255, 0.5);
+            border: 1.5px solid rgba(0, 240, 255, 0.6);
             color: #00f0ff;
-            width: 36px; height: 36px;
+            width: 42px;
+            height: 42px;
             border-radius: 50%;
-            font-size: 18px;
+            font-size: 20px;
+            font-weight: 800;
             cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             transition: all 0.2s;
-            z-index: 100;
+            z-index: 120;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
         }
-        .modal-close-btn:hover {
-            background: #ef4444; border-color: #ef4444; color: #fff;
+        .modal-close-btn:hover, .modal-close-btn:active {
+            background: #ef4444;
+            border-color: #ef4444;
+            color: #ffffff;
+            transform: scale(1.05);
         }
         .modal-header-title {
-            font-size: 1.4em;
+            font-size: 1.35em;
             font-weight: 800;
             color: #00f0ff;
             letter-spacing: 0.5px;
             margin-bottom: 2px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
+            flex-shrink: 0;
+            padding-right: 50px;
         }
         .modal-sub {
-            font-size: 0.88em;
+            font-size: 0.85em;
             color: #94a3b8;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
+            flex-shrink: 0;
         }
 
         /* Tasti selezione missioni */
@@ -1580,11 +1350,12 @@
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 8px;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
+            flex-shrink: 0;
         }
         .mission-tab-btn {
             background: rgba(30, 41, 59, 0.85);
-            border: 1px solid rgba(0, 240, 255, 0.3);
+            border: 1px solid rgba(0, 240, 255, 0.35);
             color: #f1f5f9;
             padding: 8px 10px;
             border-radius: 10px;
@@ -1596,83 +1367,91 @@
             flex-direction: column;
             gap: 2px;
             text-align: left;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
         }
-        .mission-tab-btn:hover {
+        .mission-tab-btn:hover, .mission-tab-btn:active {
             border-color: #00f0ff;
-            background: rgba(0, 240, 255, 0.15);
+            background: rgba(0, 240, 255, 0.2);
         }
         .mission-tab-btn.active {
             border-color: #00f0ff;
-            background: rgba(0, 240, 255, 0.25);
-            box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+            background: rgba(0, 240, 255, 0.3);
+            box-shadow: 0 0 16px rgba(0, 240, 255, 0.45);
             color: #00f0ff;
         }
 
         /* Area di gioco & Canvas */
         .game-screen-area {
             flex: 1;
-            background: #030712;
-            border: 1px solid rgba(0, 240, 255, 0.35);
-            border-radius: 14px;
+            min-height: 0;
+            background: #020617;
+            border: 1.5px solid rgba(0, 240, 255, 0.4);
+            border-radius: 12px;
             position: relative;
             overflow: hidden;
-            min-height: 400px;
             display: flex;
             flex-direction: column;
             user-select: none;
             -webkit-user-select: none;
+            touch-action: none;
+            -webkit-touch-callout: none;
         }
         .game-hud-top {
             position: absolute;
             top: 0; left: 0; width: 100%;
-            background: rgba(15, 23, 42, 0.85);
+            background: rgba(15, 23, 42, 0.88);
             backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             border-bottom: 1px solid rgba(0, 240, 255, 0.3);
             padding: 6px 14px;
             box-sizing: border-box;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 12.5px;
+            font-size: 12px;
             z-index: 20;
+            flex-shrink: 0;
         }
         .game-canvas-wrap {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
+            touch-action: none;
         }
 
         /* Doppi Joystick Virtuali Touch/Mouse */
         .iss-joy-zone {
             position: absolute;
-            bottom: 14px;
-            width: 114px;
-            height: 114px;
+            bottom: max(10px, env(safe-area-inset-bottom, 10px));
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(15, 23, 42, 0.75) 0%, rgba(2, 6, 23, 0.92) 100%);
-            border: 2px solid rgba(0, 240, 255, 0.6);
-            box-shadow: 0 0 20px rgba(0, 240, 255, 0.35), inset 0 0 15px rgba(0, 240, 255, 0.2);
+            background: radial-gradient(circle, rgba(15, 23, 42, 0.78) 0%, rgba(2, 6, 23, 0.95) 100%);
+            border: 2px solid rgba(0, 240, 255, 0.65);
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.35), inset 0 0 12px rgba(0, 240, 255, 0.2);
             touch-action: none;
             user-select: none;
             -webkit-user-select: none;
+            -webkit-touch-callout: none;
             pointer-events: auto;
             z-index: 25;
             display: flex;
             align-items: center;
             justify-content: center;
         }
-        .iss-joy-left { left: 14px; }
-        .iss-joy-right { right: 14px; }
+        .iss-joy-left { left: max(10px, env(safe-area-inset-left, 10px)); }
+        .iss-joy-right { right: max(10px, env(safe-area-inset-right, 10px)); }
         .iss-joy-knob {
-            width: 44px;
-            height: 44px;
+            width: 42px;
+            height: 42px;
             border-radius: 50%;
             background: radial-gradient(circle at 35% 35%, #38bdf8 0%, #0284c7 60%, #0369a1 100%);
             border: 2px solid #ffffff;
-            box-shadow: 0 0 16px rgba(0, 240, 255, 0.85);
+            box-shadow: 0 0 14px rgba(0, 240, 255, 0.85);
             position: absolute;
             pointer-events: none;
             transform: translate(0px, 0px);
-            transition: transform 0.04s ease-out;
+            will-change: transform;
         }
         .iss-joy-label {
             position: absolute;
@@ -1688,52 +1467,157 @@
         .iss-joy-left-lbl { left: 3px; }
         .iss-joy-right-lbl { right: 3px; }
 
+        /* Controlli Azione Centrale & Aiuto Svolte */
         .iss-center-action-wrap {
             position: absolute;
-            bottom: 14px;
+            bottom: max(10px, env(safe-area-inset-bottom, 10px));
             left: 50%;
             transform: translateX(-50%);
             z-index: 26;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 4px;
+            gap: 5px;
             pointer-events: auto;
-            max-width: 250px;
+            max-width: 260px;
+            width: max-content;
+        }
+        .iss-action-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            flex-wrap: wrap;
         }
         .game-action-btn {
             background: rgba(0, 240, 255, 0.25);
-            border: 1px solid #00f0ff;
+            border: 1.5px solid #00f0ff;
             color: #00f0ff;
-            padding: 8px 16px;
-            border-radius: 8px;
-            font-weight: 700;
+            padding: 9px 18px;
+            min-height: 42px;
+            border-radius: 10px;
+            font-weight: 800;
             font-size: 12.5px;
             cursor: pointer;
-            transition: all 0.2s;
-            touch-action: none;
+            transition: all 0.15s;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            user-select: none;
+            -webkit-user-select: none;
         }
-        .game-action-btn:hover {
-            background: #00f0ff; color: #020617; box-shadow: 0 0 15px rgba(0, 240, 255, 0.6);
+        .game-action-btn:active {
+            background: #00f0ff;
+            color: #020617;
+            transform: scale(0.96);
+        }
+        .iss-curve-btn {
+            background: rgba(234, 179, 8, 0.25);
+            border: 1.5px solid #eab308;
+            color: #fef08a;
+            padding: 7px 12px;
+            min-height: 38px;
+            border-radius: 8px;
+            font-weight: 800;
+            font-size: 11.5px;
+            cursor: pointer;
+            transition: all 0.15s;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            box-shadow: 0 0 14px rgba(234, 179, 8, 0.35);
+        }
+        .iss-curve-btn:active {
+            background: #eab308;
+            color: #020617;
+            transform: scale(0.96);
         }
 
-        /* Ottimizzazione Mobile Portrait e Landscape */
-        @media (max-width: 768px), (max-height: 580px) {
-            .iss-modal {
+        /* In-Game Mission Toast Notification (Astronaut Radio) */
+        .iss-game-toast {
+            position: absolute;
+            top: 36px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-20px);
+            background: rgba(15, 23, 42, 0.96);
+            border: 1.5px solid #00f0ff;
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.5);
+            border-radius: 10px;
+            padding: 8px 16px;
+            font-size: 12px;
+            color: #f1f5f9;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 50;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            max-width: 90%;
+            box-sizing: border-box;
+            text-align: center;
+        }
+        .iss-game-toast.visible {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* In-Game Mission Outcome Modal Overlay */
+        .iss-game-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(2, 6, 23, 0.88);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 60;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            box-sizing: border-box;
+        }
+        .iss-game-overlay.active {
+            display: flex !important;
+        }
+        .iss-game-overlay-card {
+            background: rgba(15, 23, 42, 0.98);
+            border: 2px solid #00f0ff;
+            box-shadow: 0 0 35px rgba(0, 240, 255, 0.5);
+            border-radius: 16px;
+            padding: 22px;
+            max-width: 420px;
+            width: 100%;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        /* Ottimizzazione Mobile Portrait e Landscape per iPhone */
+        @media (max-width: 768px) {
+            .iss-modal, .hubble-modal {
                 padding: 0 !important;
             }
             .modal-card {
                 width: 100vw !important;
                 max-width: 100vw !important;
-                height: 100vh !important;
-                max-height: 100vh !important;
+                height: 100dvh !important;
+                max-height: 100dvh !important;
                 border-radius: 0 !important;
                 border: none !important;
-                padding: 4px 6px !important;
+                padding: calc(4px + env(safe-area-inset-top, 0px)) calc(6px + env(safe-area-inset-right, 0px)) calc(6px + env(safe-area-inset-bottom, 0px)) calc(6px + env(safe-area-inset-left, 0px)) !important;
             }
             .modal-header-title {
                 font-size: 1.05em !important;
                 margin-bottom: 2px !important;
+                padding-right: 44px !important;
             }
             .modal-sub {
                 display: none !important;
@@ -1741,16 +1625,18 @@
             .missions-nav {
                 display: flex !important;
                 overflow-x: auto !important;
+                -webkit-overflow-scrolling: touch !important;
                 gap: 5px !important;
-                margin-bottom: 4px !important;
+                margin-bottom: 5px !important;
                 padding-bottom: 2px !important;
                 scrollbar-width: none !important;
             }
             .mission-tab-btn {
                 flex: 0 0 auto !important;
-                padding: 5px 8px !important;
+                min-width: 130px !important;
+                padding: 6px 8px !important;
                 font-size: 10.5px !important;
-                border-radius: 6px !important;
+                border-radius: 8px !important;
             }
             .mission-tab-btn small {
                 display: none !important;
@@ -1765,51 +1651,75 @@
                 font-size: 11px !important;
             }
             .iss-joy-zone {
-                width: 92px !important;
-                height: 92px !important;
-                bottom: 8px !important;
+                width: 82px !important;
+                height: 82px !important;
+                bottom: max(6px, env(safe-area-inset-bottom, 6px)) !important;
             }
-            .iss-joy-left { left: 8px !important; }
-            .iss-joy-right { right: 8px !important; }
+            .iss-joy-left { left: max(6px, env(safe-area-inset-left, 6px)) !important; }
+            .iss-joy-right { right: max(6px, env(safe-area-inset-right, 6px)) !important; }
             .iss-joy-knob {
-                width: 38px !important;
-                height: 38px !important;
+                width: 34px !important;
+                height: 34px !important;
             }
             .iss-joy-label {
-                font-size: 7.5px !important;
+                font-size: 7px !important;
             }
             .iss-center-action-wrap {
-                bottom: 8px !important;
-                max-width: 170px !important;
+                bottom: max(6px, env(safe-area-inset-bottom, 6px)) !important;
+                max-width: 175px !important;
             }
             .game-action-btn {
                 padding: 6px 10px !important;
                 font-size: 11px !important;
+                min-height: 38px !important;
+            }
+            .iss-curve-btn {
+                padding: 5px 8px !important;
+                font-size: 10px !important;
+                min-height: 34px !important;
             }
         }
 
-        @media (max-height: 480px) and (orientation: landscape) {
+        @media (max-height: 520px) and (orientation: landscape) {
+            .iss-modal, .hubble-modal {
+                padding: 0 !important;
+            }
             .modal-card {
-                padding: 2px 4px !important;
+                padding: calc(2px + env(safe-area-inset-top, 0px)) calc(8px + env(safe-area-inset-right, 0px)) calc(4px + env(safe-area-inset-bottom, 0px)) calc(8px + env(safe-area-inset-left, 0px)) !important;
             }
             .modal-header-title {
-                font-size: 0.9em !important;
+                font-size: 0.95em !important;
+                padding-right: 40px !important;
+                margin-bottom: 2px !important;
             }
             .missions-nav {
-                margin-bottom: 2px !important;
+                margin-bottom: 3px !important;
+                gap: 4px !important;
             }
             .mission-tab-btn {
                 padding: 3px 6px !important;
                 font-size: 9.5px !important;
+                min-width: 100px !important;
             }
             .iss-joy-zone {
-                width: 82px !important;
-                height: 82px !important;
-                bottom: 4px !important;
+                width: 72px !important;
+                height: 72px !important;
+                bottom: max(4px, env(safe-area-inset-bottom, 4px)) !important;
             }
+            .iss-joy-left { left: max(6px, env(safe-area-inset-left, 6px)) !important; }
+            .iss-joy-right { right: max(6px, env(safe-area-inset-right, 6px)) !important; }
             .iss-joy-knob {
-                width: 34px !important;
-                height: 34px !important;
+                width: 28px !important;
+                height: 28px !important;
+            }
+            .iss-center-action-wrap {
+                bottom: max(4px, env(safe-area-inset-bottom, 4px)) !important;
+                max-width: 180px !important;
+            }
+            .game-action-btn {
+                padding: 4px 8px !important;
+                font-size: 10.5px !important;
+                min-height: 34px !important;
             }
         }
 
@@ -1817,24 +1727,25 @@
         .hubble-gallery-container {
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 12px;
             overflow-y: auto;
-            max-height: 78vh;
-            padding-right: 6px;
+            -webkit-overflow-scrolling: touch;
+            max-height: 80vh;
+            padding-right: 4px;
         }
         .hubble-viewer-main {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 10px;
             align-items: center;
             background: rgba(2, 6, 23, 0.85);
             border: 1px solid rgba(0, 240, 255, 0.3);
             border-radius: 14px;
-            padding: 16px;
+            padding: 14px;
         }
         .hubble-main-img {
             max-width: 100%;
-            max-height: 380px;
+            max-height: 340px;
             object-fit: contain;
             border-radius: 10px;
             box-shadow: 0 0 25px rgba(0, 240, 255, 0.3);
@@ -1843,30 +1754,32 @@
             display: flex;
             gap: 10px;
             overflow-x: auto;
-            padding: 10px 4px;
+            -webkit-overflow-scrolling: touch;
+            padding: 8px 4px;
             width: 100%;
         }
         .hubble-thumb {
-            width: 90px;
-            height: 65px;
+            width: 85px;
+            height: 60px;
             object-fit: cover;
             border-radius: 8px;
             border: 2px solid rgba(0, 240, 255, 0.3);
             cursor: pointer;
             transition: all 0.2s;
             flex-shrink: 0;
+            touch-action: manipulation;
         }
         .hubble-thumb:hover, .hubble-thumb.active {
             border-color: #ffd000;
             box-shadow: 0 0 15px rgba(255, 208, 0, 0.6);
-            transform: scale(1.06);
+            transform: scale(1.05);
         }
         .hubble-desc-box {
             background: rgba(15, 23, 42, 0.8);
             border-radius: 10px;
-            padding: 12px 16px;
-            font-size: 13.5px;
-            line-height: 1.55;
+            padding: 12px 14px;
+            font-size: 13px;
+            line-height: 1.5;
             color: #cbd5e1;
             width: 100%;
             box-sizing: border-box;
@@ -1886,6 +1799,7 @@
             justify-content: center;
             gap: 8px;
             transition: all 0.2s;
+            touch-action: manipulation;
         }
         .btn-iss-action {
             background: linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(0, 240, 255, 0.3));
@@ -2113,8 +2027,32 @@
 
                 <!-- CONTROLLO AZIONE CENTRALE & SUGGERIMENTI -->
                 <div id="iss-center-action-wrap" class="iss-center-action-wrap">
+                    <div id="iss-curve-helpers" class="iss-action-row" style="display:none;">
+                        <button id="iss-turn-left-btn" class="iss-curve-btn" onclick="executeIssCurve(-90)">↰ SVOLTA A SINISTRA (90°)</button>
+                        <button id="iss-turn-right-btn" class="iss-curve-btn" onclick="executeIssCurve(90)">SVOLTA A DESTRA (90°) ↱</button>
+                    </div>
                     <button id="iss-main-action-btn" class="game-action-btn" style="display:none;"></button>
                     <div id="iss-hud-hint" style="font-size:10.5px; color:#cbd5e1; text-shadow:0 0 4px #000; text-align:center; pointer-events:none; max-width:240px; line-height:1.2;"></div>
+                </div>
+
+                <!-- NOTIFICA ASTRONAUTA CAPCOM (HUD TOAST) -->
+                <div id="iss-game-toast" class="iss-game-toast">
+                    <span style="font-size:16px;">📻</span>
+                    <span id="iss-toast-text">CAPCOM: Trasmissione in corso...</span>
+                </div>
+
+                <!-- MODALE INTERNO ESITO MISSIONE -->
+                <div id="iss-game-overlay" class="iss-game-overlay">
+                    <div class="iss-game-overlay-card">
+                        <div id="iss-overlay-badge" style="font-size:11px; font-weight:800; letter-spacing:1px; color:#00f0ff;">🛰️ TRASMISSIONE CENTRO CONTROLLO ISS</div>
+                        <h2 id="iss-overlay-title" style="margin:0; font-size:1.35em; color:#ffd000;">MISSIONE COMPIUTA! 🏆</h2>
+                        <p id="iss-overlay-desc" style="font-size:12.5px; color:#cbd5e1; margin:0; line-height:1.5;">Operazione completata con successo.</p>
+                        <div style="display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin-top:8px;">
+                            <button id="iss-overlay-btn-next" class="game-action-btn" style="background:#10b981; border-color:#10b981; color:#020617; font-weight:800;">PROSSIMA MISSIONE ▶</button>
+                            <button id="iss-overlay-btn-retry" class="game-action-btn" style="background:rgba(239,68,68,0.3); border-color:#ef4444; color:#fca5a5;">RIPROVA ↺</button>
+                            <button id="iss-overlay-btn-close" class="game-action-btn" onclick="closeIssMissions()" style="background:rgba(255,255,255,0.12); border-color:rgba(255,255,255,0.35); color:#cbd5e1;">CHIUDI ✕</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -5454,6 +5392,8 @@ function animate() {
             keys: { w: false, s: false, a: false, d: false, q: false, e: false, z: false, c: false, space: false }
         };
 
+        let corridorAdvanceHolding = false;
+
         function getLeftJoy() {
             let x = joyState.left.x;
             let y = joyState.left.y;
@@ -5461,6 +5401,9 @@ function animate() {
             if (joyState.keys.d) x += 1;
             if (joyState.keys.w) y -= 1; // Avanti
             if (joyState.keys.s) y += 1; // Indietro
+            if (corridorAdvanceHolding && currentIssMission === 2) {
+                y = Math.min(y, -0.95); // Spinta rapida avanti
+            }
             return {
                 x: Math.max(-1, Math.min(1, x)),
                 y: Math.max(-1, Math.min(1, y))
@@ -5491,18 +5434,21 @@ function animate() {
         let issRollAngle = 110.0;   // Angolo rollio ISS
         let issRollSpeed = 0.50;   // Rotazione lenta continua della stazione
 
-        // Parametri Missione 2: Corridoio Zero-G con angoli, svolte e portello
+        // Parametri Missione 2: Corridoio Zero-G 3D con curve, svolte e portello apribile
         let o2Level = 100.0;
-        let corridorPos = 0.0;          // Distanza percorsa (0 - 110m)
+        let corridorPos = 0.0;          // Distanza percorsa (0 - 105m)
         let corridorSpeed = 0.0;
         let corridorPlayerX = 0.0;
         let corridorPlayerY = 0.0;
         let corridorPlayerAngle = 0.0;  // Angolo di visuale attuale (gradi)
         let corridorHatchOpen = false;
+        let corridorHatchOpening = false;
+        let corridorHatchAnimProgress = 0.0; // 0.0 (chiuso) -> 1.0 (completamente aperto)
         let corridorValveSecured = 0;
         let corridorHoldingValve = false;
         let corridorValveTimer = null;
         let corridorGasParticles = [];
+        let corridorSteamParticles = [];
 
         // Parametri Missione 3: Pannelli Solari ISS
         let solarDeployed = false;
@@ -5522,6 +5468,73 @@ function animate() {
         let armBaseX = 0.46;
         let armBaseY = 0.16;
 
+        // In-Game Toast e Notifiche Astronauta HUD (senza alert bloccanti su iPhone)
+        function showIssToast(title, text, type = 'info') {
+            const toast = document.getElementById('iss-game-toast');
+            const toastText = document.getElementById('iss-toast-text');
+            if (!toast || !toastText) return;
+            toastText.innerHTML = `<strong>${title}:</strong> ${text}`;
+            toast.className = 'iss-game-toast visible';
+            if (type === 'alarm') {
+                toast.style.borderColor = '#ef4444';
+                toast.style.boxShadow = '0 0 25px rgba(239, 68, 68, 0.6)';
+            } else if (type === 'success') {
+                toast.style.borderColor = '#10b981';
+                toast.style.boxShadow = '0 0 25px rgba(16, 185, 129, 0.6)';
+            } else {
+                toast.style.borderColor = '#00f0ff';
+                toast.style.boxShadow = '0 0 25px rgba(0, 240, 255, 0.5)';
+            }
+            if (window._issToastTimeout) clearTimeout(window._issToastTimeout);
+            window._issToastTimeout = setTimeout(() => {
+                toast.className = 'iss-game-toast';
+            }, 3600);
+        }
+
+        // Overlay Esito Missione
+        function showIssOverlay(title, desc, isVictory = true, nextMissionId = null) {
+            const overlay = document.getElementById('iss-game-overlay');
+            const titleEl = document.getElementById('iss-overlay-title');
+            const descEl = document.getElementById('iss-overlay-desc');
+            const badgeEl = document.getElementById('iss-overlay-badge');
+            const btnNext = document.getElementById('iss-overlay-btn-next');
+            const btnRetry = document.getElementById('iss-overlay-btn-retry');
+            if (!overlay) return;
+
+            if (titleEl) {
+                titleEl.innerText = title;
+                titleEl.style.color = isVictory ? '#ffd000' : '#ef4444';
+            }
+            if (descEl) descEl.innerText = desc;
+            if (badgeEl) badgeEl.innerText = isVictory ? '🏆 TRASMISSIONE CENTRO CONTROLLO ISS' : '⚠️ ALLARME TELEMETRIA ISS';
+
+            if (btnNext) {
+                if (isVictory && nextMissionId && nextMissionId <= 4) {
+                    btnNext.style.display = 'inline-flex';
+                    btnNext.onclick = () => {
+                        hideIssOverlay();
+                        switchIssMission(nextMissionId);
+                    };
+                } else {
+                    btnNext.style.display = 'none';
+                }
+            }
+
+            if (btnRetry) {
+                btnRetry.onclick = () => {
+                    hideIssOverlay();
+                    startIssMission(currentIssMission);
+                };
+            }
+
+            overlay.className = 'iss-game-overlay active';
+        }
+
+        function hideIssOverlay() {
+            const overlay = document.getElementById('iss-game-overlay');
+            if (overlay) overlay.className = 'iss-game-overlay';
+        }
+
         function openIssMissions(missionId = 1) {
             console.log('Opening ISS Missions, ID:', missionId);
             if (typeof stopAudioGuide === 'function') stopAudioGuide();
@@ -5530,7 +5543,9 @@ function animate() {
                 modal.classList.add('active');
                 modal.style.display = 'flex';
                 setupDualJoysticks();
+                hideIssOverlay();
                 switchIssMission(missionId);
+                setTimeout(resizeIssCanvas, 60);
             }
         }
 
@@ -5540,11 +5555,13 @@ function animate() {
                 modal.classList.remove('active');
                 modal.style.display = 'none';
             }
+            hideIssOverlay();
             stopIssMissionLoop();
         }
 
         function switchIssMission(id) {
             currentIssMission = id;
+            hideIssOverlay();
             for (let i = 1; i <= 4; i++) {
                 const tab = document.getElementById('tab-mission-' + i);
                 if (tab) tab.className = 'mission-tab-btn ' + (i === id ? 'active' : '');
@@ -5561,6 +5578,8 @@ function animate() {
             if (corridorValveTimer) clearInterval(corridorValveTimer);
             corridorValveTimer = null;
             corridorHoldingValve = false;
+            corridorAdvanceHolding = false;
+            corridorHatchOpening = false;
         }
 
         function playMissionSound(type) {
@@ -5568,18 +5587,20 @@ function animate() {
                 if (typeof getAudioContext === 'function') {
                     const ctx = getAudioContext();
                     if (!ctx) return;
-                    const osc = ctx.createOscillator();
-                    const gain = ctx.createGain();
-                    osc.connect(gain);
-                    gain.connect(ctx.destination);
                     const now = ctx.currentTime;
 
                     if (type === 'beep') {
+                        const osc = ctx.createOscillator();
+                        const gain = ctx.createGain();
+                        osc.connect(gain); gain.connect(ctx.destination);
                         osc.frequency.setValueAtTime(880, now);
                         gain.gain.setValueAtTime(0.12, now);
                         gain.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
                         osc.start(now); osc.stop(now + 0.1);
                     } else if (type === 'success') {
+                        const osc = ctx.createOscillator();
+                        const gain = ctx.createGain();
+                        osc.connect(gain); gain.connect(ctx.destination);
                         osc.type = 'triangle';
                         osc.frequency.setValueAtTime(523.25, now);
                         osc.frequency.setValueAtTime(659.25, now + 0.1);
@@ -5589,6 +5610,9 @@ function animate() {
                         gain.gain.exponentialRampToValueAtTime(0.001, now + 0.6);
                         osc.start(now); osc.stop(now + 0.6);
                     } else if (type === 'alarm') {
+                        const osc = ctx.createOscillator();
+                        const gain = ctx.createGain();
+                        osc.connect(gain); gain.connect(ctx.destination);
                         osc.type = 'sawtooth';
                         osc.frequency.setValueAtTime(440, now);
                         osc.frequency.linearRampToValueAtTime(880, now + 0.2);
@@ -5596,15 +5620,58 @@ function animate() {
                         gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
                         osc.start(now); osc.stop(now + 0.25);
                     } else if (type === 'clank') {
+                        const osc = ctx.createOscillator();
+                        const gain = ctx.createGain();
+                        osc.connect(gain); gain.connect(ctx.destination);
                         osc.type = 'square';
-                        osc.frequency.setValueAtTime(120, now);
+                        osc.frequency.setValueAtTime(140, now);
                         gain.gain.setValueAtTime(0.25, now);
                         gain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
                         osc.start(now); osc.stop(now + 0.3);
+                    } else if (type === 'whoosh') {
+                        const bufferSize = Math.floor(ctx.sampleRate * 0.35);
+                        const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+                        const output = buffer.getChannelData(0);
+                        for (let i = 0; i < bufferSize; i++) {
+                            output[i] = Math.random() * 2 - 1;
+                        }
+                        const whiteNoise = ctx.createBufferSource();
+                        whiteNoise.buffer = buffer;
+                        const filter = ctx.createBiquadFilter();
+                        filter.type = 'bandpass';
+                        filter.frequency.setValueAtTime(700, now);
+                        filter.frequency.exponentialRampToValueAtTime(220, now + 0.35);
+                        const gain = ctx.createGain();
+                        gain.gain.setValueAtTime(0.22, now);
+                        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+                        whiteNoise.connect(filter);
+                        filter.connect(gain);
+                        gain.connect(ctx.destination);
+                        whiteNoise.start(now);
                     }
                 }
             } catch(e) {}
         }
+
+        // Ridimensionamento Dinamico Canvas ad Alta Definizione (DPR per Retina/iPhone)
+        function resizeIssCanvas() {
+            const canvas = document.getElementById('iss-game-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const dpr = Math.min(window.devicePixelRatio || 1, 2);
+            const rect = canvas.getBoundingClientRect();
+            const w = rect.width || canvas.clientWidth || 800;
+            const h = rect.height || canvas.clientHeight || 450;
+            if (w <= 0 || h <= 0) return;
+            if (canvas.width !== Math.floor(w * dpr) || canvas.height !== Math.floor(h * dpr)) {
+                canvas.width = Math.floor(w * dpr);
+                canvas.height = Math.floor(h * dpr);
+            }
+            ctx.resetTransform();
+            ctx.scale(dpr, dpr);
+        }
+        window.addEventListener('resize', resizeIssCanvas);
+        window.addEventListener('orientationchange', () => setTimeout(resizeIssCanvas, 150));
 
         let joysticksInitialized = false;
         function setupDualJoysticks() {
@@ -5614,6 +5681,7 @@ function animate() {
             const rightZone = document.getElementById('iss-joy-right-zone');
             const rightKnob = document.getElementById('iss-joy-right-knob');
             const actionBtn = document.getElementById('iss-main-action-btn');
+            const canvas = document.getElementById('iss-game-canvas');
 
             if (!leftZone || !rightZone) return;
             joysticksInitialized = true;
@@ -5638,21 +5706,21 @@ function animate() {
 
                 zone.addEventListener('pointerdown', (e) => {
                     e.preventDefault();
-                    zone.setPointerCapture(e.pointerId);
+                    try { zone.setPointerCapture(e.pointerId); } catch(err) {}
                     joyState[stickKey].active = true;
                     joyState[stickKey].pointerId = e.pointerId;
                     updateFromPoint(e.clientX, e.clientY);
-                });
+                }, { passive: false });
 
-                zone.addEventListener('pointermove', (e) => {
+                window.addEventListener('pointermove', (e) => {
                     if (joyState[stickKey].active && joyState[stickKey].pointerId === e.pointerId) {
                         e.preventDefault();
                         updateFromPoint(e.clientX, e.clientY);
                     }
-                });
+                }, { passive: false });
 
                 function release(e) {
-                    if (joyState[stickKey].pointerId === e.pointerId) {
+                    if (joyState[stickKey].active && joyState[stickKey].pointerId === e.pointerId) {
                         joyState[stickKey].active = false;
                         joyState[stickKey].pointerId = null;
                         joyState[stickKey].x = 0;
@@ -5660,27 +5728,90 @@ function animate() {
                         knob.style.transform = 'translate(0px, 0px)';
                     }
                 }
-                zone.addEventListener('pointerup', release);
-                zone.addEventListener('pointercancel', release);
+                window.addEventListener('pointerup', release);
+                window.addEventListener('pointercancel', release);
             }
 
             bindStick(leftZone, leftKnob, 'left');
             bindStick(rightZone, rightKnob, 'right');
 
+            // Gestione Avanzata Azione Centrale Touch & Click
             if (actionBtn) {
+                function onActionPress(e) {
+                    e.preventDefault();
+                    if (currentIssMission === 2) {
+                        if (corridorPos >= 98 && corridorHatchOpen) {
+                            startSealingO2();
+                        } else if (corridorPos >= 86 && corridorPos <= 88.5 && !corridorHatchOpen) {
+                            openCorridorHatch();
+                        } else {
+                            corridorAdvanceHolding = true;
+                        }
+                    } else {
+                        triggerIssMainAction();
+                    }
+                }
+
+                function onActionRelease(e) {
+                    if (currentIssMission === 2) {
+                        stopSealingO2();
+                        corridorAdvanceHolding = false;
+                    }
+                }
+
+                actionBtn.addEventListener('pointerdown', onActionPress, { passive: false });
+                actionBtn.addEventListener('pointerup', onActionRelease);
+                actionBtn.addEventListener('pointerleave', onActionRelease);
+                actionBtn.addEventListener('pointercancel', onActionRelease);
                 actionBtn.addEventListener('click', (e) => {
                     e.preventDefault();
-                    triggerIssMainAction();
-                });
-                actionBtn.addEventListener('pointerdown', (e) => {
-                    if (currentIssMission === 2 && corridorPos >= 98) {
-                        startSealingO2();
+                    if (currentIssMission === 2 && corridorPos >= 86 && corridorPos <= 88.5 && !corridorHatchOpen) {
+                        openCorridorHatch();
                     }
                 });
-                actionBtn.addEventListener('pointerup', (e) => {
-                    if (currentIssMission === 2) stopSealingO2();
-                });
-                actionBtn.addEventListener('pointerleave', (e) => {
+            }
+
+            // Tocco diretto sul Canvas per aprire portello, girare curve o toccare valvola
+            if (canvas) {
+                canvas.addEventListener('pointerdown', (e) => {
+                    if (currentIssMission !== 2 || !issMissionRunning) return;
+                    const rect = canvas.getBoundingClientRect();
+                    const px = e.clientX - rect.left;
+                    const py = e.clientY - rect.top;
+                    const cw = rect.width;
+                    const ch = rect.height;
+
+                    // Tocca portello al centro
+                    if (corridorPos >= 80 && corridorPos <= 88.5 && !corridorHatchOpen) {
+                        const distToCenter = Math.hypot(px - cw / 2, py - ch / 2);
+                        if (distToCenter < ch * 0.38) {
+                            e.preventDefault();
+                            openCorridorHatch();
+                            return;
+                        }
+                    }
+
+                    // Tocca valvola al centro
+                    if (corridorPos >= 98 && corridorHatchOpen) {
+                        const distToCenter = Math.hypot(px - cw / 2, py - ch / 2);
+                        if (distToCenter < ch * 0.35) {
+                            e.preventDefault();
+                            startSealingO2();
+                            return;
+                        }
+                    }
+
+                    // Tocca frecce curve a destra o sinistra
+                    if (corridorPos >= 30 && corridorPos <= 38 && px > cw * 0.6) {
+                        e.preventDefault();
+                        executeIssCurve(90);
+                    } else if (corridorPos >= 70 && corridorPos <= 78 && px < cw * 0.4) {
+                        e.preventDefault();
+                        executeIssCurve(-90);
+                    }
+                }, { passive: false });
+
+                window.addEventListener('pointerup', () => {
                     if (currentIssMission === 2) stopSealingO2();
                 });
             }
@@ -5694,11 +5825,23 @@ function animate() {
                 if (k === 'd') joyState.keys.d = true;
                 if (k === 'q') joyState.keys.q = true;
                 if (k === 'e') joyState.keys.e = true;
-                if (k === 'z' || e.key === 'ArrowLeft') joyState.keys.z = true;
-                if (k === 'c' || e.key === 'ArrowRight') joyState.keys.c = true;
+                if (k === 'z' || e.key === 'ArrowLeft') {
+                    joyState.keys.z = true;
+                    if (currentIssMission === 2 && corridorPos >= 70 && corridorPos <= 80) executeIssCurve(-90);
+                }
+                if (k === 'c' || e.key === 'ArrowRight') {
+                    joyState.keys.c = true;
+                    if (currentIssMission === 2 && corridorPos >= 30 && corridorPos <= 40) executeIssCurve(90);
+                }
                 if (e.code === 'Space') {
-                    if (currentIssMission === 2 && corridorPos >= 98) {
-                        if (!corridorHoldingValve) startSealingO2();
+                    if (currentIssMission === 2) {
+                        if (corridorPos >= 98) {
+                            if (!corridorHoldingValve) startSealingO2();
+                        } else if (corridorPos >= 86 && corridorPos <= 88.5 && !corridorHatchOpen) {
+                            openCorridorHatch();
+                        } else {
+                            corridorAdvanceHolding = true;
+                        }
                     } else {
                         triggerIssMainAction();
                     }
@@ -5717,8 +5860,78 @@ function animate() {
                 if (k === 'c' || e.key === 'ArrowRight') joyState.keys.c = false;
                 if (e.code === 'Space' && currentIssMission === 2) {
                     stopSealingO2();
+                    corridorAdvanceHolding = false;
                 }
             });
+        }
+
+        // Esecuzione Guidata Svolta ad Angolo Retto
+        function executeIssCurve(deg) {
+            if (currentIssMission !== 2 || !issMissionRunning) return;
+            playMissionSound('clank');
+            const target = (corridorPos >= 30 && corridorPos < 75) ? 90 : 0;
+            const startAngle = corridorPlayerAngle;
+            const startTime = performance.now();
+            const duration = 450; // ms
+
+            function animTurn(now) {
+                const elapsed = now - startTime;
+                const p = Math.min(1, elapsed / duration);
+                const ease = 0.5 - 0.5 * Math.cos(p * Math.PI);
+                corridorPlayerAngle = startAngle + (target - startAngle) * ease;
+                if (p < 1 && issMissionRunning) {
+                    requestAnimationFrame(animTurn);
+                } else {
+                    corridorPlayerAngle = target;
+                    updateCenterActionUI();
+                }
+            }
+            requestAnimationFrame(animTurn);
+        }
+
+        // Apertura Animata Portello Stagno CBM
+        function openCorridorHatch() {
+            if (corridorHatchOpen || corridorHatchOpening) return;
+            corridorHatchOpening = true;
+            playMissionSound('clank');
+            const startTime = performance.now();
+            const duration = 1200; // ms
+
+            // Genera particelle di decompressione/vapore
+            for (let i = 0; i < 40; i++) {
+                corridorSteamParticles.push({
+                    x: (Math.random() - 0.5) * 50,
+                    y: (Math.random() - 0.5) * 50,
+                    vx: (Math.random() - 0.5) * 140,
+                    vy: (Math.random() - 0.5) * 140,
+                    life: 1.0,
+                    size: 8 + Math.random() * 15
+                });
+            }
+
+            let soundTriggered = false;
+            function stepHatch(now) {
+                const elapsed = now - startTime;
+                const p = Math.min(1, elapsed / duration);
+                corridorHatchAnimProgress = p;
+
+                if (p >= 0.35 && !soundTriggered) {
+                    soundTriggered = true;
+                    playMissionSound('whoosh');
+                }
+
+                if (p < 1 && issMissionRunning) {
+                    requestAnimationFrame(stepHatch);
+                } else {
+                    corridorHatchOpening = false;
+                    corridorHatchOpen = true;
+                    corridorHatchAnimProgress = 1.0;
+                    playMissionSound('success');
+                    showIssToast('CAPCOM', 'Portello stagno sbloccato! Raggiungi la valvola primaria in fondo!', 'success');
+                    updateCenterActionUI();
+                }
+            }
+            requestAnimationFrame(stepHatch);
         }
 
         function triggerIssMainAction() {
@@ -5729,16 +5942,16 @@ function animate() {
                 dockVelY = 0;
                 dockSpeed = Math.max(0, dockSpeed * 0.5);
                 playMissionSound('clank');
+                showIssToast('RCS', 'Attivata frenata stabilizzatrice RCS.', 'info');
             } else if (currentIssMission === 2) {
-                if (corridorPos >= 88 && corridorPos < 98 && !corridorHatchOpen) {
-                    corridorHatchOpen = true;
-                    playMissionSound('clank');
-                    alert('Portello di sicurezza aperto! Raggiungi la valvola rossa in fondo!');
+                if (corridorPos >= 86 && corridorPos <= 88.5 && !corridorHatchOpen) {
+                    openCorridorHatch();
                 }
             } else if (currentIssMission === 3) {
                 if (!solarDeployed) {
                     solarDeployed = true;
                     playMissionSound('clank');
+                    showIssToast('CONTROLLO TELEMETRIA', 'Dispiegamento ali solari (SAW) avviato!', 'info');
                 }
             } else if (currentIssMission === 4) {
                 triggerArmAction();
@@ -5762,7 +5975,7 @@ function animate() {
                     completeIssMission(2);
                 }
                 updateCenterActionUI();
-            }, 300);
+            }, 280);
             updateCenterActionUI();
         }
 
@@ -5775,9 +5988,14 @@ function animate() {
         function updateCenterActionUI() {
             const btn = document.getElementById('iss-main-action-btn');
             const hint = document.getElementById('iss-hud-hint');
+            const curveHelpers = document.getElementById('iss-curve-helpers');
+            const turnLeftBtn = document.getElementById('iss-turn-left-btn');
+            const turnRightBtn = document.getElementById('iss-turn-right-btn');
             if (!btn || !hint) return;
 
-            btn.style.display = 'inline-block';
+            btn.style.display = 'inline-flex';
+            if (curveHelpers) curveHelpers.style.display = 'none';
+
             if (currentIssMission === 1) {
                 btn.innerText = '🎯 STABILIZZA RCS';
                 btn.style.background = 'rgba(0, 240, 255, 0.25)';
@@ -5785,24 +6003,47 @@ function animate() {
                 btn.style.color = '#00f0ff';
                 hint.innerText = 'Allinea la rotazione navicella alla ISS col Joy Destro (Rot-SX/DX). Entra a <0.4 m/s!';
             } else if (currentIssMission === 2) {
-                if (corridorPos < 88) {
-                    btn.innerText = '🚀 AVANZA RAPIDO';
-                    btn.style.background = 'rgba(59, 130, 246, 0.3)';
-                    btn.style.borderColor = '#3b82f6';
-                    btn.style.color = '#93c5fd';
-                    hint.innerText = 'Svolta gli angoli a 90° col Joy Destro (Rot-SX/DX)!';
-                } else if (!corridorHatchOpen) {
-                    btn.innerText = '🔓 APRI PORTELLO STAGNO';
+                // Gestione Curve nei Nodi
+                if (corridorPos >= 30 && corridorPos <= 38 && Math.abs(corridorPlayerAngle - 90) > 20) {
+                    if (curveHelpers) {
+                        curveHelpers.style.display = 'flex';
+                        if (turnRightBtn) turnRightBtn.style.display = 'inline-flex';
+                        if (turnLeftBtn) turnLeftBtn.style.display = 'none';
+                    }
+                    btn.innerText = 'SVOLTA A DESTRA (90°) ↱';
                     btn.style.background = 'rgba(234, 179, 8, 0.35)';
                     btn.style.borderColor = '#eab308';
                     btn.style.color = '#fef08a';
-                    hint.innerText = 'Tocca per aprire il portello del modulo!';
-                } else {
+                    hint.innerText = 'Giunzione Nodo 2: Gira 90° a destra per entrare nel laboratorio Columbus!';
+                } else if (corridorPos >= 70 && corridorPos <= 78 && Math.abs(corridorPlayerAngle - 0) > 20) {
+                    if (curveHelpers) {
+                        curveHelpers.style.display = 'flex';
+                        if (turnLeftBtn) turnLeftBtn.style.display = 'inline-flex';
+                        if (turnRightBtn) turnRightBtn.style.display = 'none';
+                    }
+                    btn.innerText = '↰ SVOLTA A SINISTRA (90°)';
+                    btn.style.background = 'rgba(234, 179, 8, 0.35)';
+                    btn.style.borderColor = '#eab308';
+                    btn.style.color = '#fef08a';
+                    hint.innerText = 'Giunzione Nodo 3: Gira 90° a sinistra verso l\'Airlock e la sala valvola!';
+                } else if (corridorPos >= 85 && corridorPos <= 88.5 && !corridorHatchOpen) {
+                    btn.innerText = corridorHatchOpening ? '⚙️ SBLOCCO IN CORSO...' : '🔓 APRI PORTELLO STAGNO';
+                    btn.style.background = 'rgba(234, 179, 8, 0.4)';
+                    btn.style.borderColor = '#eab308';
+                    btn.style.color = '#fef08a';
+                    hint.innerText = 'Tocca per girare il volantino meccanico e aprire il portello del modulo!';
+                } else if (corridorPos >= 98 && corridorHatchOpen) {
                     btn.innerText = corridorHoldingValve ? '⏳ SIGILLATURA IN CORSO...' : '🚨 TIENI PREMUTO: SIGILLA VALVOLA';
                     btn.style.background = '#ef4444';
                     btn.style.borderColor = '#f87171';
                     btn.style.color = '#ffffff';
-                    hint.innerText = 'Tieni premuto sul pulsante per bloccare la fuga!';
+                    hint.innerText = 'Tieni premuto sul pulsante o sulla valvola per sigillare la perdita!';
+                } else {
+                    btn.innerText = corridorAdvanceHolding ? '⚡ PROPULSIONE ATTIVA' : '🚀 TIENI PREMUTO: AVANZA';
+                    btn.style.background = corridorAdvanceHolding ? 'rgba(16, 185, 129, 0.4)' : 'rgba(59, 130, 246, 0.3)';
+                    btn.style.borderColor = corridorAdvanceHolding ? '#10b981' : '#3b82f6';
+                    btn.style.color = corridorAdvanceHolding ? '#6ee7b7' : '#93c5fd';
+                    hint.innerText = 'Tieni premuto per avanzare rapido, oppure guida con il Joystick Sinistro!';
                 }
             } else if (currentIssMission === 3) {
                 if (!solarDeployed) {
@@ -5839,6 +6080,7 @@ function animate() {
             stopIssMissionLoop();
             issMissionRunning = true;
             setupDualJoysticks();
+            hideIssOverlay();
 
             const titleEl = document.getElementById('iss-hud-mission-title');
             const timerEl = document.getElementById('iss-hud-timer');
@@ -5862,25 +6104,30 @@ function animate() {
 
             } else if (id === 2) {
                 if (titleEl) titleEl.innerText = 'MISSIONE 2: EMERGENZA ZERO-G - CORRIDOI & FUGA O₂';
-                issMissionTimeLeft = 50;
+                issMissionTimeLeft = 65;
                 o2Level = 100.0;
                 corridorPos = 0.0;
                 corridorPlayerX = 0.0;
                 corridorPlayerY = 0.0;
                 corridorPlayerAngle = 0.0;
                 corridorHatchOpen = false;
+                corridorHatchOpening = false;
+                corridorHatchAnimProgress = 0.0;
                 corridorValveSecured = 0;
                 corridorHoldingValve = false;
+                corridorAdvanceHolding = false;
+                corridorSteamParticles = [];
                 corridorGasParticles = [];
-                for (let i = 0; i < 40; i++) {
+                for (let i = 0; i < 50; i++) {
                     corridorGasParticles.push({
-                        x: (Math.random() - 0.5) * 200,
-                        y: (Math.random() - 0.5) * 150,
+                        x: (Math.random() - 0.5) * 220,
+                        y: (Math.random() - 0.5) * 160,
                         z: Math.random() * 60,
-                        speed: 0.5 + Math.random() * 1.5,
+                        speed: 0.8 + Math.random() * 2.2,
                         size: 3 + Math.random() * 6
                     });
                 }
+                showIssToast('ALLARME DEPRESSURIZZAZIONE', 'Fuga O₂ in corso! Attraversa i moduli e sigilla la valvola!', 'alarm');
 
             } else if (id === 3) {
                 if (titleEl) titleEl.innerText = 'MISSIONE 3: SALA CONTROLLO - PANNELLI SOLARI & TRACCIAMENTO';
@@ -5921,18 +6168,13 @@ function animate() {
                         statusEl.style.color = '#ef4444';
                     }
                     playMissionSound('alarm');
-                    setTimeout(() => {
-                        alert('Tempo scaduto! Riprova la manovra sulla stazione spaziale.');
-                        startIssMission(id);
-                    }, 800);
+                    showIssOverlay('TEMPO SCADUTO', 'Il tempo massimo per completare l\'operazione sulla ISS è terminato.', false);
                 }
             }, 1000);
         }
 
         function triggerArmAction() {
             if (!issMissionRunning) return;
-            const w = 800; // Normalizzato su coordinate logiche
-            const h = 500;
             const cargoPos = { x: 0.60, y: 0.58, z: 0.50 };
             const trussPos = { x: 0.22, y: 0.36, z: 0.20 };
 
@@ -5941,10 +6183,10 @@ function animate() {
                 if (dist < 0.15) {
                     armStep = 2;
                     playMissionSound('clank');
-                    alert('CARICO AGGANCIATO! La pinza LEE ha bloccato il perno. Ora guida il braccio verso la staffa verde sulla trave ISS.');
+                    showIssToast('CANADARM2', 'Carico Shuttle agganciato! Ora guida il modulo nella staffa verde sulla trave ISS.', 'success');
                 } else {
                     playMissionSound('beep');
-                    alert('Pinza troppo distante dal carico dello Shuttle! Usa il Joystick Sinistro e Destro per allineare la pinza al perno arancione.');
+                    showIssToast('CANADARM2', 'Pinza troppo distante! Allinea la pinza al perno arancione dello Shuttle.', 'alarm');
                 }
             } else if (armStep === 2) {
                 const dist = Math.hypot(armEeX - trussPos.x, armEeY - trussPos.y, (armEeZ - trussPos.z) * 0.5);
@@ -5953,7 +6195,7 @@ function animate() {
                     completeIssMission(4);
                 } else {
                     playMissionSound('beep');
-                    alert('Posiziona il carico direttamente all\'interno della staffa verde di montaggio sulla trave della ISS!');
+                    showIssToast('CANADARM2', 'Posiziona il modulo all\'interno della staffa verde di montaggio.', 'alarm');
                 }
             }
             updateCenterActionUI();
@@ -5968,16 +6210,13 @@ function animate() {
                 statusEl.style.color = '#ffd000';
             }
             playMissionSound('success');
-            setTimeout(() => {
-                const congrats = [
-                    'ATTRACCO RIUSCITO! Velocità e rotazione perfettamente allineate con la porta IDA della ISS.',
-                    'PERDITA O₂ SIGILLATA! Moduli sigillati, atmosfera e pressione ripristinate.',
-                    'PANNELLI SOLARI ESTESI E ORIENTATI! Efficienza al 100% con allineamento solare perfetto.',
-                    'MODULO INSTALLATO CON SUCCESSO! Il braccio Canadarm2 ha completato l\'assemblaggio.'
-                ];
-                alert('🎉 CONGRATULAZIONI! ' + congrats[id - 1]);
-                if (id < 4) switchIssMission(id + 1);
-            }, 600);
+            const congrats = [
+                'ATTRACCO RIUSCITO! Velocità e rotazione perfettamente sincronizzate con la porta IDA della ISS.',
+                'PERDITA O₂ SIGILLATA! Portello stagno attraversato, valvola chiusa e atmosfera ripristinata.',
+                'PANNELLI SOLARI ESTESI E ORIENTATI! Efficienza al 100% con allineamento solare perfetto.',
+                'MODULO INSTALLATO CON SUCCESSO! Il braccio Canadarm2 ha completato l\'assemblaggio.'
+            ];
+            showIssOverlay('MISSIONE COMPIUTA! 🏆', congrats[id - 1], true, id < 4 ? id + 1 : null);
         }
 
         function initIssCanvasLoop(id) {
@@ -5985,20 +6224,13 @@ function animate() {
             if (!canvas) return;
             const ctx = canvas.getContext('2d');
 
-            function resize() {
-                const dpr = window.devicePixelRatio || 1;
-                canvas.width = (canvas.clientWidth || 800) * dpr;
-                canvas.height = (canvas.clientHeight || 450) * dpr;
-                ctx.resetTransform();
-                ctx.scale(dpr, dpr);
-            }
-            resize();
+            resizeIssCanvas();
 
             let lastTime = performance.now();
 
             function frame(now) {
                 if (!issMissionRunning || currentIssMission !== id) return;
-                const dt = Math.min(0.1, (now - lastTime) / 1000);
+                const dt = Math.min(0.08, (now - lastTime) / 1000);
                 lastTime = now;
 
                 const logicalW = canvas.clientWidth || 800;
@@ -6010,14 +6242,11 @@ function animate() {
 
                 if (id === 1) {
                     // MISSIONE 1: ATTRACCO NAVICELLA CON ROTAZIONE ISS
-                    // Disegna sfondo realistico o procedural
                     if (issGameImgs.docking.complete && issGameImgs.docking.naturalWidth > 0) {
                         ctx.drawImage(issGameImgs.docking, 0, 0, logicalW, logicalH);
-                        // Overlay scuro leggero per far risaltare l'HUD
                         ctx.fillStyle = 'rgba(2, 6, 23, 0.35)';
                         ctx.fillRect(0, 0, logicalW, logicalH);
                     } else {
-                        // Gradiente spaziale e Terra
                         ctx.fillStyle = '#020617';
                         ctx.fillRect(0, 0, logicalW, logicalH);
                         const gradEarth = ctx.createLinearGradient(0, logicalH * 0.65, 0, logicalH);
@@ -6030,12 +6259,11 @@ function animate() {
                     }
 
                     // Dinamica di volo navicella
-                    dockSpeed += (-joyL.y) * 0.35 * dt; // JoyL.y: Avanti accelera, indietro frena
-                    dockVelX += joyL.x * 0.75 * dt;     // JoyL.x: Sinistra/Destra
-                    dockVelY += (-joyR.y) * 0.75 * dt;  // JoyR.y: Alza/Abbassa
-                    craftRollAngle += joyR.x * 35.0 * dt; // JoyR.x: Rotazione rollio
+                    dockSpeed += (-joyL.y) * 0.35 * dt;
+                    dockVelX += joyL.x * 0.75 * dt;
+                    dockVelY += (-joyR.y) * 0.75 * dt;
+                    craftRollAngle += joyR.x * 35.0 * dt;
 
-                    // Smorzamento inerziale RCS
                     dockVelX *= 0.96;
                     dockVelY *= 0.96;
                     dockSpeed *= 0.99;
@@ -6043,9 +6271,8 @@ function animate() {
                     dockX += dockVelX * dt * 4.0;
                     dockY += dockVelY * dt * 4.0;
                     dockDist -= dockSpeed * dt * 3.5;
-                    issRollAngle += issRollSpeed * dt * 8.0; // ISS ruota lentamente
+                    issRollAngle += issRollSpeed * dt * 8.0;
 
-                    // Differenza di rotazione normalizzata (-180 .. +180)
                     let rollDiff = ((craftRollAngle - issRollAngle) % 360 + 360) % 360;
                     if (rollDiff > 180) rollDiff -= 360;
 
@@ -6058,14 +6285,12 @@ function animate() {
                     ctx.translate(cx, cy);
                     ctx.rotate((issRollAngle - craftRollAngle) * Math.PI / 180);
 
-                    // Anello esterno ISS
                     ctx.strokeStyle = '#94a3b8';
                     ctx.lineWidth = Math.max(2, 4 * scale);
                     ctx.beginPath();
                     ctx.arc(0, 0, 32 * scale, 0, Math.PI * 2);
                     ctx.stroke();
 
-                    // 3 Petali guida di attracco a 120°
                     ctx.fillStyle = '#64748b';
                     for (let p = 0; p < 3; p++) {
                         ctx.save();
@@ -6074,7 +6299,6 @@ function animate() {
                         ctx.restore();
                     }
 
-                    // Bersaglio centrale laser IDA
                     const rollOk = Math.abs(rollDiff) < 5.5;
                     ctx.strokeStyle = rollOk ? '#10b981' : '#f59e0b';
                     ctx.lineWidth = Math.max(1.5, 3 * scale);
@@ -6087,7 +6311,6 @@ function animate() {
                     ctx.moveTo(0, -12 * scale); ctx.lineTo(0, 12 * scale);
                     ctx.stroke();
 
-                    // Nottolino di allineamento angolo
                     ctx.fillStyle = rollOk ? '#10b981' : '#ef4444';
                     ctx.beginPath();
                     ctx.arc(0, -28 * scale, 4 * scale, 0, Math.PI * 2);
@@ -6095,210 +6318,526 @@ function animate() {
 
                     ctx.restore();
 
-                    // RETICOLO E HUD COCKPIT SPAZIALE
+                    // Reticolo mirino
                     ctx.strokeStyle = 'rgba(0, 240, 255, 0.45)';
                     ctx.lineWidth = 1.5;
-                    ctx.strokeRect(logicalW / 2 - 70, logicalH / 2 - 70, 140, 140);
+                    ctx.strokeRect(logicalW / 2 - 60, logicalH / 2 - 60, 120, 120);
                     ctx.beginPath();
-                    ctx.arc(logicalW / 2, logicalH / 2, 35, 0, Math.PI * 2);
+                    ctx.arc(logicalW / 2, logicalH / 2, 30, 0, Math.PI * 2);
                     ctx.stroke();
 
-                    // Indicatore di Rollio Navicella
+                    // Tacca orientamento rollio
                     ctx.save();
                     ctx.translate(logicalW / 2, logicalH / 2);
                     ctx.strokeStyle = rollOk ? '#10b981' : 'rgba(255, 208, 0, 0.8)';
                     ctx.lineWidth = 2.5;
                     ctx.beginPath();
-                    ctx.arc(0, 0, 52, 0, Math.PI * 2);
+                    ctx.arc(0, 0, 48, 0, Math.PI * 2);
                     ctx.stroke();
-                    // Tacca orientamento navicella
                     ctx.fillStyle = '#00f0ff';
                     ctx.beginPath();
-                    ctx.moveTo(0, -56); ctx.lineTo(5, -46); ctx.lineTo(-5, -46); ctx.closePath();
+                    ctx.moveTo(0, -52); ctx.lineTo(5, -42); ctx.lineTo(-5, -42); ctx.closePath();
                     ctx.fill();
                     ctx.restore();
 
-                    // Scheda dati HUD
+                    // Dati HUD responsive
                     ctx.fillStyle = '#00f0ff';
-                    ctx.font = 'bold 14px "Segoe UI", sans-serif';
-                    ctx.fillText(`DISTANZA: ${Math.max(0, dockDist).toFixed(1)} m`, 18, 52);
+                    const hudFs = logicalW < 600 ? 11 : 13;
+                    ctx.font = `bold ${hudFs}px "Segoe UI", sans-serif`;
+                    ctx.fillText(`DISTANZA: ${Math.max(0, dockDist).toFixed(1)} m`, 16, 48);
 
                     ctx.fillStyle = dockSpeed > 0.40 ? '#ef4444' : '#10b981';
-                    ctx.fillText(`VELOCITÀ: ${dockSpeed.toFixed(2)} m/s (Max 0.40)`, 18, 72);
+                    ctx.fillText(`VELOCITÀ: ${dockSpeed.toFixed(2)} m/s (Max 0.40)`, 16, 66);
 
                     const xyOffset = Math.hypot(dockX, dockY);
                     ctx.fillStyle = xyOffset < 1.5 ? '#10b981' : '#f59e0b';
-                    ctx.fillText(`ALLINEAMENTO X,Y: ${xyOffset.toFixed(1)} m`, 18, 92);
+                    ctx.fillText(`ALLINEAMENTO X,Y: ${xyOffset.toFixed(1)} m`, 16, 84);
 
                     ctx.fillStyle = rollOk ? '#10b981' : '#ef4444';
-                    ctx.fillText(`ERRORE ROTAZIONE: ${Math.abs(rollDiff).toFixed(1)}° ${rollOk ? '✅ ALLINEATO' : '⚠️ REGOLA JOY DX'}`, 18, 112);
+                    ctx.fillText(`ERRORE ROTAZIONE: ${Math.abs(rollDiff).toFixed(1)}° ${rollOk ? '✅' : '⚠️'}`, 16, 102);
 
-                    // Condizione di Attracco
                     if (dockDist <= 0.35) {
                         if (xyOffset < 1.6 && dockSpeed <= 0.42 && rollOk) {
                             completeIssMission(1);
                             return;
                         } else if (!rollOk) {
                             playMissionSound('alarm');
-                            alert(`ATTRACCO FALLITO: ROTAZIONE NON SINCRONIZZATA!\nLa tua navicella è disallineata di ${Math.abs(rollDiff).toFixed(1)}° rispetto alla ISS.\nUsa il Joystick Destro (Rot-SX / Rot-DX) per pareggiare la rotazione!`);
+                            showIssToast('ATTRACCO FALLITO', `Rotazione disallineata di ${Math.abs(rollDiff).toFixed(1)}°! Sincronizza col Joy Destro.`, 'alarm');
                             dockDist = 18.0;
                             dockSpeed = 0.15;
                         } else if (dockSpeed > 0.42) {
                             playMissionSound('alarm');
-                            alert('IMPATTO VIOLENTO! Velocità superiore a 0.40 m/s. Frena con il Joystick Sinistro (Indietro)!');
+                            showIssToast('IMPATTO VIOLENTO', 'Velocità superiore a 0.40 m/s. Frena con il Joy Sinistro indietro!', 'alarm');
                             dockDist = 20.0;
                             dockSpeed = 0.10;
                         } else {
                             playMissionSound('alarm');
-                            alert('PORTA IDA MANCATA! Sei fuori centro. Centra il mirino prima del contatto.');
+                            showIssToast('PORTA IDA MANCATA', 'Sei fuori asse! Centra il mirino laser sulla porta.', 'alarm');
                             dockDist = 18.0;
                             dockSpeed = 0.15;
                         }
                     }
 
                 } else if (id === 2) {
-                    // MISSIONE 2: CORRIDOIO ZERO-G CON SVOLTE, ANGOLI E PORTELLO
-                    o2Level = Math.max(0, o2Level - 0.08 * dt * 25);
+                    // =========================================================================
+                    // MISSIONE 2: CORRIDOIO 3D DINAMICO CON AVANZAMENTO, CURVE E PORTELLO APRIBILE
+                    // =========================================================================
+                    o2Level = Math.max(0, o2Level - 0.075 * dt * 25);
 
-                    // Movimento del giocatore
-                    corridorSpeed = (-joyL.y) * 9.0; // Avanti / Indietro
+                    // Movimento del giocatore (Velocità avanti basata su Joy L o pulsante Tenuto)
+                    const baseSpeedInput = -joyL.y;
+                    const thrustSpeed = (corridorAdvanceHolding ? 1.0 : baseSpeedInput);
+                    corridorSpeed = thrustSpeed * 10.0; // m/s
+
                     corridorPlayerX += joyL.x * 2.5 * dt;
                     corridorPlayerX = Math.max(-1.5, Math.min(1.5, corridorPlayerX));
                     corridorPlayerY += (-joyR.y) * 2.0 * dt;
                     corridorPlayerY = Math.max(-1.0, Math.min(1.0, corridorPlayerY));
 
                     // Rotazione visuale con Joystick Destro X
-                    corridorPlayerAngle += joyR.x * 45.0 * dt;
+                    corridorPlayerAngle += joyR.x * 55.0 * dt;
 
-                    // Calcolo avanzamento nel modulo
+                    // Calcolo target angolare per le svolte del percorso
                     let targetAngle = 0;
-                    if (corridorPos >= 35 && corridorPos < 75) {
-                        targetAngle = 90; // Svolta 90° a destra verso Columbus
-                    } else if (corridorPos >= 75) {
-                        targetAngle = 0;  // Ritorno a 0° verso portello
+                    if (corridorPos >= 34 && corridorPos < 74) {
+                        targetAngle = 90; // Svolta 90° a destra verso laboratorio Columbus
+                    } else if (corridorPos >= 74) {
+                        targetAngle = 0;  // Ritorno a 0° verso Airlock e portello
                     }
 
-                    // Se il giocatore non gira l'angolo al bivio, sbatte sulla paratia!
-                    const angleErr = Math.abs(corridorPlayerAngle - targetAngle);
-                    if (corridorPos >= 34 && corridorPos <= 40 && angleErr > 35) {
-                        // Muro al Nodo 2
-                        ctx.fillStyle = '#ef4444';
-                        ctx.font = 'bold 18px sans-serif';
-                        ctx.fillText('⚠️ OSTACOLO PARATIA! SVOLTA A DESTRA (JOY DX)', logicalW / 2 - 180, logicalH / 2 - 40);
-                    } else if (corridorPos >= 74 && corridorPos <= 80 && angleErr > 35) {
-                        // Muro al Nodo 3
-                        ctx.fillStyle = '#ef4444';
-                        ctx.font = 'bold 18px sans-serif';
-                        ctx.fillText('⚠️ OSTACOLO PARATIA! SVOLTA A SINISTRA (JOY DX)', logicalW / 2 - 180, logicalH / 2 - 40);
-                    } else {
-                        // Avanzamento libero
-                        corridorPos = Math.max(0, Math.min(105, corridorPos + corridorSpeed * dt));
+                    // Collisioni con paratie e porte
+                    let canAdvance = true;
+                    let blockReason = '';
+
+                    // 1. Curva a destra al Nodo 2 (a 34.5m)
+                    const angleErrNode2 = Math.abs(corridorPlayerAngle - 90);
+                    if (corridorPos >= 34.0 && corridorPos <= 37.0 && angleErrNode2 > 28) {
+                        if (corridorSpeed > 0) {
+                            canAdvance = false;
+                            corridorPos = Math.min(corridorPos, 34.5);
+                            blockReason = '⚠️ PARATIA NODO 2! SVOLTA 90° A DESTRA (JOY DX O TASTO)';
+                        }
                     }
 
-                    // Disegno ambiente corridoio realistico
+                    // 2. Curva a sinistra al Nodo 3 (a 74.5m)
+                    const angleErrNode3 = Math.abs(corridorPlayerAngle - 0);
+                    if (corridorPos >= 74.0 && corridorPos <= 77.0 && angleErrNode3 > 28) {
+                        if (corridorSpeed > 0) {
+                            canAdvance = false;
+                            corridorPos = Math.min(corridorPos, 74.5);
+                            blockReason = '⚠️ PARATIA NODO 3! SVOLTA 90° A SINISTRA (JOY DX O TASTO)';
+                        }
+                    }
+
+                    // 3. Portello Stagno (a 87.5m): non si attraversa finché non è aperto!
+                    if (!corridorHatchOpen && corridorPos >= 87.0) {
+                        if (corridorSpeed > 0) {
+                            canAdvance = false;
+                            corridorPos = Math.min(corridorPos, 87.2);
+                            blockReason = '🔒 PORTELLO STAGNO CHIUSO! APRI IL PORTELLO PER CONTINUARE';
+                        }
+                    }
+
+                    // 4. Valvola Primaria (a 100m)
+                    if (corridorPos >= 100.0) {
+                        if (corridorSpeed > 0) {
+                            canAdvance = false;
+                            corridorPos = 100.0;
+                        }
+                    }
+
+                    if (canAdvance) {
+                        corridorPos = Math.max(0, Math.min(100.0, corridorPos + corridorSpeed * dt));
+                    }
+
+                    // Zero-G floating sway
+                    const swayX = Math.sin(now * 0.0022) * 5.0;
+                    const swayY = Math.cos(now * 0.0031) * 4.0;
+                    const vpX = logicalW / 2 + (corridorPlayerAngle - targetAngle) * -4.5 + corridorPlayerX * -30.0 + swayX;
+                    const vpY = logicalH / 2 + corridorPlayerY * -20.0 + swayY;
+
+                    // Determinazione settore corrente
+                    let currentModName = 'LAB DESTINY (USA)';
+                    let moduleTheme = 'destiny';
+                    if (corridorPos >= 34.5 && corridorPos < 74.5) {
+                        currentModName = 'LAB COLUMBUS (ESA)';
+                        moduleTheme = 'columbus';
+                    } else if (corridorPos >= 74.5 && corridorPos < 88.0) {
+                        currentModName = 'NODO 3 / AIRLOCK';
+                        moduleTheme = 'airlock';
+                    } else if (corridorPos >= 88.0) {
+                        currentModName = 'SALA VALVOLA PRIMARIA';
+                        moduleTheme = 'valve_room';
+                    }
+
+                    // SFONDO E PARALLASSE FOTOGRAFICA
                     if (issGameImgs.corridor.complete && issGameImgs.corridor.naturalWidth > 0) {
                         ctx.save();
-                        // Parallasse visuale basata su angolo e offset
-                        const shiftX = (corridorPlayerAngle - targetAngle) * -4.0 + corridorPlayerX * -30;
-                        const shiftY = corridorPlayerY * -20;
-                        ctx.drawImage(issGameImgs.corridor, shiftX, shiftY, logicalW * 1.1, logicalH * 1.1);
+                        const shiftX = (corridorPlayerAngle - targetAngle) * -3.5 + corridorPlayerX * -25 + (vpX - logicalW / 2);
+                        const shiftY = corridorPlayerY * -18 + (vpY - logicalH / 2);
+                        ctx.drawImage(issGameImgs.corridor, shiftX, shiftY, logicalW * 1.08, logicalH * 1.08);
+                        ctx.fillStyle = (moduleTheme === 'valve_room') ? 'rgba(239, 68, 68, 0.25)' : 'rgba(2, 6, 23, 0.40)';
+                        ctx.fillRect(0, 0, logicalW, logicalH);
                         ctx.restore();
                     } else {
-                        ctx.fillStyle = '#0f172a';
+                        ctx.fillStyle = '#090d16';
                         ctx.fillRect(0, 0, logicalW, logicalH);
                     }
 
-                    // Tunnel prospettico 3D
-                    ctx.strokeStyle = 'rgba(0, 240, 255, 0.4)';
-                    ctx.lineWidth = 2;
-                    for (let z = 0; z < 6; z++) {
-                        const s = 1.0 - z * 0.15;
-                        ctx.strokeRect(logicalW / 2 - (logicalW * 0.4) * s, logicalH / 2 - (logicalH * 0.35) * s, (logicalW * 0.8) * s, (logicalH * 0.7) * s);
-                    }
+                    // RENDERING 3D DEL TUNNEL MODULARE IN AVANZAMENTO PROSPETTICO
+                    const focal = logicalH * 0.90;
+                    const numRings = 9;
+                    const segmentSpacing = 3.6; // metri tra le costole
+                    const offsetZ = (corridorPos % segmentSpacing);
 
-                    // Luci rosse di allarme lampeggianti
-                    if (Math.floor(Date.now() / 250) % 2 === 0) {
-                        ctx.fillStyle = 'rgba(239, 68, 68, 0.22)';
-                        ctx.fillRect(0, 0, logicalW, logicalH);
-                    }
+                    for (let i = numRings; i >= 0; i--) {
+                        const distZ = Math.max(0.6, i * segmentSpacing - offsetZ + 1.2);
+                        const scaleZ = focal / distZ;
+                        const wHalf = (logicalW * 0.42) * (scaleZ / focal);
+                        const hHalf = (logicalH * 0.40) * (scaleZ / focal);
 
-                    // Particelle di fuga gas ossigeno
-                    ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
-                    corridorGasParticles.forEach(p => {
-                        p.z -= p.speed;
-                        if (p.z <= 0) p.z = 60;
-                        const pScale = 50 / (p.z + 10);
-                        const px = logicalW / 2 + p.x * pScale;
-                        const py = logicalH / 2 + p.y * pScale;
+                        const left = vpX - wHalf;
+                        const right = vpX + wHalf;
+                        const top = vpY - hHalf;
+                        const bottom = vpY + hHalf;
+
+                        // Ottagono sezione ISS
+                        const chamferX = wHalf * 0.22;
+                        const chamferY = hHalf * 0.22;
+
                         ctx.beginPath();
-                        ctx.arc(px, py, p.size * pScale, 0, Math.PI * 2);
+                        ctx.moveTo(left + chamferX, top);
+                        ctx.lineTo(right - chamferX, top);
+                        ctx.lineTo(right, top + chamferY);
+                        ctx.lineTo(right, bottom - chamferY);
+                        ctx.lineTo(right - chamferX, bottom);
+                        ctx.lineTo(left + chamferX, bottom);
+                        ctx.lineTo(left, bottom - chamferY);
+                        ctx.lineTo(left, top + chamferY);
+                        ctx.closePath();
+
+                        // Colore costola basato sul modulo
+                        let ringColor = 'rgba(0, 240, 255, ';
+                        if (moduleTheme === 'columbus') ringColor = 'rgba(234, 179, 8, ';
+                        else if (moduleTheme === 'valve_room') ringColor = 'rgba(239, 68, 68, ';
+                        const alpha = Math.max(0.1, Math.min(0.85, 1.2 - distZ / (numRings * segmentSpacing)));
+                        ctx.strokeStyle = ringColor + alpha + ')';
+                        ctx.lineWidth = Math.max(1, 4.5 * (scaleZ / focal));
+                        ctx.stroke();
+
+                        // Plafoniere LED sul soffitto
+                        if (i % 2 === 0) {
+                            ctx.fillStyle = (moduleTheme === 'valve_room') ? 'rgba(239, 68, 68, 0.7)' : 'rgba(255, 255, 255, 0.65)';
+                            ctx.fillRect(left + chamferX * 1.5, top - 3, (right - left) - chamferX * 3, Math.max(2, 6 * (scaleZ / focal)));
+                        }
+
+                        // Mancorrenti tubolari ISS (Blu in Destiny, Giallo in Columbus)
+                        const railColor = (moduleTheme === 'columbus') ? '#eab308' : '#38bdf8';
+                        ctx.fillStyle = railColor;
+                        const railSize = Math.max(2, 5 * (scaleZ / focal));
+                        ctx.fillRect(left + chamferX * 0.5, top + chamferY, railSize, railSize * 2);
+                        ctx.fillRect(right - chamferX * 0.5 - railSize, top + chamferY, railSize, railSize * 2);
+                    }
+
+                    // SEGNALETICA DINAMICA ALLE GIUNZIONI CURVE
+                    // 1. Giunzione Nodo 2 (30m - 36m)
+                    if (corridorPos >= 28 && corridorPos <= 37) {
+                        const distToTurn = Math.max(0.2, 35 - corridorPos);
+                        const turnScale = Math.min(2.0, focal / (distToTurn * 4 + 2));
+                        ctx.save();
+                        ctx.translate(vpX + (corridorPlayerAngle < 45 ? 60 * turnScale : -40 * turnScale), vpY - 20 * turnScale);
+                        ctx.fillStyle = '#eab308';
+                        ctx.font = `bold ${Math.max(10, Math.floor(13 * turnScale))}px "Segoe UI", sans-serif`;
+                        ctx.textAlign = 'center';
+                        ctx.fillText('GIUNZIONE NODO 2 ➔ VERSO COLUMBUS', 0, -10 * turnScale);
+                        // Freccia animata a destra
+                        const arrowPulse = Math.sin(now * 0.008) * 8;
+                        ctx.fillText('SVOLTA A DESTRA (90°) >>>', arrowPulse, 10 * turnScale);
+                        ctx.restore();
+                    }
+
+                    // 2. Giunzione Nodo 3 (68m - 76m)
+                    if (corridorPos >= 68 && corridorPos <= 77) {
+                        const distToTurn = Math.max(0.2, 75 - corridorPos);
+                        const turnScale = Math.min(2.0, focal / (distToTurn * 4 + 2));
+                        ctx.save();
+                        ctx.translate(vpX + (corridorPlayerAngle > 45 ? -60 * turnScale : 40 * turnScale), vpY - 20 * turnScale);
+                        ctx.fillStyle = '#38bdf8';
+                        ctx.font = `bold ${Math.max(10, Math.floor(13 * turnScale))}px "Segoe UI", sans-serif`;
+                        ctx.textAlign = 'center';
+                        ctx.fillText('GIUNZIONE NODO 3 ➔ VERSO AIRLOCK', 0, -10 * turnScale);
+                        const arrowPulse = Math.sin(now * 0.008) * 8;
+                        ctx.fillText('<<< SVOLTA A SINISTRA (90°)', -arrowPulse, 10 * turnScale);
+                        ctx.restore();
+                    }
+
+                    // RENDERING 3D DEL PORTELLO STAGNO CBM (a 87.5m)
+                    const distHatch = 87.5 - corridorPos;
+                    if (distHatch >= -8 && distHatch <= 28) {
+                        const hDistClamped = Math.max(0.3, distHatch);
+                        const hScale = Math.min(3.2, focal / (hDistClamped * 2.8 + 1.5));
+                        const hRadius = 55 * hScale;
+
+                        ctx.save();
+                        ctx.translate(vpX, vpY);
+
+                        // Telaio esterno d'acciaio del portello
+                        ctx.strokeStyle = '#475569';
+                        ctx.lineWidth = Math.max(2, 8 * hScale);
+                        ctx.beginPath();
+                        ctx.arc(0, 0, hRadius * 1.08, 0, Math.PI * 2);
+                        ctx.stroke();
+
+                        // Corona di strisce gialle/nere di pericolo
+                        ctx.strokeStyle = '#eab308';
+                        ctx.lineWidth = Math.max(1.5, 4 * hScale);
+                        ctx.setLineDash([8 * hScale, 6 * hScale]);
+                        ctx.beginPath();
+                        ctx.arc(0, 0, hRadius * 1.02, 0, Math.PI * 2);
+                        ctx.stroke();
+                        ctx.setLineDash([]);
+
+                        // 8 Chiavistelli radiali di blocco (Dogs)
+                        const dogRetract = corridorHatchAnimProgress * 18 * hScale;
+                        ctx.fillStyle = '#94a3b8';
+                        for (let d = 0; d < 8; d++) {
+                            ctx.save();
+                            ctx.rotate(d * Math.PI / 4);
+                            ctx.fillRect(-4 * hScale, -hRadius - 6 * hScale + dogRetract, 8 * hScale, 12 * hScale);
+                            ctx.restore();
+                        }
+
+                        // Apertura Battente del Portello in Prospettiva (Cerniera a sinistra)
+                        // Quando aperto ruota su un perno laterale
+                        const openAngle = corridorHatchAnimProgress * (Math.PI * 0.48);
+                        const doorWidthFactor = Math.cos(openAngle); // Restringimento prospettico battente
+                        const doorPivotX = -hRadius * 0.95;
+
+                        // Se aperto o in apertura, disegna l'apertura passante verso la sala rossa
+                        ctx.fillStyle = (moduleTheme === 'valve_room' || distHatch <= 1) ? 'rgba(239, 68, 68, 0.4)' : '#020617';
+                        ctx.beginPath();
+                        ctx.arc(0, 0, hRadius * 0.92, 0, Math.PI * 2);
+                        ctx.fill();
+
+                        // Battente fisico della porta
+                        ctx.save();
+                        ctx.translate(doorPivotX, 0);
+                        ctx.scale(doorWidthFactor, 1.0);
+                        ctx.translate(-doorPivotX, 0);
+
+                        ctx.fillStyle = corridorHatchOpen ? 'rgba(71, 85, 105, 0.3)' : '#1e293b';
+                        ctx.beginPath();
+                        ctx.arc(0, 0, hRadius * 0.92, 0, Math.PI * 2);
+                        ctx.fill();
+                        ctx.strokeStyle = corridorHatchOpen ? '#10b981' : '#64748b';
+                        ctx.lineWidth = Math.max(1.5, 3 * hScale);
+                        ctx.stroke();
+
+                        // Oblò centrale rinforzato con vetro
+                        ctx.fillStyle = '#0f172a';
+                        ctx.beginPath();
+                        ctx.arc(0, 0, hRadius * 0.35, 0, Math.PI * 2);
+                        ctx.fill();
+                        ctx.strokeStyle = '#38bdf8';
+                        ctx.lineWidth = Math.max(1, 2 * hScale);
+                        ctx.stroke();
+
+                        // Volantino rotante di sblocco (3 razze)
+                        const wheelAngle = corridorHatchAnimProgress * Math.PI * 4;
+                        ctx.save();
+                        ctx.rotate(wheelAngle);
+                        ctx.strokeStyle = '#ef4444';
+                        ctx.lineWidth = Math.max(1.5, 3.5 * hScale);
+                        ctx.beginPath();
+                        ctx.arc(0, 0, hRadius * 0.22, 0, Math.PI * 2);
+                        ctx.stroke();
+                        for (let sp = 0; sp < 3; sp++) {
+                            ctx.save();
+                            ctx.rotate(sp * Math.PI * 2 / 3);
+                            ctx.beginPath();
+                            ctx.moveTo(0, 0); ctx.lineTo(0, -hRadius * 0.22);
+                            ctx.stroke();
+                            ctx.restore();
+                        }
+                        ctx.restore();
+
+                        // Lampada di stato LED
+                        ctx.fillStyle = corridorHatchOpen ? '#10b981' : (Math.floor(now / 300) % 2 === 0 ? '#ef4444' : '#7f1d1d');
+                        ctx.beginPath();
+                        ctx.arc(0, -hRadius * 0.65, Math.max(3, 6 * hScale), 0, Math.PI * 2);
+                        ctx.fill();
+
+                        ctx.restore(); // Fine battente
+
+                        // Targa informativa
+                        ctx.fillStyle = corridorHatchOpen ? '#10b981' : '#fef08a';
+                        ctx.font = `bold ${Math.max(9, Math.floor(12 * hScale))}px sans-serif`;
+                        ctx.textAlign = 'center';
+                        ctx.fillText(corridorHatchOpen ? '✅ SBLOCCATO - APERTO' : '🔒 PORTELLO STAGNO CBM', 0, hRadius + 18 * hScale);
+                        if (!corridorHatchOpen && distHatch < 3) {
+                            ctx.fillStyle = '#38bdf8';
+                            ctx.font = `bold ${Math.max(9, Math.floor(11 * hScale))}px sans-serif`;
+                            ctx.fillText('TOCCA PER APRIRE', 0, hRadius + 32 * hScale);
+                        }
+
+                        ctx.restore();
+                    }
+
+                    // VAPORE / SFOGO PRESSIONE APERTURA PORTELLO
+                    if (corridorSteamParticles.length > 0) {
+                        corridorSteamParticles.forEach((sp, idx) => {
+                            sp.x += sp.vx * dt;
+                            sp.y += sp.vy * dt;
+                            sp.life -= dt * 1.5;
+                            if (sp.life > 0) {
+                                ctx.fillStyle = `rgba(255, 255, 255, ${sp.life * 0.65})`;
+                                ctx.beginPath();
+                                ctx.arc(vpX + sp.x, vpY + sp.y, sp.size * (1.5 - sp.life * 0.5), 0, Math.PI * 2);
+                                ctx.fill();
+                            }
+                        });
+                        corridorSteamParticles = corridorSteamParticles.filter(sp => sp.life > 0);
+                    }
+
+                    // RENDERING 3D DELLA VALVOLA PRIMARIA O₂ (a 100m)
+                    const distValve = 100.0 - corridorPos;
+                    if (distValve >= -5 && distValve <= 22) {
+                        const vDistClamped = Math.max(0.4, distValve);
+                        const vScale = Math.min(3.5, focal / (vDistClamped * 2.5 + 1.2));
+                        const vRadius = 45 * vScale;
+
+                        ctx.save();
+                        ctx.translate(vpX, vpY);
+
+                        // Tubatura industriale in acciaio ad alta pressione
+                        ctx.fillStyle = '#475569';
+                        ctx.fillRect(-12 * vScale, -logicalH / 2, 24 * vScale, logicalH);
+                        ctx.strokeStyle = '#94a3b8';
+                        ctx.lineWidth = 2 * vScale;
+                        ctx.strokeRect(-12 * vScale, -logicalH / 2, 24 * vScale, logicalH);
+
+                        // Flangia e manometro
+                        ctx.fillStyle = '#1e293b';
+                        ctx.beginPath();
+                        ctx.arc(vRadius * 0.9, -vRadius * 0.5, 14 * vScale, 0, Math.PI * 2);
+                        ctx.fill();
+                        ctx.strokeStyle = '#cbd5e1';
+                        ctx.stroke();
+
+                        // Volantino Rosso Girevole della Valvola
+                        const valveTurnAngle = (corridorValveSecured / 100) * Math.PI * 6;
+                        ctx.save();
+                        ctx.rotate(valveTurnAngle);
+
+                        ctx.fillStyle = '#ef4444';
+                        ctx.strokeStyle = '#ffffff';
+                        ctx.lineWidth = Math.max(2, 4 * vScale);
+                        ctx.beginPath();
+                        ctx.arc(0, 0, vRadius, 0, Math.PI * 2);
+                        ctx.fill();
+                        ctx.stroke();
+
+                        // 4 Razze volantino
+                        for (let r = 0; r < 4; r++) {
+                            ctx.save();
+                            ctx.rotate(r * Math.PI / 2);
+                            ctx.fillStyle = '#b91c1c';
+                            ctx.fillRect(-4 * vScale, 0, 8 * vScale, vRadius);
+                            ctx.restore();
+                        }
+                        ctx.restore();
+
+                        // Anello circolare di progresso chiusura
+                        ctx.strokeStyle = corridorValveSecured >= 100 ? '#10b981' : '#ffd000';
+                        ctx.lineWidth = Math.max(3, 6 * vScale);
+                        ctx.beginPath();
+                        ctx.arc(0, 0, vRadius * 1.15, -Math.PI / 2, -Math.PI / 2 + (Math.PI * 2 * (corridorValveSecured / 100)));
+                        ctx.stroke();
+
+                        // Sfiato gas dalla valvola (se non ancora sigillata)
+                        if (corridorValveSecured < 100) {
+                            const leakAlpha = (1.0 - corridorValveSecured / 100) * 0.8;
+                            ctx.fillStyle = `rgba(255, 255, 255, ${leakAlpha})`;
+                            for (let g = 0; g < 6; g++) {
+                                const gx = Math.sin(now * 0.02 + g) * 20 * vScale;
+                                const gy = -vRadius - g * 12 * vScale;
+                                ctx.beginPath();
+                                ctx.arc(gx, gy, (6 + g * 4) * vScale, 0, Math.PI * 2);
+                                ctx.fill();
+                            }
+                        }
+
+                        // Testo centrale volantino
+                        ctx.fillStyle = '#ffffff';
+                        ctx.font = `bold ${Math.max(10, Math.floor(13 * vScale))}px sans-serif`;
+                        ctx.textAlign = 'center';
+                        ctx.fillText(corridorValveSecured >= 100 ? 'SIGILLATA' : `${corridorValveSecured}%`, 0, 4 * vScale);
+
+                        ctx.restore();
+                    }
+
+                    // PARTICELLE FLUTTUANTI DI OSSIGENO / ZERO-G
+                    ctx.fillStyle = (moduleTheme === 'valve_room') ? 'rgba(254, 240, 138, 0.75)' : 'rgba(255, 255, 255, 0.65)';
+                    corridorGasParticles.forEach(p => {
+                        p.z -= p.speed * (corridorAdvanceHolding ? 1.8 : 1.0);
+                        if (p.z <= 0.5) p.z = 60;
+                        const pScale = focal / (p.z * 6 + 10);
+                        const px = vpX + p.x * pScale;
+                        const py = vpY + p.y * pScale;
+                        ctx.beginPath();
+                        ctx.arc(px, py, Math.max(1.5, p.size * pScale), 0, Math.PI * 2);
                         ctx.fill();
                     });
 
-                    // Portello Stagno (se tra 85m e 98m)
-                    if (corridorPos >= 82 && corridorPos <= 98) {
-                        const hatchDist = Math.max(0.1, 98 - corridorPos);
-                        const hScale = Math.min(2.5, 30 / hatchDist);
+                    // Luci rosse di allarme lampeggianti se allarme attivo
+                    if (moduleTheme === 'valve_room' && Math.floor(now / 220) % 2 === 0) {
+                        ctx.fillStyle = 'rgba(239, 68, 68, 0.18)';
+                        ctx.fillRect(0, 0, logicalW, logicalH);
+                    }
+
+                    // AVVISI DI BLOCCO / OSTACOLI SU SCHERMO
+                    if (blockReason) {
                         ctx.save();
-                        ctx.translate(logicalW / 2, logicalH / 2);
-                        ctx.fillStyle = corridorHatchOpen ? 'rgba(16, 185, 129, 0.3)' : '#475569';
-                        ctx.strokeStyle = '#eab308';
-                        ctx.lineWidth = 4 * hScale;
-                        ctx.beginPath();
-                        ctx.arc(0, 0, 40 * hScale, 0, Math.PI * 2);
-                        ctx.fill();
-                        ctx.stroke();
-                        ctx.fillStyle = '#ffffff';
-                        ctx.font = `bold ${Math.max(10, 14 * hScale)}px sans-serif`;
+                        ctx.fillStyle = 'rgba(15, 23, 42, 0.85)';
+                        ctx.strokeStyle = '#ef4444';
+                        ctx.lineWidth = 2;
+                        const boxW = Math.min(logicalW * 0.9, 360);
+                        ctx.strokeRect(logicalW / 2 - boxW / 2, logicalH * 0.30, boxW, 40);
+                        ctx.fillRect(logicalW / 2 - boxW / 2, logicalH * 0.30, boxW, 40);
+
+                        ctx.fillStyle = '#fef08a';
+                        ctx.font = 'bold 12px "Segoe UI", sans-serif';
                         ctx.textAlign = 'center';
-                        ctx.fillText(corridorHatchOpen ? 'APERTO' : 'PORTELLO STAGNO', 0, 5);
+                        ctx.fillText(blockReason, logicalW / 2, logicalH * 0.30 + 24);
                         ctx.restore();
                     }
 
-                    // Valvola Rossa finale (se oltre 98m)
-                    if (corridorPos >= 98) {
-                        ctx.save();
-                        ctx.translate(logicalW / 2, logicalH / 2);
-                        ctx.fillStyle = '#ef4444';
-                        ctx.beginPath();
-                        ctx.arc(0, 0, 50, 0, Math.PI * 2);
-                        ctx.fill();
-                        ctx.strokeStyle = '#ffffff';
-                        ctx.lineWidth = 5;
-                        ctx.stroke();
-                        ctx.fillStyle = '#fff';
-                        ctx.font = 'bold 15px sans-serif';
-                        ctx.textAlign = 'center';
-                        ctx.fillText('VALVOLA O₂', 0, 5);
-                        ctx.restore();
-                    }
-
-                    // HUD e Radar
+                    // TELEMETRIA HUD MOBILE-FRIENDLY
                     ctx.textAlign = 'left';
+                    const hudFontSize = logicalW < 600 ? 11 : 13;
+
                     ctx.fillStyle = o2Level < 25 ? '#ef4444' : '#10b981';
-                    ctx.font = 'bold 16px "Segoe UI", sans-serif';
-                    ctx.fillText(`🚨 OSSIGENO: ${o2Level.toFixed(0)}%`, 18, 52);
+                    ctx.font = `bold ${hudFontSize + 2}px "Segoe UI", sans-serif`;
+                    ctx.fillText(`🚨 OSSIGENO: ${o2Level.toFixed(0)}%`, 16, 48);
 
                     ctx.fillStyle = '#00f0ff';
-                    ctx.font = '13px "Segoe UI", sans-serif';
-                    let currentModName = 'LAB DESTINY';
-                    if (corridorPos >= 35 && corridorPos < 75) currentModName = 'NODO 2 / COLUMBUS';
-                    else if (corridorPos >= 75 && corridorPos < 98) currentModName = 'NODO 3 / AIRLOCK';
-                    else if (corridorPos >= 98) currentModName = 'SALA VALVOLA PRIMARIA';
+                    ctx.font = `${hudFontSize}px "Segoe UI", sans-serif`;
+                    ctx.fillText(`MODULO: ${currentModName} | ${corridorPos.toFixed(1)} / 100 m`, 16, 68);
 
-                    ctx.fillText(`SETTORE: ${currentModName} | POSIZIONE: ${corridorPos.toFixed(1)} / 105 m`, 18, 72);
                     if (corridorValveSecured > 0) {
                         ctx.fillStyle = '#ffd000';
-                        ctx.fillText(`SIGILLATURA VALVOLA: ${corridorValveSecured}%`, 18, 92);
+                        ctx.font = `bold ${hudFontSize}px "Segoe UI", sans-serif`;
+                        ctx.fillText(`SIGILLATURA VALVOLA: ${corridorValveSecured}%`, 16, 88);
                     }
 
                     if (o2Level <= 0) {
                         issMissionRunning = false;
                         playMissionSound('alarm');
-                        alert('Ossigeno esaurito! Riprova muovendoti più velocemente e svoltando nei nodi corretti.');
-                        startIssMission(2);
+                        showIssOverlay('OSSIGENO ESAURITO ⚠️', 'L\'atmosfera nel modulo è scesa a zero. Riprova muovendoti velocemente!', false);
                         return;
                     }
+
+                    updateCenterActionUI();
 
                 } else if (id === 3) {
                     // MISSIONE 3: PANNELLI SOLARI ISS - GRAFICA REALISTICA & TRACCIAMENTO
@@ -6748,6 +7287,11 @@ function animate() {
         window.stopSealingO2 = stopSealingO2;
         window.triggerArmAction = triggerArmAction;
         window.setupDualJoysticks = setupDualJoysticks;
+        window.executeIssCurve = executeIssCurve;
+        window.openCorridorHatch = openCorridorHatch;
+        window.showIssToast = showIssToast;
+        window.showIssOverlay = showIssOverlay;
+        window.hideIssOverlay = hideIssOverlay;
 
 
         init();
